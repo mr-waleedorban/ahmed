@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmed Waleed // Ultimate Hub</title>
     <style>
         :root {
-            --bg-color: #080c14;
-            --card-bg: #111827;
+            --bg-color: #060911;
+            --card-bg: #0d1321;
             --text-color: #f9fafb;
             --accent-color: #00f5d4;
             --accent-pink: #cc00ff;
@@ -23,6 +23,29 @@
             overflow-x: hidden;
         }
 
+        /* شاشة التحميل الافتتاحية */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            transition: opacity 0.5s ease;
+        }
+        .boot-text {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            border-left: 2px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 1.5s steps(30, end), blink .75s step-end infinite;
+        }
+
         .bg-glow {
             position: fixed;
             width: 400px;
@@ -33,12 +56,23 @@
             z-index: -1;
         }
 
+        /* جزيئات النيون التي تتبع الماوس */
+        .cursor-particle {
+            position: fixed;
+            width: 6px; height: 6px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            animation: fadeParticle 0.4s linear forwards;
+        }
+
         header {
             text-align: center;
             padding: 50px 20px 10px 20px;
         }
 
-        /* تصميم الاختصار الكرييتف والمجرم A.W */
         .creative-logo {
             font-family: 'Impact', 'Arial Black', sans-serif;
             font-size: 3.5rem;
@@ -49,12 +83,7 @@
             margin-bottom: 15px;
             padding: 5px 20px;
             color: #fff;
-            text-shadow: 
-                0 0 7px #fff,
-                0 0 10px #fff,
-                0 0 21px var(--accent-color),
-                0 0 42px var(--accent-color),
-                0 0 82px var(--accent-color);
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px var(--accent-color), 0 0 42px var(--accent-color);
             animation: glitchGlow 2s infinite alternate;
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -62,12 +91,7 @@
 
         .creative-logo:hover {
             transform: scale(1.15) rotate(-3deg);
-            text-shadow: 
-                0 0 7px #fff,
-                0 0 10px #fff,
-                0 0 21px var(--accent-pink),
-                0 0 42px var(--accent-pink),
-                0 0 82px var(--accent-pink);
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px var(--accent-pink), 0 0 42px var(--accent-pink);
         }
 
         .tagline {
@@ -77,15 +101,15 @@
             margin-bottom: 20px;
         }
 
-        /* العداد التنازلي المطور */
         .countdown-container {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255,255,255,0.05);
             max-width: 600px;
             margin: 0 auto 30px auto;
             padding: 15px;
             border-radius: 20px;
             text-align: center;
+            box-shadow: inset 0 0 15px rgba(0, 245, 212, 0.05);
         }
         .countdown-title {
             font-size: 0.9rem;
@@ -94,44 +118,19 @@
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
-        .timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
+        .timer { display: flex; justify-content: center; gap: 15px; }
         .time-box {
             background: var(--card-bg);
             padding: 10px 15px;
             border-radius: 12px;
             min-width: 60px;
-            border: 1px solid rgba(0, 245, 212, 0.2);
+            border: 1px solid rgba(0, 245, 212, 0.15);
         }
-        .time-box span {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-        .time-box label {
-            font-size: 0.75rem;
-            color: var(--muted-text);
-        }
+        .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--text-color); }
+        .time-box label { font-size: 0.75rem; color: var(--muted-text); }
 
-        /* الحاوية الأساسية والتباديل */
-        .main-container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 0 20px 60px 20px;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 25px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
+        .main-container { max-width: 850px; margin: 0 auto; padding: 0 20px 60px 20px; }
+        .nav-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 5px; }
 
         .tab-btn {
             background: var(--card-bg);
@@ -142,13 +141,16 @@
             cursor: pointer;
             font-weight: 600;
             white-space: nowrap;
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
-
+        .tab-btn:hover {
+            box-shadow: 0 0 10px rgba(204, 0, 255, 0.4);
+            border-color: var(--accent-pink);
+        }
         .tab-btn.active {
             background: linear-gradient(135deg, var(--accent-color), #00bbf9);
             color: #000;
-            box-shadow: 0 4px 12px rgba(0, 245, 212, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 245, 212, 0.4);
         }
 
         .content-panel {
@@ -157,21 +159,19 @@
             padding: 30px;
             border: 1px solid rgba(255,255,255,0.05);
             display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
         .content-panel.active { display: block; animation: fadeIn 0.4s ease; }
 
         h2 { color: var(--accent-color); margin-top: 0; font-size: 1.6rem; display: flex; align-items: center; gap: 10px; }
 
-        /* شريط الطاقة RPG Skills */
         .skill-wrapper { margin-top: 20px; }
         .skill-info { display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 5px; }
-        .skill-bar { width: 100%; height: 100%; background: #1f2937; border-radius: 10px; height: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.02); }
+        .skill-bar { width: 100%; background: #151c2c; border-radius: 10px; height: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.02); }
         .skill-progress { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-color)); border-radius: 10px; width: 0%; transition: width 1s ease-in-out; }
 
-        /* كارت الـ Spotify الوهمي */
         .spotify-card {
-            background: #05070c;
+            background: #04060a;
             border-radius: 16px;
             padding: 15px;
             display: flex;
@@ -179,250 +179,88 @@
             gap: 15px;
             margin-top: 20px;
             border: 1px solid #1db954;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.1);
         }
-        .spot-icon { font-size: 2rem; color: #1db954; }
+        .spot-icon { font-size: 2rem; color: #1db954; animation: pulse 1.5s infinite; }
         .spot-info marquee { color: var(--text-color); font-weight: bold; width: 180px; }
         .spot-info p { margin: 2px 0 0 0; font-size: 0.8rem; color: var(--muted-text); }
 
-        /* صندوق الرسائل السرية */
         .msg-form input, .msg-form textarea {
-            width: 100%;
-            background: #1f2937;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 10px;
-            color: white;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            width: 100%; background: #161f30; border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px; border-radius: 10px; color: white; margin-bottom: 10px; box-sizing: border-box;
         }
         .msg-form textarea { resize: none; height: 80px; }
         .msg-form button {
             background: linear-gradient(135deg, var(--accent-color), var(--accent-pink));
             color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%;
+            transition: opacity 0.2s;
         }
+        .msg-form button:hover { opacity: 0.9; }
 
-        /* نظام الإنجازات Achievements */
         .achieve-badge {
-            background: rgba(255, 245, 0, 0.05);
-            border: 1px dashed #ffd700;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
+            background: rgba(255, 215, 0, 0.03); border: 1px dashed #ffd700;
+            padding: 10px; border-radius: 10px; margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem;
         }
 
-        /* لوحة الأدمن المخفية */
         #admin-panel {
-            background: #1c0926;
-            border: 2px solid var(--accent-pink);
-            margin-top: 25px;
-            border-radius: 20px;
-            padding: 25px;
-            display: none;
+            background: #190724; border: 2px solid var(--accent-pink);
+            margin-top: 25px; border-radius: 20px; padding: 25px; display: none;
         }
         .msg-item {
-            background: rgba(255,255,255,0.05);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            border-right: 3px solid var(--accent-color);
+            background: rgba(255,255,255,0.04); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; border-right: 3px solid var(--accent-color);
         }
 
-        /* أنميشن الوميض والنيون الجليتش */
+        /* الأنميشنز السحرية الجديدة */
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
+        @keyframes fadeParticle { 0% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 0.2; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes glitchGlow {
-            0%, 100% {
-                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-color), 0 0 40px var(--accent-color);
-            }
-            50% {
-                text-shadow: 0 0 4px #fff, 0 0 15px var(--accent-pink), 0 0 50px var(--accent-pink);
-            }
+            0%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-color), 0 0 30px var(--accent-color); }
+            50% { text-shadow: 0 0 4px #fff, 0 0 15px var(--accent-pink), 0 0 40px var(--accent-pink); }
         }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         footer { text-align: center; padding: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.1); }
         .admin-link { cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <!-- الشاشة الافتتاحية الكرييتف -->
+    <div id="splash-screen">
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space ]</div>
+    </div>
+
+    <!-- المؤثر الصوتي الخفيف (Synth Click) -->
+    <script>
+        function playClickSound() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, ctx.currentTime);
+            gain.gain.setValueAtTime(0.05, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.05);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.05);
+        }
+    </script>
+
     <div class="bg-glow"></div>
 
     <header>
-        <!-- الاختصار الجديد الرايق جداً هنا -->
         <div class="creative-logo" onclick="playLogoEffect()">A.W</div>
         <h1>Ahmed Waleed</h1>
         <div class="tagline">Senior_2027_Loading...</div>
     </header>
 
-    <!-- العداد التنازلي التفاعلي لـ 2027 -->
     <div class="countdown-container">
-        <div class="countdown-title">⏳ الوقت المتبقي على تخرج الـ SENIOR 2027</div>
+        <div class="countdown-title">⏳ Time remaining until SENIOR 2027 Graduation</div>
         <div class="timer">
-            <div class="time-box"><span id="days">00</span><label>يوم</label></div>
-            <div class="time-box"><span id="hours">00</span><label>ساعة</label></div>
-            <div class="time-box"><span id="mins">00</span><label>دقيقة</label></div>
-            <div class="time-box"><span id="secs">00</span><label>ثانية</label></div>
-        </div>
-    </div>
-
-    <div class="main-container">
-        
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 هويتي</button>
-            <button class="tab-btn" onclick="switchTab(event, 'skills')">⚡ الـ Stats (RPG)</button>
-            <button class="tab-btn" onclick="switchTab(event, 'secret')">📬 صندوق الصراحة</button>
-        </div>
-
-        <!-- الأقسام -->
-        <div id="about" class="content-panel active">
-            <h2><span>👤</span> من أنا؟</h2>
-            <p>أحمد وليد، 18 سنة، طالب بالصف الثالث الثانوي (دفعة 2027). عايش في الـ Vibe الرايق ومقضيها تحديات ودح وسعي للقمة.</p>
-            
-            <!-- كارت الـ Spotify -->
-            <div class="spotify-card">
-                <div class="spot-icon">🎵</div>
-                <div class="spot-info">
-                    <marquee scrollamount="3">ثانوية عامة ميكس رايق Vibe</marquee>
-                    <p>المشغل الحالي: أغاني فصلان وتركيز</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم الـ RPG Skills -->
-        <div id="skills" class="content-panel">
-            <h2><span>⚡</span> الـ Character Stats</h2>
-            <p>مستويات الطاقة والمهارات الحالية على طريقة ألعاب الـ RPG:</p>
-            
-            <div class="skill-wrapper">
-                <div class="skill-info"><span>المقاومة ضد الفيزياء</span><span>15%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-width="15%"></div></div>
-                
-                <div class="skill-info"><span>الـ Coding والتكريك</span><span>85%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
-
-                <div class="skill-info"><span>الـ Gaming والـ Focus</span><span>95%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
-            </div>
-
-            <!-- نظام الإنجازات المتفاعل -->
-            <div class="achieve-badge" id="click-achieve" style="display:none;">
-                <span>🏆</span> <b>إنجاز جديد:</b> أنت فضولي جداً وفتشت في مهاراتي!
-            </div>
-        </div>
-
-        <!-- قسم صندوق الصراحة السري -->
-        <div id="secret" class="content-panel">
-            <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
-            <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأنا هشوفها لوحدي!</p>
-            
-            <div class="msg-form">
-                <textarea id="user-msg" placeholder="اكتب رسالتك السرية هنا..."></textarea>
-                <button onclick="saveMessage()">إرسال الصراحة بأمان 🚀</button>
-            </div>
-            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال بنجاح! 😎</div>
-        </div>
-
-        <!-- لوحة التحكم الخاصة بالأدمن (أحمد وليد) -->
-        <div id="admin-panel">
-            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن (أحمد وليد)</h2>
-            <p>هنا الرسايل السرية اللي مبعوتالك من صحابك وزوار موقعك:</p>
-            <div id="messages-box"></div>
-            <button onclick="clearMessages()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">مسح كل الرسائل</button>
-        </div>
-
-    </div>
-
-    <footer>
-        Designed by Ahmed Waleed // <span class="admin-link" onclick="openAdmin()">لوحة الأدمن</span>
-    </footer>
-
-    <script>
-        // العداد التنازلي لـ سنة 2027
-        const targetDate = new Date("June 1, 2027 00:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
-        }, 1000);
-
-        // تبديل الأقسام + أنميشن شريط الطاقة
-        function switchTab(evt, tabId) {
-            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            evt.currentTarget.classList.add('active');
-
-            if(tabId === 'skills') {
-                document.querySelectorAll('.skill-progress').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-width');
-                });
-                document.getElementById('click-achieve').style.display = 'flex';
-            }
-        }
-
-        // حركة كليكية إضافية للاختصار عند الضغط عليه
-        function playLogoEffect() {
-            const logo = document.querySelector('.creative-logo');
-            logo.style.transform = "scale(0.8) rotate(10deg)";
-            setTimeout(() => {
-                logo.style.transform = "none";
-            }, 150);
-        }
-
-        // حفظ الرسائل محلياً
-        function saveMessage() {
-            const text = document.getElementById('user-msg').value;
-            if(!text.trim()) return alert("اكتب حاجة الأول يا رايق!");
-            
-            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
-            messages.push({ text: text, date: new Date().toLocaleTimeString() });
-            localStorage.setItem('secret_messages', JSON.stringify(messages));
-            
-            document.getElementById('user-msg').value = '';
-            document.getElementById('sent-alert').style.display = 'block';
-            setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
-        }
-
-        // فتح لوحة الأدمن بباسورد
-        function openAdmin() {
-            const password = prompt("ادخل باسورد الأدمن السري لقراءة الرسائل:");
-            if (password === "1234") {
-                document.getElementById('admin-panel').style.display = 'block';
-                loadMessages();
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            } else {
-                alert("الباسورد غلط! مسموح لأحمد وليد فقط بالدخول ⛔");
-            }
-        }
-
-        // تحميل وعرض الرسائل في لوحة الأدمن
-        function loadMessages() {
-            const box = document.getElementById('messages-box');
-            box.innerHTML = '';
-            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
-            if(messages.length === 0) {
-                box.innerHTML = '<p style="color:var(--muted-text)">مفيش رسايل جديدة لسة.. اطلب صراحة من صحابك!</p>';
-                return;
-            }
-            messages.forEach(m => {
-                box.innerHTML += `<div class="msg-item">💬 <b>رسالة مجهولة (${m.date}):</b> <br> ${m.text}</div>`;
-            });
-        }
-
-        // مسح الرسائل
-        function clearMessages() {
-            if(confirm("متأكد إنك عايز تمسح كل الرسايل؟")) {
-                localStorage.removeItem('secret_messages');
-                loadMessages();
-            }
-        }
-    </script>
-</body>
-</html>
+            <div class="time-box"><span id="days">00</span><label>Days</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
+            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
+            <div class="time-box"><span id="secs">00</span><Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
