@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub v10.0</title>
+    <title>Ahmed Waleed // Ultimate Hub v13.0</title>
     <style>
         :root {
             --bg-color: #030712;
@@ -63,7 +63,7 @@
             padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;
             gap: 15px; flex-wrap: wrap;
         }
-        .nav-tabs { display: flex; gap: 10px; overflow-x: auto; }
+        .nav-tabs { display: flex; gap: 10px; overflow-x: auto; width: 100%; }
         .tab-btn {
             background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--muted-text);
             padding: 10px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 0.85rem;
@@ -78,11 +78,6 @@
             background: var(--card-bg); backdrop-filter: blur(16px);
             border-radius: 24px; padding: 30px; border: 1px solid var(--border-color);
             margin-bottom: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            position: relative; transform-origin: center center;
-        }
-        .gravity-card.falling {
-            position: fixed; z-index: 99; cursor: grab; margin-bottom: 0;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7); border-color: var(--accent-glow);
         }
 
         h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
@@ -119,13 +114,37 @@
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
         
-        .subject-item, .task-item {
+        .subject-item {
             background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
             padding: 15px; border-radius: 14px; margin-bottom: 12px;
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* ستايل الألعاب الفوري الجديد */
+        /* ستايل الملاحظات والمفكرة */
+        .mindmap-input {
+            flex: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 12px 15px; color: #fff; font-size: 0.9rem;
+            outline: none; transition: border 0.3s;
+        }
+        .mindmap-input:focus { border-color: var(--accent-glow); }
+
+        /* ستايل بروفايل أحمد */
+        .profile-card-wrapper { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .profile-avatar {
+            width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent-pink), var(--accent-glow));
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 2.2rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4); border: 3px solid #fff;
+        }
+        .profile-info h3 { margin: 0 0 5px 0; font-size: 1.8rem; letter-spacing: -0.5px; color: #fff; }
+        .profile-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--accent-glow); font-family: monospace; }
+        .profile-status::before { content: ''; display: block; width: 8px; height: 8px; background: var(--accent-glow); border-radius: 50%; box-shadow: 0 0 8px var(--accent-glow); }
+        .skills-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+        .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: #e5e7eb; font-weight: 500; }
+        .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); }
+        .bio-quote { border-right: 3px solid var(--accent-glow); padding-right: 15px; margin-top: 20px; color: var(--muted-text); font-style: italic; font-size: 0.95rem; }
+
+        /* ستايل الألعاب */
         .arcade-menu { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
         .game-screen-wrapper { background: #070b14; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; }
         .game-canvas { background: #02040a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; max-width: 100%; display: none; margin: 15px auto 0 auto; }
@@ -155,9 +174,9 @@
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
                 <button class="tab-btn" onclick="switchTab('study')">📚 المذاكرة والمواد</button>
-                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب المدمجة (5 Games)</button>
+                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب (5 Games)</button>
+                <button class="tab-btn" onclick="switchTab('profile')">👤 الملف الشخصي</button>
             </div>
-            <button class="modern-btn" onclick="activateGravity()" id="gravityBtn">تفعيل حقل الجاذبية 🛸</button>
         </div>
 
         <!-- ================= بيئة العمل ================= -->
@@ -194,9 +213,30 @@
                     <div class="subject-item"><div><strong style="color: #fff; display:block;">الرياضيات التطبيقية</strong><span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 60%</span></div></div>
                 </div>
             </div>
+
+            <!-- قسم المفكرة السرية المطور للروابط والخصوصية المحفوظ محلياً -->
+            <div class="gravity-card">
+                <h2>🔒 مفكرة أحمد السرية والآمنة (جهازك الحالي فقط)</h2>
+                <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">
+                    كل ما يكتب هنا يُحفظ محلياً على هذا المتصفح فقط. لن يتمكن أي شخص آخر من رؤيته عبر الإنترنت.
+                </p>
+                
+                <div style="margin-bottom: 15px;">
+                    <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical; font-family: sans-serif; box-sizing: border-box;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا... (مثال: https://google.com)"></textarea>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="modern-btn" onclick="saveSecretNotes()">💾 حفظ الملاحظات</button>
+                    <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="clearSecretNotes()">🗑️ مسح الكل</button>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.4); border: 1px dashed var(--border-color); border-radius: 12px; padding: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--accent-glow); font-size: 0.9rem;">👁️ عرض الملاحظات والروابط النشطة:</h4>
+                    <div id="secretNotesDisplay" style="white-space: pre-wrap; font-size: 0.95rem; color: #e5e7eb; line-height: 1.6;"></div>
+                </div>
+            </div>
         </div>
 
-        <!-- ================= تابة الألعاب المدمجة الـ 5 الجديدة ================= -->
+        <!-- ================= صالة الألعاب الفورية الـ 5 ================= -->
         <div id="games" class="tab-content">
             <div class="gravity-card" id="card-arcade">
                 <h2>🎮 غرفه الألعاب الفورية (No Links // Play Inside)</h2>
@@ -216,26 +256,92 @@
             </div>
         </div>
 
+        <!-- ================= قسم التعريف الشخصي لـ أحمد ================= -->
+        <div id="profile" class="tab-content">
+            <div class="gravity-card" id="card-profile">
+                <h2>👤 بطاقة التعريف السيبرانية // Ahmed Waleed</h2>
+                <div class="profile-card-wrapper">
+                    <div class="profile-avatar">AW</div>
+                    <div class="profile-info">
+                        <h3>أحمد وليد</h3>
+                        <div class="profile-status">SYSTEM STATUS: ACTIVE // LEVEL 18 ACADEMIC WARRIOR</div>
+                        <div class="skills-container">
+                            <span class="skill-badge highlight">🎓 Senior 2027</span>
+                            <span class="skill-badge">💻 Front-End Dev</span>
+                            <span class="skill-badge">📐 Physics Enthusiast</span>
+                            <span class="skill-badge">🕹️ Pro Gamer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bio-quote">
+                    "الذكاء بدون طموح كطائر بدون أجنحة. المنصة دي اتصممت عشان أتابع شغفي البرمجي وأقفل دراستي في نفس الوقت."
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer>Ahmed Waleed // Game Core Hub 2026</footer>
+    <footer>Ahmed Waleed // Ultimate Core Hub v13.0</footer>
 
     <script>
-        // ================= 1. نظام التابات =================
+        // ================= 1. نظام التابات واكتشاف التنقل =================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
             if(tabId === 'workspace') setTimeout(resizeCanvas, 50);
+            if(tabId === 'study') displaySecretNotes();
             if(tabId !== 'games') stopAllGames();
         }
 
-        // ================= 2. شريط الأذكار التلقائي =================
+        // ================= 2. نظام المفكرة السرية وحفظ الروابط التلقائي =================
+        function linkify(text) {
+            const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            return text.replace(urlRegex, function(url) {
+                return '<a href="' + url + '" target="_blank" style="color: var(--accent-glow); text-decoration: underline; font-weight: 500;">' + url + '</a>';
+            });
+        }
+
+        function saveSecretNotes() {
+            const inputText = document.getElementById('secretNotesInput').value;
+            localStorage.setItem('ahmed_secret_notes', inputText);
+            displaySecretNotes();
+        }
+
+        function displaySecretNotes() {
+            const savedText = localStorage.getItem('ahmed_secret_notes') || '';
+            const inputField = document.getElementById('secretNotesInput');
+            if(inputField) inputField.value = savedText;
+            
+            const displayDiv = document.getElementById('secretNotesDisplay');
+            if(displayDiv) {
+                if (savedText.trim() === '') {
+                    displayDiv.innerHTML = '<span style="color: var(--muted-text); font-style: italic; font-size: 0.85rem;">لا توجد ملاحظات محفوظة حالياً.</span>';
+                } else {
+                    const safeText = savedText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    displayDiv.innerHTML = linkify(safeText);
+                }
+            }
+        }
+
+        function clearSecretNotes() {
+            if (confirm("هل أنت متأكد من رغبتك في مسح كافة الملاحظات السرية؟")) {
+                localStorage.removeItem('ahmed_secret_notes');
+                displaySecretNotes();
+            }
+        }
+
+        // تشغيل عرض المفكرة فور تحميل الصفحة للتأكد من المزامنة
+        document.addEventListener("DOMContentLoaded", () => {
+            displaySecretNotes();
+        });
+
+        // ================= 3. شريط الأذكار التلقائي =================
         const dhikrs = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ","لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ","أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ"];
         setInterval(() => {
             const t = document.getElementById('dhikr-ticker');
-            t.style.opacity = 0; setTimeout(() => { t.innerText = dhikrs[Math.floor(Math.random() * dhikrs.length)]; t.style.opacity = 1; }, 500);
+            if(t) { t.style.opacity = 0; setTimeout(() => { t.innerText = dhikrs[Math.floor(Math.random() * dhikrs.length)]; t.style.opacity = 1; }, 500); }
         }, 12000);
 
         function toggleQuranCheck() {
@@ -243,14 +349,14 @@
             document.getElementById('quranTarget').style.textDecoration = cb.classList.contains('checked') ? "line-through" : "none";
         }
 
-        // ================= 3. محاكي المطر والبومودورو =================
+        // ================= 4. محاكي المطر والبومودورو =================
         const canvas = document.getElementById('rainCanvas'), ctx = canvas.getContext('2d');
         let drops = [];
         function resizeCanvas() { if(canvas && canvas.parentElement) { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; } }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
         for (let i = 0; i < 30; i++) drops.push({ x: Math.random() * 800, y: Math.random() * 250, len: Math.random() * 10 + 5, speed: Math.random() * 3 + 3 });
         function drawRain() {
-            if (!canvas.parentElement.offsetHeight) { requestAnimationFrame(drawRain); return; }
+            if (!canvas || !canvas.parentElement.offsetHeight) { requestAnimationFrame(drawRain); return; }
             ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.strokeStyle = 'rgba(0, 245, 212, 0.12)'; ctx.lineWidth = 1.5;
             drops.forEach(p => { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x, p.y + p.len); ctx.stroke(); p.y += p.speed; if (p.y > canvas.height) p.y = -p.len; });
             requestAnimationFrame(drawRain);
@@ -271,7 +377,7 @@
         }
         function resetPomo() { pomoMinutes = 25; pomoSeconds = 0; isRunning = false; document.getElementById('pomoBtn').innerText = "ابدأ التركيز"; }
 
-        // ================= 4. محرك الألعاب الشامل (5 الألعاب جوة الكانفاس) =================
+        // ================= 5. محرك صالة الألعاب الشامل (5 ألعاب داخلية) =================
         const gCanvas = document.getElementById('gameCanvas'), gCtx = gCanvas.getContext('2d');
         let gameLoop = null, activeGame = null, gameScore = 0, mouseX = 300, mouseY = 175;
         let gameKeys = {};
@@ -279,217 +385,130 @@
         window.addEventListener('keydown', e => gameKeys[e.key] = true);
         window.addEventListener('keyup', e => gameKeys[e.key] = false);
         gCanvas.addEventListener('mousemove', e => {
-            const rect = gCanvas.getBoundingClientRect();
-            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+            const rect = gCanvas.getBoundingClientRect(); mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
         });
 
-        // متغيرات الألعاب المتنوعة
         let tennisBall = {}, tennisPaddle = {};
         let fbBall = {}, fbKeeper = {}, fbStatus = "جاهز للتسديد";
-        let bbBall = {}, bbHoop = {}, bbIsDragging = false, bbTrajectory = [];
+        let bbBall = {}, bbHoop = {}, bbIsDragging = false;
         let chPlayer = {}, chBullets = [], chEnemies = [];
         let snSnake = [], snDir = "RIGHT", snFood = {};
 
         function stopAllGames() { if(gameLoop) clearInterval(gameLoop); gCanvas.classList.remove('active'); activeGame = null; }
 
         function launchGame(gameType) {
-            stopAllGames();
-            gCanvas.classList.add('active');
-            activeGame = gameType;
-            gameScore = 0;
+            stopAllGames(); gCanvas.classList.add('active'); activeGame = gameType; gameScore = 0;
             document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
             event.currentTarget.classList.add('active');
 
             if (gameType === 'tennis') {
                 document.getElementById('gameInstructions').innerText = "🎾 حرك المضرب بالماوس يميناً ويساراً لمنع الكرة من السقوط!";
-                tennisBall = { x: 300, y: 50, vx: 4, vy: 4, r: 8 };
-                tennisPaddle = { w: 100, h: 12 };
+                tennisBall = { x: 300, y: 50, vx: 4, vy: 4, r: 8 }; tennisPaddle = { w: 100, h: 12 };
                 gameLoop = setInterval(runTennis, 1000/60);
             } else if (gameType === 'football') {
                 document.getElementById('gameInstructions').innerText = "⚽ اضغط بالماوس في أي مكان داخل المرمى لتسديد الكرة وهزيمة الحارس!";
                 fbBall = { x: 300, y: 300, r: 12, targetX: 300, targetY: 300, shooting: false };
-                fbKeeper = { x: 300, y: 80, vx: 4, w: 60, h: 15 };
-                fbStatus = "اضغط لتسديد الكرة!";
-                gCanvas.onmousedown = shootFootball;
-                gameLoop = setInterval(runFootball, 1000/60);
+                fbKeeper = { x: 300, y: 80, vx: 4, w: 60, h: 15 }; fbStatus = "اضغط لتسديد الكرة!";
+                gCanvas.onmousedown = shootFootball; gameLoop = setInterval(runFootball, 1000/60);
             } else if (gameType === 'basket') {
                 document.getElementById('gameInstructions').innerText = "🏀 اسحب الكرة بالماوس لأسفل وللخلف ثم اتركها للتصويب نحو السلة!";
-                bbBall = { x: 100, y: 280, vx: 0, vy: 0, r: 12, shooting: false, baseX: 100, baseY: 280 };
-                bbHoop = { x: 480, y: 120, w: 40, h: 8 };
-                gCanvas.onmousedown = () => { if(!bbBall.shooting) bbIsDragging = true; };
-                gCanvas.onmouseup = releaseBasketball;
+                bbBall = { x: 100, y: 280, vx: 0, vy: 0, r: 12, shooting: false, baseX: 100, baseY: 280 }; bbHoop = { x: 480, y: 120, w: 40, h: 8 };
+                gCanvas.onmousedown = () => { if(!bbBall.shooting) bbIsDragging = true; }; gCanvas.onmouseup = releaseBasketball;
                 gameLoop = setInterval(runBasket, 1000/60);
             } else if (gameType === 'chicken') {
                 document.getElementById('gameInstructions').innerText = "🚀 غزو الدجاج الفضائي: التحرك بـ (A / D) أو الأسهم، والضرب بـ (Spacebar)!";
-                chPlayer = { x: 300, y: 310, w: 30, h: 20 };
-                chBullets = []; chEnemies = [];
+                chPlayer = { x: 300, y: 310, w: 30, h: 20 }; chBullets = []; chEnemies = [];
                 for(let i=0; i<5; i++) { for(let j=0; j<3; j++) { chEnemies.push({ x: 80 + i*100, y: 40 + j*40, w: 25, h: 25, alive: true }); } }
                 gameLoop = setInterval(runChicken, 1000/60);
             } else if (gameType === 'snake') {
                 document.getElementById('gameInstructions').innerText = "🐍 الثعبان السيبراني: تحرك بأسهم الكيبورد وكل المربعات المضيئة!";
-                snSnake = [{x: 160, y: 160}, {x: 140, y: 160}, {x: 120, y: 160}];
-                snDir = "RIGHT"; spawnSnakeFood();
+                snSnake = [{x: 160, y: 160}, {x: 140, y: 160}, {x: 120, y: 160}]; snDir = "RIGHT"; spawnSnakeFood();
                 gameLoop = setInterval(runSnake, 130);
             }
         }
 
-        // 1. منطق لعبة التنس
         function runTennis() {
-            gCtx.clearRect(0,0,600,350);
-            tennisBall.x += tennisBall.vx; tennisBall.y += tennisBall.vy;
+            gCtx.clearRect(0,0,600,350); tennisBall.x += tennisBall.vx; tennisBall.y += tennisBall.vy;
             if(tennisBall.x < 0 || tennisBall.x > 600) tennisBall.vx = -tennisBall.vx;
             if(tennisBall.y < 0) tennisBall.vy = -tennisBall.vy;
-            
-            let pX = mouseX - tennisPaddle.w/2;
-            pX = Math.max(0, Math.min(600 - tennisPaddle.w, pX));
-
-            if(tennisBall.y + tennisBall.r > 310 && tennisBall.x > pX && tennisBall.x < pX + tennisPaddle.w) {
-                tennisBall.vy = -Math.abs(tennisBall.vy) * 1.02; gameScore++;
-            }
-            if(tennisBall.y > 350) { document.getElementById('gameInstructions').innerText = `💥 خسرت! النتيجة النهائية: ${gameScore}. اختر لعبة لتعيد الكرة.`; stopAllGames(); return; }
-
+            let pX = mouseX - tennisPaddle.w/2; pX = Math.max(0, Math.min(600 - tennisPaddle.w, pX));
+            if(tennisBall.y + tennisBall.r > 310 && tennisBall.x > pX && tennisBall.x < pX + tennisPaddle.w) { tennisBall.vy = -Math.abs(tennisBall.vy) * 1.02; gameScore++; }
+            if(tennisBall.y > 350) { document.getElementById('gameInstructions').innerText = `💥 خسرت! النتيجة: ${gameScore}.`; stopAllGames(); return; }
             gCtx.fillStyle = "var(--accent-glow)"; gCtx.fillRect(pX, 310, tennisPaddle.w, tennisPaddle.h);
-            gCtx.beginPath(); gCtx.fillStyle = "#fff"; gCtx.arc(tennisBall.x, tennisBall.y, tennisBall.r, 0, Math.PI*2); gCtx.fill();
-            drawScore();
+            gCtx.beginPath(); gCtx.fillStyle = "#fff"; gCtx.arc(tennisBall.x, tennisBall.y, tennisBall.r, 0, Math.PI*2); gCtx.fill(); drawScore();
         }
 
-        // 2. منطق لعبة كرة القدم
         function shootFootball(e) {
-            if(fbBall.shooting) return;
+            if(fbBall.shooting || activeGame !== 'football') return;
             fbBall.targetX = mouseX; fbBall.targetY = mouseY;
-            let dx = fbBall.targetX - fbBall.x, dy = fbBall.targetY - fbBall.y;
-            let dist = Math.sqrt(dx*dx + dy*dy);
-            fbBall.vx = (dx / dist) * 9; fbBall.vy = (dy / dist) * 9;
-            fbBall.shooting = true;
+            let dx = fbBall.targetX - fbBall.x, dy = fbBall.targetY - fbBall.y, dist = Math.sqrt(dx*dx + dy*dy);
+            fbBall.vx = (dx / dist) * 9; fbBall.vy = (dy / dist) * 9; fbBall.shooting = true;
         }
         function runFootball() {
-            gCtx.clearRect(0,0,600,350);
-            fbKeeper.x += fbKeeper.vx; if(fbKeeper.x < 150 || fbKeeper.x > 450) fbKeeper.vx = -fbKeeper.vx;
+            gCtx.clearRect(0,0,600,350); fbKeeper.x += fbKeeper.vx; if(fbKeeper.x < 150 || fbKeeper.x > 450) fbKeeper.vx = -fbKeeper.vx;
             gCtx.strokeStyle = "#fff"; gCtx.strokeRect(150, 50, 300, 100);
             gCtx.fillStyle = "var(--accent-pink)"; gCtx.fillRect(fbKeeper.x - fbKeeper.w/2, fbKeeper.y, fbKeeper.w, fbKeeper.h);
-
             if(fbBall.shooting) {
                 fbBall.x += fbBall.vx; fbBall.y += fbBall.vy;
-                if(fbBall.y <= fbKeeper.y + fbKeeper.h && fbBall.y > fbKeeper.y && Math.abs(fbBall.x - fbKeeper.x) < fbKeeper.w/2) { fbBall.shooting = false; fbBall.x = 300; fbBall.y = 300; fbStatus = "❌ الحارس تصدى لها! حاول مجدداً."; }
-                else if(fbBall.y < 50) { fbBall.shooting = false; fbBall.x = 300; fbBall.y = 300; if(fbBall.x > 150 && fbBall.x < 450) { gameScore++; fbStatus = "🎉 جووووول أسطوري!"; } else fbStatus = "OUT! برة المرمى"; }
+                if(fbBall.y <= fbKeeper.y + fbKeeper.h && fbBall.y > fbKeeper.y && Math.abs(fbBall.x - fbKeeper.x) < fbKeeper.w/2) { fbBall.shooting = false; fbBall.x = 300; fbBall.y = 300; fbStatus = "❌ تصدى لها الحارس!"; }
+                else if(fbBall.y < 50) { fbBall.shooting = false; fbBall.x = 300; fbBall.y = 300; if(fbBall.x > 150 && fbBall.x < 450) { gameScore++; fbStatus = "🎉 جووووول!"; } else fbStatus = "OUT! برة المرمى"; }
             }
             gCtx.fillStyle = "#fff"; gCtx.beginPath(); gCtx.arc(fbBall.x, fbBall.y, fbBall.r, 0, Math.PI*2); gCtx.fill();
-            gCtx.fillStyle = varColor('--muted-text'); gCtx.font = "14px sans-serif"; gCtx.fillText(fbStatus, 20, 30); drawScore();
+            gCtx.fillStyle = '#9ca3af'; gCtx.font = "14px sans-serif"; gCtx.fillText(fbStatus, 20, 30); drawScore();
         }
 
-        // 3. منطق لعبة كرة السلة
         function releaseBasketball() {
-            if(!bbIsDragging) return; bbIsDragging = false;
-            let dx = bbBall.baseX - mouseX, dy = bbBall.baseY - mouseY;
-            bbBall.vx = dx * 0.12; bbBall.vy = dy * 0.12; bbBall.shooting = true;
+            if(!bbIsDragging || activeGame !== 'basket') return; bbIsDragging = false;
+            let dx = bbBall.baseX - mouseX, dy = bbBall.baseY - mouseY; bbBall.vx = dx * 0.12; bbBall.vy = dy * 0.12; bbBall.shooting = true;
         }
         function runBasket() {
-            gCtx.clearRect(0,0,600,350);
-            gCtx.fillStyle = "orange"; gCtx.fillRect(bbHoop.x, bbHoop.y, bbHoop.w, bbHoop.h);
-            
-            if(bbIsDragging) {
-                gCtx.strokeStyle = "rgba(255,255,255,0.3)"; gCtx.beginPath(); gCtx.moveTo(bbBall.baseX, bbBall.baseY); gCtx.lineTo(mouseX, mouseY); gCtx.stroke();
-            }
+            gCtx.clearRect(0,0,600,350); gCtx.fillStyle = "orange"; gCtx.fillRect(bbHoop.x, bbHoop.y, bbHoop.w, bbHoop.h);
+            if(bbIsDragging) { gCtx.strokeStyle = "rgba(255,255,255,0.3)"; gCtx.beginPath(); gCtx.moveTo(bbBall.baseX, bbBall.baseY); gCtx.lineTo(mouseX, mouseY); gCtx.stroke(); }
             if(bbBall.shooting) {
                 bbBall.vx *= 0.99; bbBall.vy += 0.25; bbBall.x += bbBall.vx; bbBall.y += bbBall.vy;
-                if(bbBall.vy > 0 && bbBall.x > bbHoop.x && bbBall.x < bbHoop.x + bbHoop.w && Math.abs(bbBall.y - bbHoop.y) < 10) { gameScore++; bbBall.shooting = false; bbBall.x = 100; bbBall.y = 280; alert("سلة رائعة! +1 نقطة"); }
+                if(bbBall.vy > 0 && bbBall.x > bbHoop.x && bbBall.x < bbHoop.x + bbHoop.w && Math.abs(bbBall.y - bbHoop.y) < 10) { gameScore++; bbBall.shooting = false; bbBall.x = 100; bbBall.y = 280; }
                 if(bbBall.y > 350 || bbBall.x > 600) { bbBall.shooting = false; bbBall.x = 100; bbBall.y = 280; }
             }
-            gCtx.fillStyle = "#ff6b6b"; gCtx.beginPath(); gCtx.arc(bbBall.x, bbBall.y, bbBall.r, 0, Math.PI*2); gCtx.fill();
-            drawScore();
+            gCtx.fillStyle = "#ff6b6b"; gCtx.beginPath(); gCtx.arc(bbBall.x, bbBall.y, bbBall.r, 0, Math.PI*2); gCtx.fill(); drawScore();
         }
 
-        // 4. منطق لعبة الفراخ الفضائية (Chicken Invaders)
         function runChicken() {
             gCtx.clearRect(0,0,600,350);
-            if(gameKeys['ArrowLeft'] || gameKeys['a'] || gameKeys['A']) chPlayer.x = Math.max(0, chPlayer.x - 5);
-            if(gameKeys['ArrowRight'] || gameKeys['d'] || gameKeys['D']) chPlayer.x = Math.min(570, chPlayer.x + 5);
+            if(gameKeys['ArrowLeft'] || gameKeys['a']) chPlayer.x = Math.max(0, chPlayer.x - 5);
+            if(gameKeys['ArrowRight'] || gameKeys['d']) chPlayer.x = Math.min(570, chPlayer.x + 5);
             if(gameKeys[' ']) { chBullets.push({ x: chPlayer.x + 13, y: chPlayer.y, vy: -6 }); gameKeys[' '] = false; }
-
             gCtx.fillStyle = "var(--accent-glow)"; gCtx.fillRect(chPlayer.x, chPlayer.y, chPlayer.w, chPlayer.h);
-            
-            chBullets.forEach((b, bi) => {
-                b.y += b.vy; gCtx.fillStyle = "yellow"; gCtx.fillRect(b.x, b.y, 4, 10);
-                if(b.y < 0) chBullets.splice(bi, 1);
-            });
-
+            chBullets.forEach((b, bi) => { b.y += b.vy; gCtx.fillStyle = "yellow"; gCtx.fillRect(b.x, b.y, 4, 10); if(b.y < 0) chBullets.splice(bi, 1); });
             let allDead = true;
             chEnemies.forEach(e => {
-                if(!e.alive) return; allDead = false;
-                gCtx.fillStyle = "white"; gCtx.fillRect(e.x, e.y, e.w, e.h);
-                chBullets.forEach((b, bi) => {
-                    if(b.x > e.x && b.x < e.x + e.w && b.y > e.y && b.y < e.y + e.h) { e.alive = false; chBullets.splice(bi,1); gameScore += 10; }
-                });
+                if(!e.alive) return; allDead = false; gCtx.fillStyle = "white"; gCtx.fillRect(e.x, e.y, e.w, e.h);
+                chBullets.forEach((b, bi) => { if(b.x > e.x && b.x < e.x + e.w && b.y > e.y && b.y < e.y + e.h) { e.alive = false; chBullets.splice(bi,1); gameScore += 10; } });
             });
-            if(allDead) { document.getElementById('gameInstructions').innerText = "🏆 كفووو! كسبت غزو الدجاج الفضائي بنجاح!"; stopAllGames(); }
+            if(allDead) { document.getElementById('gameInstructions').innerText = "🏆 تم سحق الفراخ الفضائية!"; stopAllGames(); }
             drawScore();
         }
 
-        // 5. لعبة الثعبان السيبراني
         function spawnSnakeFood() { snFood = { x: Math.floor(Math.random()*28 + 1)*20, y: Math.floor(Math.random()*15 + 1)*20 }; }
         function runSnake() {
             gCtx.clearRect(0,0,600,350);
-            if(gameKeys['ArrowLeft'] && snDir !== "RIGHT") snDir = "LEFT";
-            if(gameKeys['ArrowRight'] && snDir !== "LEFT") snDir = "RIGHT";
-            if(gameKeys['ArrowUp'] && snDir !== "DOWN") snDir = "UP";
-            if(gameKeys['ArrowDown'] && snDir !== "UP") snDir = "DOWN";
-
+            if(gameKeys['ArrowLeft'] && snDir !== "RIGHT") snDir = "LEFT"; if(gameKeys['ArrowRight'] && snDir !== "LEFT") snDir = "RIGHT";
+            if(gameKeys['ArrowUp'] && snDir !== "DOWN") snDir = "UP"; if(gameKeys['ArrowDown'] && snDir !== "UP") snDir = "DOWN";
             let head = Object.assign({}, snSnake[0]);
-            if(snDir === "LEFT") head.x -= 20; if(snDir === "RIGHT") head.x += 20;
-            if(snDir === "UP") head.y -= 20; if(snDir === "DOWN") head.y += 20;
-
-            if(head.x < 0 || head.x >= 600 || head.y < 0 || head.y >= 350 || snakeCollision(head)) {
-                document.getElementById('gameInstructions').innerText = `💥 للاسف اصطدمت! النتيجة: ${gameScore}. اضغط ثعبان لإعادة اللعب.`; stopAllGames(); return;
+            if(snDir === "LEFT") head.x -= 20; if(snDir === "RIGHT") head.x += 20; if(snDir === "UP") head.y -= 20; if(snDir === "DOWN") head.y += 20;
+            if(head.x < 0 || head.x >= 600 || head.y < 0 || head.y >= 350 || snSnake.some((s,i)=>i!==0 && s.x===head.x && s.y===head.y)) {
+                document.getElementById('gameInstructions').innerText = `💥 اصطدمت! النتيجة: ${gameScore}.`; stopAllGames(); return;
             }
-
-            snSnake.unshift(head);
-            if(head.x === snFood.x && head.y === snFood.y) { gameScore += 5; spawnSnakeFood(); } else snSnake.pop();
-
+            snSnake.unshift(head); if(head.x === snFood.x && head.y === snFood.y) { gameScore += 5; spawnSnakeFood(); } else snSnake.pop();
             gCtx.fillStyle = "red"; gCtx.fillRect(snFood.x, snFood.y, 18, 18);
-            gCtx.fillStyle = "var(--accent-glow)";
-            snSnake.forEach(s => gCtx.fillRect(s.x, s.y, 18, 18));
-            drawScore();
+            gCtx.fillStyle = "var(--accent-glow)"; snSnake.forEach(s => gCtx.fillRect(s.x, s.y, 18, 18)); drawScore();
         }
-        function snakeCollision(h) { return snSnake.some((s, i) => i !== 0 && s.x === h.x && s.y === h.y); }
 
         function drawScore() { gCtx.fillStyle = "#fff"; gCtx.font = "16px monospace"; gCtx.fillText(`Score: ${gameScore}`, 500, 30); }
-        function varColor(prop) { return getComputedStyle(document.documentElement).getPropertyValue(prop).trim(); }
 
-        // ================= 5. نظام التدمير والجاذبية القديم الفعال =================
+        // التحذير الفكاهي السري
         let logoClicks = 0;
         function registerClick() { logoClicks++; if (logoClicks >= 5) { document.body.classList.add('glitch-active'); document.getElementById('glitchAlert').style.display = 'block'; logoClicks = 0; } }
         window.addEventListener('keydown', e => { if (e.key === 'Escape') { document.body.classList.remove('glitch-active'); document.getElementById('glitchAlert').style.display = 'none'; } });
-
-        let gravityActive = false, physicsObjects = [], gravityConstant = 0.4, bounce = 0.65;
-        function activateGravity() {
-            if (gravityActive) return; gravityActive = true;
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('active'));
-            document.getElementById('gravityBtn').innerText = "حقل الجاذبية نشط 🌌";
-            document.querySelectorAll('.gravity-card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                card.style.width = rect.width + 'px'; card.style.left = rect.left + 'px'; card.style.top = rect.top + 'px'; card.classList.add('falling');
-                let obj = { element: card, x: rect.left, y: rect.top, w: rect.width, h: rect.height, vx: (Math.random() - 0.5) * 8, vy: 0, isDragging: false };
-                physicsObjects.push(obj); setupDrag(obj);
-            });
-            requestAnimationFrame(updatePhysics);
-        }
-        function setupDrag(obj) {
-            obj.element.addEventListener('mousedown', () => { obj.isDragging = true; obj.vx = 0; obj.vy = 0; });
-            window.addEventListener('mousemove', e => { if (!obj.isDragging) return; obj.x = e.clientX - obj.w/2; obj.y = e.clientY - obj.h/2; });
-            window.addEventListener('mouseup', () => { if(obj.isDragging) { obj.isDragging = false; obj.vy = 2; } });
-        }
-        function updatePhysics() {
-            const winH = window.innerHeight, winW = window.innerWidth;
-            physicsObjects.forEach(obj => {
-                if (obj.isDragging) { obj.element.style.left = obj.x + 'px'; obj.element.style.top = obj.y + 'px'; return; }
-                obj.vy += gravityConstant; obj.x += obj.vx; obj.y += obj.vy;
-                if (obj.y + obj.h > winH) { obj.y = winH - obj.h; obj.vy = -obj.vy * bounce; obj.vx *= 0.9; }
-                if (obj.x < 0) { obj.x = 0; obj.vx = -obj.vx * bounce; }
-                if (obj.x + obj.w > winW) { obj.x = winW - obj.w; obj.vx = -obj.vx * bounce; }
-                obj.element.style.left = obj.x + 'px'; obj.element.style.top = obj.y + 'px';
-            });
-            requestAnimationFrame(updatePhysics);
-        }
     </script>
 </body>
 </html>
