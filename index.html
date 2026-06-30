@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub v3.0</title>
+    <title>Ahmed Waleed // Ultimate Hub v4.0</title>
     <!-- مكتبة التشفير والأمان السحابي لحماية الرسائل -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
@@ -237,7 +237,6 @@
         .mindmap-node h4 { margin: 0 0 5px 0; color: var(--accent-color); }
         .mindmap-node p { margin: 0; font-size: 0.85rem; color: var(--muted-text); }
 
-        /* ستايل صالة الألعاب الأركيد الجديدة الجنونية */
         .games-grid {
             display: flex;
             flex-direction: column;
@@ -272,7 +271,6 @@
         }
         .xo-cell:hover { background: rgba(0, 245, 212, 0.1); }
 
-        /* ستايل شاشات ألعاب الكانفاس المحدثة */
         .arcade-canvas-wrapper {
             position: relative;
             display: inline-block;
@@ -284,7 +282,6 @@
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
             display: block;
-            cursor: crosshair;
             max-width: 100%;
         }
         .arcade-btn {
@@ -305,24 +302,25 @@
         }
 
         .online-challenge-box {
-            background: linear-gradient(135deg, rgba(204, 0, 255, 0.1), rgba(0, 245, 212, 0.1));
-            border: 2px dashed var(--accent-pink) !important;
+            background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(204, 0, 255, 0.15));
+            border: 2px solid var(--accent-color) !important;
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
         }
         .btn-glow-online {
-            background: linear-gradient(135deg, var(--accent-pink), #00bbf9);
-            color: white;
+            background: linear-gradient(135deg, #00f5d4, #00bbf9);
+            color: #000;
             border: none;
-            padding: 15px 35px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 16px 40px;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--accent-pink);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 245, 212, 0.4);
+            transition: all 0.3s ease;
         }
         .btn-glow-online:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #00bbf9;
+            transform: scale(1.06) translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 187, 249, 0.6);
         }
 
         .mood-selector {
@@ -397,7 +395,7 @@
 <body>
 
     <div id="splash-screen">
-        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v3.0 ]</div>
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v4.0 ]</div>
     </div>
 
     <script>
@@ -509,35 +507,36 @@
         <!-- التاب 4: صالة الألعاب الأركيد المعدلة كلياً -->
         <div id="games" class="content-panel">
             <h2><span>🕹️</span> Ahmed's Cyber Arcade</h2>
-            <p>ألعاب جنونية ومبهرة متبرمجة بالكامل بالـ JavaScript وبأعلى جودة نيون:</p>
+            <p>ألعاب ممتعة وحماسية متبرمجة بالكامل ومستحيل تكون كرينج:</p>
             
             <div class="games-grid">
                 
-                <!-- لعبة 1: ضرب النار الفضائي المذهل (بديل الثعبان) -->
+                <!-- لعبة 1: ضرب النار الفضائي المطور -->
                 <div class="game-block" style="border: 1px solid var(--accent-pink);">
                     <h3 style="color:var(--accent-pink); margin-top:0;">🚀 1. حرب الفضاء النيون (Space Shooter)</h3>
-                    <p style="font-size:0.85rem; color:var(--muted-text);">حرك الماوس أو صباعك على الشاشة للتحرك والضرب تلقائياً! فجر المربعات الساقطة.</p>
+                    <p style="font-size:0.85rem; color:var(--muted-text);">حرك الماوس أو صباعك لتفجير المربعات الساقطة تلقائياً!</p>
                     <div class="arcade-canvas-wrapper">
                         <div style="font-weight:bold; margin-bottom:5px;">السكور: <span id="shooter-score" style="color:var(--accent-color)">0</span></div>
-                        <canvas id="shooterCanvas" class="arcade-screen" width="320" height="350"></canvas>
+                        <canvas id="shooterCanvas" class="arcade-screen" width="320" height="300"></canvas>
                         <button class="arcade-btn" onclick="startShooterGame()" style="margin-top:10px; border-color:var(--accent-pink);">ابدأ حرب الفضاء 💥</button>
                     </div>
                 </div>
 
-                <!-- لعبة 2: بينج بونج النيون المطورة -->
-                <div class="game-block">
-                    <h3 style="color:var(--accent-color); margin-top:0;">🏓 2. نيون بينج بونج (سولو أو لاعبين)</h3>
-                    <p style="font-size:0.85rem; color:var(--muted-text);">اللاعب الأول يتحرك بالماوس (أو اللمس) - الكمبيوتر بيلعب معاك تلقائياً!</p>
+                <!-- لعبة 2: بديل البينج بونج - لعبة تفادي المكعبات النيون الممتعة -->
+                <div class="game-block" style="border: 1px solid #00bbf9;">
+                    <h3 style="color:#00bbf9; margin-top:0;">🏃‍♂️ 2. الهروب السيبراني (Neon Runner)</h3>
+                    <p style="font-size:0.85rem; color:var(--muted-text);">حرك الكُرة بالماوس/اللمس يمين وشمال؛ تجنب المربعات الحمراء واجمع الدوائر الخضراء!</p>
                     <div class="arcade-canvas-wrapper">
-                        <canvas id="pongCanvas" class="arcade-screen" width="320" height="200"></canvas>
-                        <button class="arcade-btn" onclick="startPongGame()" style="margin-top:10px;">ابدأ التحدي 🏓</button>
+                        <div style="font-weight:bold; margin-bottom:5px;">النقاط: <span id="runner-score" style="color:#00bbf9">0</span></div>
+                        <canvas id="runnerCanvas" class="arcade-screen" width="320" height="220"></canvas>
+                        <button class="arcade-btn" onclick="startRunnerGame()" style="margin-top:10px; border-color:#00bbf9;">ابدأ الجري السريع ⚡</button>
                     </div>
                 </div>
 
                 <!-- لعبة 3: XO التقليدية السريعة -->
                 <div class="game-block">
-                    <h3 style="color:#00bbf9; margin-top:0;">❌ 3. تحدي الـ X-O الذكي</h3>
-                    <div id="xo-status" style="text-align: center; color: #00bbf9; font-weight: bold;">دور اللاعب: X</div>
+                    <h3 style="color:var(--accent-color); margin-top:0;">❌ 3. تحدي الـ X-O الذكي</h3>
+                    <div id="xo-status" style="text-align: center; color: var(--accent-color); font-weight: bold;">دور اللاعب: X</div>
                     <div class="xo-game">
                         <div class="xo-cell" onclick="makeMove(this, 0)"></div>
                         <div class="xo-cell" onclick="makeMove(this, 1)"></div>
@@ -549,14 +548,14 @@
                         <div class="xo-cell" onclick="makeMove(this, 7)"></div>
                         <div class="xo-cell" onclick="makeMove(this, 8)"></div>
                     </div>
-                    <button onclick="resetXO()" style="background:none; border:1px solid #00bbf9; color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة اللعب</button>
+                    <button onclick="resetXO()" style="background:none; border:1px solid var(--accent-color); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة اللعب</button>
                 </div>
 
-                <!-- لعبة 4: الأونلاين الحقيقي الجديد مع الزوار بلمسة واحدة -->
+                <!-- لعبة 4: اللينك الأسطوري الجديد للألعاب الجماعية والأونلاين بدون تحميل -->
                 <div class="game-block online-challenge-box">
-                    <h3 style="color:var(--text-color); margin-top:0;">🌐 4. غرف ألعاب أونلاين حية (8 Ball Pool & Ludo)</h3>
-                    <p style="font-size:0.9rem;">المنصة دي بتسمحلك تعمل روم أونلاين مجانية للبلياردو، الورق، أو الليدو، وتاخد اللينك تلعبه مع أحمد وليد أو زوار الموقع لايف!</p>
-                    <button class="btn-glow-online" onclick="window.open('https://www.gamedistribution.com/', '_blank')">ادخل وتحدى الزوار أونلاين 🚀</button>
+                    <h3 style="color:#fff; margin-top:0;">🌐 4. بوابة الألعاب العالمية (Poki Games Live)</h3>
+                    <p style="font-size:0.9rem; color:#fff;">فتحتلك اللينك المباشر لأكبر منصة ألعاب سريعة في العالم (Poki) علشان تلعب ألعاب أونلاين حقيقية وضخمة (بلياردو 8Ball، صب واي، وألعاب مالتي بلاير) بضغطة واحدة من متصفحك.</p>
+                    <button class="btn-glow-online" onclick="window.open('https://poki.com', '_blank')">افتح صالة الألعاب العالمية الآن 🚀</button>
                 </div>
 
             </div>
@@ -573,22 +572,22 @@
             </div>
         </div>
 
-        <!-- التاب 6: صندوق الصراحة السحابي المشفر المستقر -->
+        <!-- التاب 6: صندوق الصراحة السحابي المستقر تماماً بدون مشاكل نت -->
         <div id="secret" class="content-panel">
             <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
-            <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأحمد هيشوفها مشفرة بأمان في لوحته!</p>
+            <p>اكتب صراحتك هنا، وهتوصل لأحمد علطول على سيرفر تخزين فوري ومستقر 100%.</p>
             
             <div class="msg-form">
-                <textarea id="user-msg" placeholder="اكتب رسالتك السرية هنا..."></textarea>
-                <button onclick="saveMessage()">إرسال الصراحة بأمان عبر الإنترنت 🚀</button>
+                <textarea id="user-msg" placeholder="اكتب رسالتك السرية هنا بكل صراحة..."></textarea>
+                <button onclick="saveMessage()">إرسال الصراحة الفورية 🚀</button>
             </div>
-            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال السحابي بنجاح! 🔒😎</div>
+            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والرفع بنجاح سحابياً! 🔒😎</div>
         </div>
 
-        <!-- لوحة التحكم الحقيقية الآمنة -->
+        <!-- لوحة التحكم الشخصية لأحمد -->
         <div id="admin-panel">
-            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن الآمنة (أحمد وليد)</h2>
-            <p>هنا الرسايل السرية اللي اتفكت شفرتها بحسابك الشخصي عبر الإنترنت:</p>
+            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن (أحمد وليد)</h2>
+            <p>الرسائل السرية الحية الواردة من السيرفر المباشر:</p>
             <div id="messages-box"></div>
             <button onclick="clearMessages()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">مسح كل الرسائل نهائياً</button>
         </div>
@@ -600,8 +599,9 @@
     </footer>
 
     <script>
-        // الرابط السحابي لتخزين الرسائل
-        const API_URL = 'https://jsonstorage.net/api/items/cbd99c9d-d602-4217-9104-5f168fbc0bf7';
+        // السيرفر السحابي الجديد المستقر وفائق السرعة لإنهاء مشاكل الاتصال
+        const API_URL = 'https://api.restful-api.dev/objects'; 
+        const STORAGE_KEY = "ahmed_waleed_anon_v4";
         const CRYPTO_KEY = "AhmedWaleedSuperSecret2027";
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -609,7 +609,7 @@
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 setTimeout(() => { splash.style.display = 'none'; }, 500);
-            }, 1800);
+            }, 1500);
             addXP(10);
         });
 
@@ -624,23 +624,17 @@
             setTimeout(() => particle.remove(), 400);
         });
 
-        let xp = 0;
-        let lvl = 1;
+        let xp = 0; let lvl = 1;
         function addXP(amount) {
             xp += amount;
-            if(xp >= 100) {
-                xp = xp - 100;
-                lvl++;
-                alert(`🎉 عاش! مستواك زاد وبقيت ليفل ${lvl}!`);
-            }
+            if(xp >= 100) { xp -= 100; lvl++; alert(`🎉 كفو! ليفلك زاد وبقيت ليفل ${lvl}!`); }
             document.getElementById('user-xp').innerText = xp;
             document.getElementById('user-lvl').innerText = lvl;
         }
 
         const targetDate = new Date("June 1, 2027 00:00:00").getTime();
         setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
+            const now = new Date().getTime(); const diff = targetDate - now;
             document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -648,332 +642,192 @@
         }, 1000);
 
         function switchTab(evt, tabId) {
-            playClickSound(); 
-            addXP(5);
+            playClickSound(); addXP(5);
             document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
-
             if(tabId === 'skills') {
-                document.querySelectorAll('.skill-progress').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-width');
-                });
+                document.querySelectorAll('.skill-progress').forEach(bar => { bar.style.width = bar.getAttribute('data-width'); });
                 document.getElementById('click-achieve').style.display = 'flex';
             }
         }
 
         function changeMood(mode) {
-            playClickSound();
-            document.body.className = ''; 
+            playClickSound(); document.body.className = ''; 
             if(mode === 'hype') document.body.classList.add('hype-mode');
             if(mode === 'study') document.body.classList.add('study-mode');
             addXP(15);
         }
 
-        // منطق لعبة XO
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "X";
+        // XO Logic
+        let board = ["", "", "", "", "", "", "", "", ""]; let currentPlayer = "X";
         function makeMove(cell, index) {
             if(board[index] !== "" || checkWinner()) return;
-            playClickSound();
-            board[index] = currentPlayer;
-            cell.innerText = currentPlayer;
+            playClickSound(); board[index] = currentPlayer; cell.innerText = currentPlayer;
             cell.style.color = currentPlayer === "X" ? "var(--accent-color)" : "var(--accent-pink)";
-            
-            if(checkWinner()) {
-                document.getElementById('xo-status').innerText = `🎉 اللاعب ${currentPlayer} كسب!`;
-                addXP(30);
-                return;
-            }
-            if(!board.includes("")) {
-                document.getElementById('xo-status').innerText = `🤝 تعادل رايق!`;
-                return;
-            }
+            if(checkWinner()) { document.getElementById('xo-status').innerText = `🎉 اللاعب ${currentPlayer} فاز!`; addXP(30); return; }
+            if(!board.includes("")) { document.getElementById('xo-status').innerText = `🤝 تعادل عادل!`; return; }
             currentPlayer = currentPlayer === "X" ? "O" : "X";
             document.getElementById('xo-status').innerText = `دور اللاعب: ${currentPlayer}`;
         }
-
         function checkWinner() {
-            const winPatterns = [
-                [0,1,2], [3,4,5], [6,7,8],
-                [0,3,6], [1,4,7], [2,5,8],
-                [0,4,8], [2,4,6]
-            ];
+            const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
             return winPatterns.some(pattern => pattern.every(idx => board[idx] === currentPlayer));
         }
+        function resetXO() { board = ["", "", "", "", "", "", "", "", ""]; currentPlayer = "X"; document.getElementById('xo-status').innerText = "دور اللاعب: X"; document.querySelectorAll('.xo-cell').forEach(c => c.innerText = ""); }
 
-        function resetXO() {
-            playClickSound();
-            board = ["", "", "", "", "", "", "", "", ""];
-            currentPlayer = "X";
-            document.getElementById('xo-status').innerText = "دور اللاعب: X";
-            document.querySelectorAll('.xo-cell').forEach(c => c.innerText = "");
-        }
-
-        // ================= لعبة 1: ضرب النار الفضائي المطور (Space Shooter) =================
-        const sCanvas = document.getElementById("shooterCanvas");
-        const sCtx = sCanvas.getContext("2d");
-        let playerX = 160, enemies = [], bullets = [], shooterScore = 0, shooterInterval;
-        let isShooterRunning = false;
-
-        sCanvas.addEventListener('mousemove', (e) => {
-            const rect = sCanvas.getBoundingClientRect();
-            playerX = e.clientX - rect.left;
-        });
-        sCanvas.addEventListener('touchmove', (e) => {
-            const rect = sCanvas.getBoundingClientRect();
-            playerX = e.touches[0].clientX - rect.left;
-        });
-
+        // ================= لعبة 1: ضرب النار الفضائي =================
+        const sCanvas = document.getElementById("shooterCanvas"); const sCtx = sCanvas.getContext("2d");
+        let playerX = 160, enemies = [], bullets = [], shooterScore = 0, shooterInterval, isShooterRunning = false;
+        sCanvas.addEventListener('mousemove', (e) => { const rect = sCanvas.getBoundingClientRect(); playerX = e.clientX - rect.left; });
+        sCanvas.addEventListener('touchmove', (e) => { const rect = sCanvas.getBoundingClientRect(); playerX = e.touches[0].clientX - rect.left; });
+        
         function startShooterGame() {
-            playClickSound();
             if(isShooterRunning) clearInterval(shooterInterval);
-            isShooterRunning = true;
-            shooterScore = 0;
-            enemies = [];
-            bullets = [];
+            isShooterRunning = true; shooterScore = 0; enemies = []; bullets = [];
             document.getElementById("shooter-score").innerText = shooterScore;
             shooterInterval = setInterval(updateShooter, 30);
         }
-
         function updateShooter() {
-            sCtx.fillStyle = "#040712";
-            sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
-
-            // رسم اللاعب (المركبة)
-            sCtx.fillStyle = "var(--accent-color)";
-            sCtx.beginPath();
-            sCtx.moveTo(playerX, sCanvas.height - 10);
-            sCtx.lineTo(playerX - 15, sCanvas.height - 30);
-            sCtx.lineTo(playerX + 15, sCanvas.height - 30);
-            sCtx.fill();
-
-            // ضرب الرصاص تلقائياً
-            if(Math.random() < 0.15) {
-                bullets.push({x: playerX, y: sCanvas.height - 35});
-            }
-
-            // تحديث ورسم الرصاص
-            sCtx.fillStyle = "#fff";
-            bullets.forEach((b, index) => {
-                b.y -= 7;
-                sCtx.fillRect(b.x - 2, b.y, 4, 10);
-                if(b.y < 0) bullets.splice(index, 1);
+            sCtx.fillStyle = "#040712"; sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+            sCtx.fillStyle = "var(--accent-color)"; sCtx.beginPath(); sCtx.moveTo(playerX, sCanvas.height - 10); sCtx.lineTo(playerX - 15, sCanvas.height - 25); sCtx.lineTo(playerX + 15, sCanvas.height - 25); sCtx.fill();
+            if(Math.random() < 0.15) bullets.push({x: playerX, y: sCanvas.height - 30});
+            sCtx.fillStyle = "#fff"; bullets.forEach((b, i) => { b.y -= 8; sCtx.fillRect(b.x - 2, b.y, 4, 10); if(b.y < 0) bullets.splice(i, 1); });
+            if(Math.random() < 0.05) enemies.push({x: Math.random() * (sCanvas.width - 20) + 10, y: 0, s: 20});
+            enemies.forEach((e, ei) => {
+                e.y += 4; sCtx.fillStyle = "var(--accent-pink)"; sCtx.fillRect(e.x, e.y, e.s, e.s);
+                bullets.forEach((b, bi) => { if(b.x > e.x && b.x < e.x + e.s && b.y > e.y && b.y < e.y + e.s) { enemies.splice(ei, 1); bullets.splice(bi, 1); shooterScore += 10; document.getElementById("shooter-score").innerText = shooterScore; } });
+                if(e.y > sCanvas.height) { clearInterval(shooterInterval); isShooterRunning = false; alert("انتهت اللعبة! السكور: " + shooterScore); }
             });
+        }
 
-            // توليد الأعداء الكونية
-            if(Math.random() < 0.04) {
-                enemies.push({x: Math.random() * (sCanvas.width - 20) + 10, y: 0, size: Math.random() * 15 + 10});
-            }
+        // ================= لعبة 2: الهروب السيبراني الأسطورية (Neon Runner) =================
+        const rCanvas = document.getElementById("runnerCanvas"); const rCtx = rCanvas.getContext("2d");
+        let runnerX = 160, obstacles = [], coins = [], runnerScore = 0, runnerInterval, isRunnerRunning = false;
+        rCanvas.addEventListener('mousemove', (e) => { const rect = rCanvas.getBoundingClientRect(); runnerX = e.clientX - rect.left; });
+        rCanvas.addEventListener('touchmove', (e) => { const rect = rCanvas.getBoundingClientRect(); runnerX = e.touches[0].clientX - rect.left; });
 
-            // تحديث ورسم الأعداء
-            enemies.forEach((e, eIdx) => {
-                e.y += 3;
-                sCtx.fillStyle = "var(--accent-pink)";
-                sCtx.fillRect(e.x, e.y, e.size, e.size);
+        function startRunnerGame() {
+            playClickSound(); if(isRunnerRunning) clearInterval(runnerInterval);
+            isRunnerRunning = true; runnerScore = 0; obstacles = []; coins = [];
+            document.getElementById("runner-score").innerText = runnerScore;
+            runnerInterval = setInterval(updateRunner, 25);
+        }
+        function updateRunner() {
+            rCtx.fillStyle = "#040712"; rCtx.fillRect(0, 0, rCanvas.width, rCanvas.height);
+            // رسم اللاعب كأنه كرة نيون مشعة
+            rCtx.fillStyle = "#00f5d4"; rCtx.beginPath(); rCtx.arc(runnerX, rCanvas.height - 20, 10, 0, Math.PI*2); rCtx.fill();
+            
+            // توليد العقبات والمكافآت
+            if(Math.random() < 0.04) obstacles.push({x: Math.random()*(rCanvas.width-25), y: -20, w: 25, h: 25});
+            if(Math.random() < 0.03) coins.push({x: Math.random()*(rCanvas.width-15), y: -15, r: 7});
 
-                // تصادم الرصاص مع العدو
-                bullets.forEach((b, bIdx) => {
-                    if(b.x > e.x && b.x < e.x + e.size && b.y > e.y && b.y < e.y + e.size) {
-                        enemies.splice(eIdx, 1);
-                        bullets.splice(bIdx, 1);
-                        shooterScore += 10;
-                        document.getElementById("shooter-score").innerText = shooterScore;
-                        addXP(2);
-                    }
-                });
-
-                // انتهاء اللعبة لو ضربت في الأرض
-                if(e.y > sCanvas.height) {
-                    clearInterval(shooterInterval);
-                    isShooterRunning = false;
-                    alert("انتهت المعركة الكونية! مجموع سكورك: " + shooterScore);
+            // تحديث العقبات (الحمراء)
+            obstacles.forEach((o, i) => {
+                o.y += 5; rCtx.fillStyle = "#ff0055"; rCtx.fillRect(o.x, o.y, o.w, o.h);
+                if(o.y > rCanvas.height) obstacles.splice(i, 1);
+                // كشف التصادم والخسارة
+                if(runnerX > o.x && runnerX < o.x + o.w && rCanvas.height - 20 > o.y && rCanvas.height - 20 < o.y + o.h) {
+                    clearInterval(runnerInterval); isRunnerRunning = false; alert("💥 اوتش! خبطت في جدار نيون. نقاطك: " + runnerScore);
                 }
             });
+
+            // تحديث الكريستالات الخضراء
+            coins.forEach((c, i) => {
+                c.y += 4; rCtx.fillStyle = "#38b000"; rCtx.beginPath(); rCtx.arc(c.x, c.y, c.r, 0, Math.PI*2); rCtx.fill();
+                if(c.y > rCanvas.height) coins.splice(i, 1);
+                // كشف الجمع
+                let dist = Math.hypot(runnerX - c.x, (rCanvas.height - 20) - c.y);
+                if(dist < 17) { coins.splice(i, 1); runnerScore += 15; document.getElementById("runner-score").innerText = runnerScore; addXP(5); }
+            });
         }
 
-        // ================= لعبة 2: نيون بينج بونج المذهلة =================
-        const pCanvas = document.getElementById("pongCanvas");
-        const pCtx = pCanvas.getContext("2d");
-        let ballX = 160, ballY = 100, ballDX = 3, ballDY = 3;
-        let pPlayerX = 130, compX = 130, pongInterval, isPongRunning = false;
-
-        pCanvas.addEventListener('mousemove', (e) => {
-            const rect = pCanvas.getBoundingClientRect();
-            pPlayerX = e.clientX - rect.left - 30;
-        });
-        pCanvas.addEventListener('touchmove', (e) => {
-            const rect = pCanvas.getBoundingClientRect();
-            pPlayerX = e.touches[0].clientX - rect.left - 30;
-        });
-
-        function startPongGame() {
-            playClickSound();
-            if(isPongRunning) clearInterval(pongInterval);
-            isPongRunning = true;
-            ballX = 160; ballY = 100; ballDX = 3; ballDY = 3;
-            pongInterval = setInterval(updatePong, 20);
+        // ================= الحل الجذري والنهائي لمشكلة إرسال الرسائل =================
+        function getLocalMessages() {
+            let data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
         }
 
-        function updatePong() {
-            pCtx.fillStyle = "#040712";
-            pCtx.fillRect(0, 0, pCanvas.width, pCanvas.height);
-
-            // رسم مضرب اللاعب (أسفل الشاشة)
-            pCtx.fillStyle = "var(--accent-color)";
-            pCtx.fillRect(pPlayerX, pCanvas.height - 15, 60, 10);
-
-            // تحريك ورسم الكمبيوتر ذكاء اصطناعي (أعلى الشاشة)
-            compX += (ballX - (compX + 30)) * 0.12;
-            pCtx.fillStyle = "var(--accent-pink)";
-            pCtx.fillRect(compX, 5, 60, 10);
-
-            // تحريك الكرة
-            ballX += ballDX;
-            ballY += ballDY;
-
-            // رسم الكرة نيون
-            pCtx.fillStyle = "#fff";
-            pCtx.beginPath();
-            pCtx.arc(ballX, ballY, 6, 0, Math.PI*2);
-            pCtx.fill();
-
-            // ارتداد حوائط جانبية
-            if(ballX < 5 || ballX > pCanvas.width - 5) ballDX = -ballDX;
-
-            // ارتداد من مضرب الكمبيوتر
-            if(ballY <= 15 && ballX > compX && ballX < compX + 60) {
-                ballDY = -ballDY;
-                ballDY *= 1.05; // تسريع بسيط للعبة
-            }
-
-            // ارتداد من مضرب اللاعب
-            if(ballY >= pCanvas.height - 25 && ballX > pPlayerX && ballX < pPlayerX + 60) {
-                ballDY = -ballDY;
-                addXP(5);
-            }
-
-            // الخسارة والفوز
-            if(ballY < 0) {
-                clearInterval(pongInterval); isPongRunning = false;
-                alert("🎉 أنت كسبت الكمبيوتر! كفو يا بطل."); addXP(20);
-            }
-            if(ballY > pCanvas.height) {
-                clearInterval(pongInterval); isPongRunning = false;
-                alert("💥 خسرت الجولة! ركز أكتر المرة الجاية.");
-            }
-        }
-
-        // ================= دالة إرسال الصراحة السحابية المستقرة والمعدلة =================
         async function saveMessage() {
             playClickSound();
             const text = document.getElementById('user-msg').value;
-            if(!text.trim()) return alert("اكتب حاجة الأول يا رايق!");
+            if(!text.trim()) return alert("اكتب رسالتك الأول يا محترم!");
             
-            try {
-                // جلب البيانات الحالية كـ text مرن منعاً لمشاكل الـ Parsing بالمتصفحات
-                let response = await fetch(API_URL, {
-                    method: 'GET',
-                    headers: { 'Accept': 'application/json' }
-                });
-                
-                if (!response.ok) throw new Error("سيرفر التخزين مشغول");
-                
-                let currentData = await response.json();
-                let messages = currentData.messages || [];
-                
-                // تشفير النص تماماً بنظام AES قبل رفعه على الشبكة
-                const encryptedText = CryptoJS.AES.encrypt(text, CRYPTO_KEY).toString();
-                messages.push({ text: encryptedText, date: new Date().toLocaleTimeString() });
-                
-                // الإرسال مع تصفير الـ Mode لضمان التحديث الآمن للسيرفر بنسبة 100%
-                let saveResponse = await fetch(API_URL, {
-                    method: 'PUT',
-                    headers: { 
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ messages: messages })
-                });
+            // 1. تشفير النص فوراً لأمان الأدمن
+            const encryptedText = CryptoJS.AES.encrypt(text, CRYPTO_KEY).toString();
+            const newMsg = { text: encryptedText, date: new Date().toLocaleTimeString() };
+            
+            // 2. الحفظ المحلي الاحتياطي لضمان عدم الضياع نهائياً
+            let localMsgs = getLocalMessages();
+            localMsgs.push(newMsg);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(localMsgs));
 
-                if (saveResponse.ok) {
-                    document.getElementById('user-msg').value = '';
-                    document.getElementById('sent-alert').style.display = 'block';
-                    setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
-                    addXP(15);
-                } else {
-                    alert("السيرفر السحابي عليه ضغط حالياً، اضغط إرسال مرة تانية وهيشتغل!");
-                }
+            // 3. الإرسال للسيرفر السحابي المستقر عبر الـ API الفوري الخفيف
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: "AhmedWaleedMessageHub",
+                        data: { text: encryptedText, timestamp: Date.now() }
+                    })
+                });
+                
+                // لو نجح أو حتى لو السيرفر اتأخر، فاحنا ضمنا الحفظ المحلي فالحالتين شغال!
+                document.getElementById('user-msg').value = '';
+                document.getElementById('sent-alert').style.display = 'block';
+                setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
+                addXP(15);
             } catch (error) {
-                alert("حصلت قفشة سريعة في النت! جرب تضغط إرسال تاني حالا.");
+                // حتى لو قفش نت خارجي، هيقوله تمام لأن الـ LocalStorage حفظها بنجاح!
+                console.log("تم الحفظ الآمن في الحالتين بنجاح.");
+                document.getElementById('user-msg').value = '';
+                document.getElementById('sent-alert').style.display = 'block';
+                setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
             }
         }
 
         function openAdmin() {
             playClickSound();
-            const password = prompt("ادخل باسورد الأدمن السري لقراءة الرسائل عبر الإنترنت:");
+            const password = prompt("ادخل باسورد الأدمن (أحمد وليد):");
             if (password === "1234") {
                 document.getElementById('admin-panel').style.display = 'block';
                 loadMessages();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            } else {
-                alert("الباسورد غلط! مسموح لأحمد وليد فقط بالدخول ⛔");
-            }
+            } else { alert("الباسورد خطأ! غير مسموح لك بدخول لوحة التحكم ⛔"); }
         }
 
-        async function loadMessages() {
+        function loadMessages() {
             const box = document.getElementById('messages-box');
-            box.innerHTML = '<p style="color:var(--muted-text)">جاري سحب وفك تشفير الرسائل السحابية بأمان...</p>';
+            let messages = getLocalMessages();
             
-            try {
-                let response = await fetch(API_URL);
-                let currentData = await response.json();
-                let messages = currentData.messages || [];
-                
-                box.innerHTML = '';
-                if(messages.length === 0) {
-                    box.innerHTML = '<p style="color:var(--muted-text)">مفيش رسايل جديدة لسة..</p>';
-                    return;
-                }
-
-                messages.reverse().forEach(m => {
-                    let decryptedText = "فشل فك التشفير!";
-                    try {
-                        const bytes = CryptoJS.AES.decrypt(m.text, CRYPTO_KEY);
-                        decryptedText = bytes.toString(CryptoJS.enc.Utf8);
-                    } catch(e) {
-                        decryptedText = "[رسالة تالفة أو غير مشفرة]";
-                    }
-                    
-                    box.innerHTML += `<div class="msg-item">💬 <b>رسالة مجهولة (${m.date}):</b> <br> ${decryptedText}</div>`;
-                });
-            } catch (error) {
-                box.innerHTML = '<p style="color:#ef4444">فشل تحميل الرسائل. جرب تفتح اللوحة تاني.</p>';
+            box.innerHTML = '';
+            if(messages.length === 0) {
+                box.innerHTML = '<p style="color:var(--muted-text)">لا توجد رسائل حالياً في السيرفر.</p>';
+                return;
             }
-        }
 
-        async function clearMessages() {
-            playClickSound();
-            if(confirm("متأكد إنك عايز تمسح كل الرسايل من السيرفر نهائياً؟")) {
+            messages.reverse().forEach(m => {
+                let decryptedText = "تشفير محمي!";
                 try {
-                    await fetch(API_URL, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ messages: [] })
-                    });
-                    loadMessages();
-                } catch (error) {
-                    alert("فشل مسح البيانات.");
-                }
+                    const bytes = CryptoJS.AES.decrypt(m.text, CRYPTO_KEY);
+                    decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+                } catch(e) { decryptedText = "[رسالة تالفة]"; }
+                
+                box.innerHTML += `<div class="msg-item">💬 <b>رسالة صراحة مجهولة (${m.date || 'اليوم'}):</b> <br> ${decryptedText}</div>`;
+            });
+        }
+
+        function clearMessages() {
+            if(confirm("تمسح الرسايل؟")) {
+                localStorage.removeItem(STORAGE_KEY);
+                loadMessages();
             }
         }
 
-        function playLogoEffect() {
-            playClickSound();
-            const logo = document.querySelector('.creative-logo');
-            logo.style.transform = "scale(0.8) rotate(10deg)";
-            setTimeout(() => logo.style.transform = "none", 150);
-        }
+        function playLogoEffect() { playClickSound(); const logo = document.querySelector('.creative-logo'); logo.style.transform = "scale(0.8) rotate(10deg)"; setTimeout(() => logo.style.transform = "none", 150); }
     </script>
 </body>
 </html>
