@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,29 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+        }
+
+        /* شاشة التحميل الافتتاحية */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            transition: opacity 0.5s ease;
+        }
+        .boot-text {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            border-left: 2px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 1.5s steps(30, end), blink .75s step-end infinite;
         }
 
         .bg-glow {
@@ -187,8 +210,10 @@
             background: rgba(255,255,255,0.04); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; border-right: 3px solid var(--accent-color);
         }
 
-        /* الأنميشنز */
-        @keyframes fadeParticle { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.2); } }
+        /* الأنميشنز السحرية الجديدة */
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
+        @keyframes fadeParticle { 0% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 0.2; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes glitchGlow {
             0%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-color), 0 0 30px var(--accent-color); }
@@ -196,13 +221,18 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.1); direction: ltr; }
-        .admin-link { cursor: pointer; text-decoration: underline; color: var(--accent-pink); }
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.1); }
+        .admin-link { cursor: pointer; text-decoration: underline; }
     </style>
 </head>
-<body dir="rtl">
+<body>
 
-    <!-- المؤثر الصوتي الخفيف (Synth Click) -->
+    <!-- الشاشة الافتتاحية الكرييتف -->
+    <div id="splash-screen">
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space ]</div>
+    </div>
+
+    <!-- المؤثر الصوتي الخفيف (Synth Click) باستخدام الـ Web Audio API لتجنب تحميل ملفات خارجية -->
     <script>
         function playClickSound() {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -223,14 +253,188 @@
 
     <header>
         <div class="creative-logo" onclick="playLogoEffect()">A.W</div>
-        <h1 style="font-family: sans-serif; letter-spacing: 1px;">Ahmed Waleed</h1>
+        <h1>Ahmed Waleed</h1>
         <div class="tagline">Senior_2027_Loading...</div>
     </header>
 
     <div class="countdown-container">
-        <div class="countdown-title">⏳ Time remaining until SENIOR 2027 Graduation</div>
-        <div class="timer" dir="ltr">
-            <div class="time-box"><span id="days">00</span><label>Days</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
-            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
-            <div class="time-boxNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+        <div class="countdown-title">⏳ الوقت المتبقي على تخرج الـ SENIOR 2027</div>
+        <div class="timer">
+            <div class="time-box"><span id="days">00</span><label>يوم</label></div>
+            <div class="time-box"><span id="hours">00</span><label>ساعة</label></div>
+            <div class="time-box"><span id="mins">00</span><label>دقيقة</label></div>
+            <div class="time-box"><span id="secs">00</span><label>ثانية</label></div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 هويتي</button>
+            <button class="tab-btn" onclick="switchTab(event, 'skills')">⚡ الـ Stats (RPG)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'secret')">📬 صندوق الصراحة</button>
+        </div>
+
+        <div id="about" class="content-panel active">
+            <h2><span>👤</span> من أنا؟</h2>
+            <p>أحمد وليد، 18 سنة، طالب بالصف الثالث الثانوي (دفعة 2027). عايش في الـ Vibe الرايق ومقضيها تحديات ودح وسعي للقمة.</p>
+            
+            <div class="spotify-card">
+                <div class="spot-icon">🎵</div>
+                <div class="spot-info">
+                    <marquee scrollamount="3">ثانوية عامة ميكس رايق Vibe</marquee>
+                    <p>المشغل الحالي: أغاني فصلان وتركيز</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="skills" class="content-panel">
+            <h2><span>⚡</span> الـ Character Stats</h2>
+            <p>مستويات الطاقة والمهارات الحالية على طريقة ألعاب الـ RPG:</p>
+            
+            <div class="skill-wrapper">
+                <div class="skill-info"><span>المقاومة ضد الفيزياء</span><span>15%</span></div>
+                <div class="skill-bar"><div class="skill-progress" data-width="15%"></div></div>
+                
+                <div class="skill-info"><span>الـ Coding والتكريك</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+
+                <div class="skill-info"><span>الـ Gaming والـ Focus</span><span>95%</span></div>
+                <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
+            </div>
+
+            <div class="achieve-badge" id="click-achieve" style="display:none;">
+                <span>🏆</span> <b>إنجاز جديد:</b> أنت فضولي جداً وفتشت في مهاراتي!
+            </div>
+        </div>
+
+        <div id="secret" class="content-panel">
+            <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
+            <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأنا هشوفها لوحدي!</p>
+            
+            <div class="msg-form">
+                <textarea id="user-msg" placeholder="اكتب رسالتك السرية هنا..."></textarea>
+                <button onclick="saveMessage()">إرسال الصراحة بأمان 🚀</button>
+            </div>
+            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال بنجاح! 😎</div>
+        </div>
+
+        <div id="admin-panel">
+            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن (أحمد وليد)</h2>
+            <p>هنا الرسايل السرية اللي مبعوتالك من صحابك وزوار موقعك:</p>
+            <div id="messages-box"></div>
+            <button onclick="clearMessages()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">مسح كل الرسائل</button>
+        </div>
+
+    </div>
+
+    <footer>
+        Designed by Ahmed Waleed // <span class="admin-link" onclick="openAdmin()">لوحة الأدمن</span>
+    </footer>
+
+    <script>
+        // كود إخفاء شاشة التحميل الافتتاحية بعد ثانيتين
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.style.display = 'none', 500);
+            }, 1800);
+        });
+
+        // كود جزيئات النيون التي تتبع حركة الماوس أو اللمس
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.15) return; // لتقليل العدد وضمان الروقان والسلاسة
+            const particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            // تبديل عشوائي بين لوني النيون
+            particle.style.background = Math.random() > 0.5 ? 'var(--accent-color)' : 'var(--accent-pink)';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 400);
+        });
+
+        // العداد التنازلي لـ سنة 2027
+        const targetDate = new Date("June 1, 2027 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // تبديل الأقسام + أنميشن شريط الطاقة + تأثير الصوت
+        function switchTab(evt, tabId) {
+            playClickSound(); // تشغيل الصوت الرقمي الفخم
+            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+
+            if(tabId === 'skills') {
+                document.querySelectorAll('.skill-progress').forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+                document.getElementById('click-achieve').style.display = 'flex';
+            }
+        }
+
+        function playLogoEffect() {
+            playClickSound();
+            const logo = document.querySelector('.creative-logo');
+            logo.style.transform = "scale(0.8) rotate(10deg)";
+            setTimeout(() => logo.style.transform = "none", 150);
+        }
+
+        function saveMessage() {
+            playClickSound();
+            const text = document.getElementById('user-msg').value;
+            if(!text.trim()) return alert("اكتب حاجة الأول يا رايق!");
+            
+            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
+            messages.push({ text: text, date: new Date().toLocaleTimeString() });
+            localStorage.setItem('secret_messages', JSON.stringify(messages));
+            
+            document.getElementById('user-msg').value = '';
+            document.getElementById('sent-alert').style.display = 'block';
+            setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
+        }
+
+        function openAdmin() {
+            playClickSound();
+            const password = prompt("ادخل باسورد الأدمن السري لقراءة الرسائل:");
+            if (password === "1234") {
+                document.getElementById('admin-panel').style.display = 'block';
+                loadMessages();
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            } else {
+                alert("الباسورد غلط! مسموح لأحمد وليد فقط بالدخول ⛔");
+            }
+        }
+
+        function loadMessages() {
+            const box = document.getElementById('messages-box');
+            box.innerHTML = '';
+            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
+            if(messages.length === 0) {
+                box.innerHTML = '<p style="color:var(--muted-text)">مفيش رسايل جديدة لسة.. اطلب صراحة من صحابك!</p>';
+                return;
+            }
+            messages.forEach(m => {
+                box.innerHTML += `<div class="msg-item">💬 <b>رسالة مجهولة (${m.date}):</b> <br> ${m.text}</div>`;
+            });
+        }
+
+        function clearMessages() {
+            playClickSound();
+            if(confirm("متأكد إنك عايز تمسح كل الرسايل؟")) {
+                localStorage.removeItem('secret_messages');
+                loadMessages();
+            }
+        }
+    </script>
+</body>
+</html>
