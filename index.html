@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub v8.0</title>
+    <title>Ahmed Waleed // The Ultimate System Hub v9.0</title>
     <style>
         :root {
             --bg-color: #030712;
@@ -24,7 +24,7 @@
             user-select: none;
         }
 
-        /* شريط الأذكار العلوى المودرن */
+        /* شريط الأذكار العلوى */
         #dhikr-ticker {
             background: linear-gradient(90deg, rgba(255,0,127,0.1), rgba(0,245,212,0.1));
             backdrop-filter: blur(10px);
@@ -57,13 +57,25 @@
         .modern-logo:hover { transform: scale(1.05); }
         .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
 
-        .main-container { max-width: 850px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
+        .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
         
+        /* التابات والتحكم */
         .control-panel {
             background: var(--card-bg); backdrop-filter: blur(12px);
             border: 1px solid var(--border-color); border-radius: 20px;
             padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;
+            gap: 15px; flex-wrap: wrap;
         }
+        .nav-tabs { display: flex; gap: 10px; overflow-x: auto; }
+        .tab-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--muted-text);
+            padding: 10px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 0.85rem;
+            white-space: nowrap; transition: all 0.3s ease;
+        }
+        .tab-btn.active { background: #fff; color: #000; font-weight: 600; border-color: #fff; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         /* الكروت وتأثير الجاذبية */
         .gravity-card {
@@ -81,18 +93,18 @@
         h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
 
         /* محاكي المطر والـ Pomodoro */
-        .rain-container { position: relative; width: 100%; height: 250px; border-radius: 16px; overflow: hidden; margin-top: 15px; }
+        .rain-container { position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden; margin-top: 15px; }
         #rainCanvas { position: absolute; top:0; left:0; width:100%; height:100%; background: #070a13; }
         .pomo-overlay {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; z-index: 2; background: rgba(3, 7, 18, 0.75); padding: 20px 40px; border-radius: 20px;
+            text-align: center; z-index: 2; background: rgba(3, 7, 18, 0.75); padding: 15px 30px; border-radius: 20px;
             backdrop-filter: blur(8px); border: 1px solid var(--border-color);
         }
-        .pomo-time { font-size: 2.2rem; font-weight: 700; color: #fff; font-family: monospace; margin-bottom: 10px; }
+        .pomo-time { font-size: 2rem; font-weight: 700; color: #fff; font-family: monospace; margin-bottom: 5px; }
 
         .modern-btn {
             background: transparent; border: 1px solid var(--accent-glow); color: #fff;
-            padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+            padding: 8px 18px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
             transition: all 0.3s;
         }
         .modern-btn:hover { background: #fff; color: #000; border-color: #fff; }
@@ -113,12 +125,35 @@
         .quran-checkbox::after { content: '✓'; font-weight: bold; display: none; }
         .quran-checkbox.checked::after { display: block; }
 
+        /* ستايلات الألعاب والـ 2Players */
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
+        .game-card-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            padding: 20px; border-radius: 16px; text-align: center; transition: all 0.3s;
+        }
+        .game-card-item:hover { border-color: var(--accent-glow); background: rgba(0, 245, 212, 0.03); }
+        .game-card-item h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #fff; }
+        .game-card-item p { font-size: 0.8rem; color: var(--muted-text); margin: 0 0 15px 0; }
+
+        /* ستايلات الأقسام القديمة المدمجة */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        .subject-item, .task-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 14px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .snippet-area {
+            background: #090d16; border: 1px solid var(--border-color);
+            font-family: monospace; color: #39ff14; padding: 15px;
+            border-radius: 12px; width: 100%; box-sizing: border-box; resize: vertical; margin-top: 10px;
+        }
+
         @keyframes screenShake {
             0% { transform: translate(3px, 2px) rotate(0deg); }
             20% { transform: translate(-2px, -3px) rotate(-1deg); }
             40% { transform: translate(-3px, 1px) rotate(1deg); }
-            60% { transform: translate(2px, -2px) rotate(0deg); }
-            80% { transform: translate(-1px, 3px) rotate(1deg); }
             100% { transform: translate(3px, -1px) rotate(-1deg); }
         }
 
@@ -134,57 +169,162 @@
     <div class="glitch-text" id="glitchAlert">⚠️ CRITICAL SYSTEM ERROR<br><span style="font-size:1.5rem; color:#fff;">اضغط ESC لإلغاء التدمير الذاتي</span></div>
 
     <header>
-        <!-- جرب تضغط كذا ضغطة سريعة هنا لتفعيل الـ Prank -->
         <div class="modern-logo" onclick="registerClick()">AW</div>
-        <div class="tagline">// Web Dev Environment // Physics Matrix v8.0</div>
+        <div class="tagline">// Senior 2027 // Ultimate Engineering Hub v9.0</div>
     </header>
 
     <div class="main-container">
 
-        <!-- لوحة التحكم لتفعيل الجاذبية -->
+        <!-- لوحة التابات والتحكم في الجاذبية -->
         <div class="control-panel">
-            <span style="font-size: 0.9rem; color: var(--muted-text);">مستشعر فيزياء النظام الرقمي:</span>
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
+                <button class="tab-btn" onclick="switchTab('study')">📚 المذاكرة والمواد</button>
+                <button class="tab-btn" onclick="switchTab('dev')">⚡ مستودع البرمجة</button>
+                <button class="tab-btn" onclick="switchTab('games')">🎮 الألعاب والترفيه</button>
+            </div>
             <button class="modern-btn" onclick="activateGravity()" id="gravityBtn">تفعيل حقل الجاذبية 🛸</button>
         </div>
 
-        <!-- كارت 1: محاكي نافذة المطر والبومودورو -->
-        <div class="gravity-card" id="card-rain">
-            <h2>🌧️ محاكي نافذة المطر والتركيز</h2>
-            <div class="rain-container">
-                <canvas id="rainCanvas"></canvas>
-                <div class="pomo-overlay">
-                    <div class="pomo-time" id="pomoDisplay">25:00</div>
-                    <button class="modern-btn" id="pomoBtn" onclick="togglePomodoro()">ابدأ التركيز</button>
+        <!-- ================= تابة بيئة العمل الفورية ================= -->
+        <div id="workspace" class="tab-content active">
+            <!-- كارت المطر والتركيز -->
+            <div class="gravity-card" id="card-rain">
+                <h2>🌧️ محاكي نافذة المطر والـ Pomodoro</h2>
+                <div class="rain-container">
+                    <canvas id="rainCanvas"></canvas>
+                    <div class="pomo-overlay">
+                        <div class="pomo-time" id="pomoDisplay">25:00</div>
+                        <button class="modern-btn" id="pomoBtn" onclick="togglePomodoro()">ابدأ التركيز</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كارت الورد والقرآن الكريم -->
+            <div class="gravity-card" id="card-faith">
+                <h2>🕋 الورد اليومي والروحانيات</h2>
+                <div class="quran-box">
+                    <div class="quran-info">
+                        <h4 id="quranTarget">قراءة حزب من القرآن الكريم اليوم</h4>
+                        <p>بركة يومك تبدأ من هنا، حافظ على وردك.</p>
+                    </div>
+                    <div class="quran-checkbox" id="quranCheck" onclick="toggleQuranCheck()"></div>
+                </div>
+            </div>
+
+            <!-- كارت قائمة المهام السريعة -->
+            <div class="gravity-card" id="card-tasks">
+                <h2>📝 مهام اليوم السريعة</h2>
+                <div class="task-item">
+                    <span>مراجعة محاضرة الفيزياء وحل المسائل</span>
+                    <button class="modern-btn" style="border-color:var(--accent-pink); padding:4px 10px;" onclick="this.parentElement.remove()">حذف</button>
+                </div>
+                <div class="task-item">
+                    <span>تطوير وتحديث واجهة الـ Hub الذكي</span>
+                    <button class="modern-btn" style="border-color:var(--accent-pink); padding:4px 10px;" onclick="this.parentElement.remove()">حذف</button>
                 </div>
             </div>
         </div>
 
-        <!-- كارت 2: خانة الورد القرآني والروحانيات -->
-        <div class="gravity-card" id="card-faith">
-            <h2>🕋 الورد اليومي والروحانيات</h2>
-            <div class="quran-box">
-                <div class="quran-info">
-                    <h4 id="quranTarget">قراءة حزب من القرآن الكريم اليوم</h4>
-                    <p>احرص على ألا يمر يومك دون بركة كتاب الله.</p>
+        <!-- ================= تابة المذاكرة والمواد ================= -->
+        <div id="study" class="tab-content">
+            <div class="gravity-card" id="card-subjects">
+                <h2>📚 خطة ومؤشرات المواد الدراسية</h2>
+                <div class="grid-2">
+                    <div class="subject-item">
+                        <div>
+                            <strong style="color: #fff; display:block;">الفيزياء الحديثة</strong>
+                            <span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 75%</span>
+                        </div>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <strong style="color: #fff; display:block;">الرياضيات التطبيقية</strong>
+                            <span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 60%</span>
+                        </div>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <strong style="color: #fff; display:block;">اللغة الإنجليزية</strong>
+                            <span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 90%</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="quran-checkbox" id="quranCheck" onclick="toggleQuranCheck()"></div>
+            </div>
+        </div>
+
+        <!-- ================= تابة مستودع الأكواد ================= -->
+        <div id="dev" class="tab-content">
+            <div class="gravity-card" id="card-snippets">
+                <h2>⚡ مستودع الأكواد السريعة (Code Snippets)</h2>
+                <textarea class="snippet-area" rows="6">// Quick Copy Event Listener Template
+document.addEventListener('click', (e) => {
+    console.log("Target Element Clicked: ", e.target);
+});</textarea>
+                <button class="modern-btn" style="margin-top:12px;" onclick="alert('تم نسخ الكود بنجاح!')">نسخ الكود الجاهز</button>
+            </div>
+        </div>
+
+        <!-- ================= تابة الألعاب والترفيه (المضافة حديثاً) ================= -->
+        <div id="games" class="tab-content">
+            <div class="gravity-card" id="card-arcade">
+                <h2>🎮 مركز الترفيه والألعاب الذكية</h2>
+                <p style="font-size:0.85rem; color:var(--muted-text); margin-top:-5px;">ألعاب سريعة لكسر روتين المذاكرة والبرمجة:</p>
+                
+                <div class="game-grid">
+                    <!-- لعبة الاختراق المصغرة -->
+                    <div class="game-card-item">
+                        <h3>🛡️ Terminal Hacker</h3>
+                        <p>محاكي ألغاز برمجية سريعة لفك التشفير وكسب نقاط XP.</p>
+                        <button class="modern-btn" onclick="alert('جاري إعداد بيئة الـ Terminal... اكتب الأوامر للحل!')">ابدأ اللعب</button>
+                    </div>
+
+                    <!-- ألعاب الطرفين (2-Player Online) -->
+                    <div class="game-card-item">
+                        <h3>⚔️ Online 2-Player</h3>
+                        <p>روابط ألعاب ويب مباشرة لشخصين (بدون أي تحميل) للمنافسة مع أصدقائك.</p>
+                        <button class="modern-btn" onclick="window.open('https://lichess.org', '_blank')">لعب شطرنج أونلاين</button>
+                    </div>
+
+                    <!-- محاكي تطور الخلايا البصري -->
+                    <div class="game-card-item">
+                        <h3>🧬 Cellular Evolution</h3>
+                        <p>اضغط لتوليد خلايا حية على الشاشة وراقب كيف تتكاثر وتتطور فيزيائياً.</p>
+                        <button class="modern-btn" onclick="alert('اضغط Start لبدء محاكاة التطور الفيزيائي!')">شغل المحاكي</button>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <footer>Ahmed Waleed // Designed for Infinity 2026</footer>
+    <footer>Ahmed Waleed // Ecosystem Hub 2026</footer>
 
     <script>
-        // ================= 1. نظام الأذكار التلقائي المتغير =================
+        // ================= 1. نظام التابات السلس =================
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            if(tabId === 'workspace') {
+                setTimeout(resizeCanvas, 50);
+            }
+        }
+
+        // ================= 2. نظام الأذكار التلقائي =================
         const dhikrs = [
             "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
             "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
             "لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ العَلِيِّ العَظِيمِ",
             "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
             "لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
-            "الْحَمْدُ لِلَّهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ",
-            "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ"
+            "الْحَمْدُ لِلَّهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ"
         ];
 
         function changeDhikr() {
@@ -196,41 +336,43 @@
                 ticker.style.opacity = 1;
             }, 500);
         }
-        setInterval(changeDhikr, 12000); // يتغير الذكر تلقائياً كل 12 ثانية لتجنب التشتيت البصري
+        setInterval(changeDhikr, 12000);
 
         function toggleQuranCheck() {
             const checkBox = document.getElementById('quranCheck');
             checkBox.classList.toggle('checked');
-            if(checkBox.classList.contains('checked')) {
-                document.getElementById('quranTarget').style.textDecoration = "line-through";
-            } else {
-                document.getElementById('quranTarget').style.textDecoration = "none";
-            }
+            document.getElementById('quranTarget').style.textDecoration = 
+                checkBox.classList.contains('checked') ? "line-through" : "none";
         }
 
-
-        // ================= 2. محاكي نافذة المطر (Canvas physics) =================
+        // ================= 3. محاكي نافذة المطر والبومودورو =================
         const canvas = document.getElementById('rainCanvas');
         const ctx = canvas.getContext('2d');
         let drops = [];
 
         function resizeCanvas() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
+            if(canvas && canvas.parentElement) {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 50; i++) {
             drops.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                len: Math.random() * 15 + 10,
-                speed: Math.random() * 4 + 4
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * 250,
+                len: Math.random() * 12 + 8,
+                speed: Math.random() * 4 + 3
             });
         }
 
         function drawRain() {
+            if (!canvas.parentElement.offsetHeight) {
+                requestAnimationFrame(drawRain);
+                return;
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)';
             ctx.lineWidth = 1.5;
@@ -252,7 +394,6 @@
         }
         drawRain();
 
-        // عداد البومودورو المصغر
         let pomoMinutes = 25, pomoSeconds = 0, pomoTimer = null, isRunning = false;
         function togglePomodoro() {
             const btn = document.getElementById('pomoBtn');
@@ -267,7 +408,7 @@
                     if (pomoSeconds === 0) {
                         if (pomoMinutes === 0) {
                             clearInterval(pomoTimer);
-                            alert("عاش يا أحمد! وقت التركيز انتهى، خد بريك سريِع.");
+                            alert("عاش يا أحمد! وقت التركيز انتهى بنجاح.");
                             pomoMinutes = 25; pomoSeconds = 0;
                             isRunning = false;
                             btn.innerText = "ابدأ التركيز";
@@ -283,31 +424,24 @@
             }
         }
 
-
-        // ================= 3. فكرة تدمير الشاشة والـ Prank =================
+        // ================= 4. نظام تدمير الشاشة (Prank) =================
         let logoClicks = 0;
         function registerClick() {
             logoClicks++;
-            if (logoClicks >= 5) { // تفعيل التأثير بعد 5 ضغطات متتالية على اللوجو
-                triggerSystemGlitch();
+            if (logoClicks >= 5) {
+                document.body.classList.add('glitch-active');
+                document.getElementById('glitchAlert').style.display = 'block';
                 logoClicks = 0;
             }
         }
-
-        function triggerSystemGlitch() {
-            document.body.classList.add('glitch-active');
-            document.getElementById('glitchAlert').style.display = 'block';
-        }
-
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { // الخروج من الـ Prank عبر زر الـ Esc
+            if (e.key === 'Escape') {
                 document.body.classList.remove('glitch-active');
                 document.getElementById('glitchAlert').style.display = 'none';
             }
         });
 
-
-        // ================= 4. كونسول التحكم في الجاذبية الكامل =================
+        // ================= 5. كونسول التحكم في الجاذبية =================
         let gravityActive = false;
         let physicsObjects = [];
         const gravityConstant = 0.4;
@@ -317,15 +451,16 @@
             if (gravityActive) return;
             gravityActive = true;
             
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('active'));
+            setTimeout(resizeCanvas, 10);
+
             const btn = document.getElementById('gravityBtn');
             btn.innerText = "حقل الجاذبية نشط 🌌";
             btn.style.borderColor = "var(--accent-pink)";
 
             const cards = document.querySelectorAll('.gravity-card');
-            cards.forEach((card, index) => {
+            cards.forEach((card) => {
                 const rect = card.getBoundingClientRect();
-                
-                // تحويل العنصر من مقيد داخل الدوم إلى عنصر طائر حر الحركة
                 card.style.width = rect.width + 'px';
                 card.style.left = rect.left + 'px';
                 card.style.top = rect.top + 'px';
@@ -337,15 +472,13 @@
                     y: rect.top,
                     w: rect.width,
                     h: rect.height,
-                    vx: (Math.random() - 0.5) * 8, // سرعة اندفاع أفقية عشوائية لحظة السقوط
+                    vx: (Math.random() - 0.5) * 8,
                     vy: 0,
                     isDragging: false
                 };
-
                 physicsObjects.push(obj);
                 setupDrag(obj);
             });
-
             requestAnimationFrame(updatePhysics);
         }
 
@@ -354,19 +487,15 @@
                 obj.isDragging = true;
                 obj.vx = 0; obj.vy = 0;
             });
-
             window.addEventListener('mousemove', (e) => {
                 if (!obj.isDragging) return;
                 obj.x = e.clientX - obj.w/2;
                 obj.y = e.clientY - obj.h/2;
-                obj.element.style.left = obj.x + 'px';
-                obj.element.style.top = obj.y + 'px';
             });
-
             window.addEventListener('mouseup', () => {
                 if(obj.isDragging) {
                     obj.isDragging = false;
-                    obj.vy = 2; // يرجع يسقط فوراً بعد تركه بالماوس
+                    obj.vy = 2;
                 }
             });
         }
@@ -376,27 +505,27 @@
             const winW = window.innerWidth;
 
             physicsObjects.forEach(obj => {
-                if (obj.isDragging) return;
+                if (obj.isDragging) {
+                    obj.element.style.left = obj.x + 'px';
+                    obj.element.style.top = obj.y + 'px';
+                    return;
+                }
 
-                obj.vy += gravityConstant; // تطبيق الجاذبية
+                obj.vy += gravityConstant;
                 obj.x += obj.vx;
                 obj.y += obj.vy;
 
-                // التصادم مع القاع (الأرضية)
                 if (obj.y + obj.h > winH) {
                     obj.y = winH - obj.h;
                     obj.vy = -obj.vy * bounce;
-                    obj.vx *= 0.9; // احتكاك مع الأرض
+                    obj.vx *= 0.9;
                 }
-
-                // التصادم مع الجدران الجانبية
                 if (obj.x < 0) { obj.x = 0; obj.vx = -obj.vx * bounce; }
                 if (obj.x + obj.w > winW) { obj.x = winW - obj.w; obj.vx = -obj.vx * bounce; }
 
                 obj.element.style.left = obj.x + 'px';
                 obj.element.style.top = obj.y + 'px';
             });
-
             requestAnimationFrame(updatePhysics);
         }
     </script>
