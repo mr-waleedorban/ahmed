@@ -210,10 +210,10 @@
             background: rgba(255,255,255,0.04); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; border-right: 3px solid var(--accent-color);
         }
 
-        /* الأنميشنز السحرية الجديدة */
+        /* الأنميشنز */
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
-        @keyframes fadeParticle { 0% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 0.2; } }
+        @keyframes fadeParticle { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.2); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes glitchGlow {
             0%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-color), 0 0 30px var(--accent-color); }
@@ -232,7 +232,7 @@
         <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space ]</div>
     </div>
 
-    <!-- المؤثر الصوتي الخفيف (Synth Click) باستخدام الـ Web Audio API لتجنب تحميل ملفات خارجية -->
+    <!-- المؤثر الصوتي الخفيف -->
     <script>
         function playClickSound() {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -338,18 +338,19 @@
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
-                setTimeout(() => splash.style.style.display = 'none', 500);
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500);
             }, 1800);
         });
 
         // كود جزيئات النيون التي تتبع حركة الماوس أو اللمس
         window.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.15) return; // لتقليل العدد وضمان الروقان والسلاسة
+            if (Math.random() > 0.15) return; 
             const particle = document.createElement('div');
             particle.className = 'cursor-particle';
             particle.style.left = e.clientX + 'px';
             particle.style.top = e.clientY + 'px';
-            // تبديل عشوائي بين لوني النيون
             particle.style.background = Math.random() > 0.5 ? 'var(--accent-color)' : 'var(--accent-pink)';
             document.body.appendChild(particle);
             setTimeout(() => particle.remove(), 400);
@@ -368,7 +369,7 @@
 
         // تبديل الأقسام + أنميشن شريط الطاقة + تأثير الصوت
         function switchTab(evt, tabId) {
-            playClickSound(); // تشغيل الصوت الرقمي الفخم
+            playClickSound(); 
             document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
