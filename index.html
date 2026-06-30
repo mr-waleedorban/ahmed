@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Waleed // Official Space</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --text-color: #f3f4f6;
+            --accent-color: #00f5d4; /* نيون رايق */
+            --accent-pink: #7b2cbf;
+            --muted-text: #9ca3af;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* الخلفية المتحركة الخفيفة */
+        .bg-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0,245,212,0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -50px;
+            left: -50px;
+            z-index: -1;
+            animate: floatGlow 8s infinite alternate;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 20px 20px;
+            position: relative;
+        }
+
+        .avatar-space {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-pink));
+            border-radius: 30px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+        }
+
+        header h1 {
+            margin: 5px 0;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(0,245,212,0.2);
+        }
+
+        .tagline {
+            color: var(--accent-color);
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        /* لوحة التحكم والأزرار الـ Gen Z */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-color);
+            padding: 12px 24px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), #00bbf9);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 245, 212, 0.3);
+        }
+
+        /* محتوى الأقسام */
+        .content-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            position: relative;
+        }
+
+        .content-panel.active {
+            display: block;
+            animation: slideUp 0.4s ease forwards;
+        }
+
+        .content-panel h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-panel p {
+            line-height: 1.8;
+            color: var(--muted-text);
+            font-size: 1.1rem;
+        }
+
+        /* تفاصيل دمار داخل الأقسام */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--accent-pink);
+        }
+
+        .stat-card .num {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-family: monospace;
+        }
+
+        /* مود الـ عشوائيات والـ Vibe */
+        .mood-box {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mood-btn {
+            background: var(--accent-pink);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* الأنميشن */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.2);
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        /* تفاصيل روقان للموبايل */
+        @media (max-width: 600px) {
+            .content-panel { padding: 20px; }
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <header>
+        <div class="avatar-space">AW</div>
+        <h1>Ahmed Waleed</h1>
+        <div class="tagline">export const status = "Secondary 3 Senior @ 2027";</div>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- أزرار الأقسام التفاعلية -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 الـ Profile</button>
+            <button class="tab-btn" onclick="switchTab(event, 'vibe')">⚡ الـ Vibe</button>
+            <button class="tab-btn" onclick="switchTab(event, 'setup')">🌌 الـ Setup</button>
+            <button class="tab-btn" onclick="switchTab(event, 'future')">🚀 كبسولة 2027</button>
+        </div>
+
+        <!-- الأقسام المتغيرة تفاعلياً -->
+        
+        <!-- قسم 1 -->
+        <div id="about" class="content-panel active">
+            <h2><span>👤</span> الكرت التعريفي بالكامل</h2>
+            <p>أنا أحمد وليد، 18 سنة، حالياً عايش ليفيل "ثانوية عامة" بكل تفاصيله ومغامراته. مقتنع إن السن مجرد رقم والي جاي دايماً أقوى بكتير.</p>
+            
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="num">18</span>
+                    <span class="label">Years Old</span>
+                </div>
+                <div class="stat-card">
+                    <span class="num">Sec 3</span>
+                    <span class="label">Current Grade</span>
+                </div>
+                <div class="stat-card">
+                    <span class="num">2027</span>
+                    <span class="label">Graduation Year</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم 2 -->
+        <div id="vibe" class="content-panel">
+            <h2><span>⚡</span> الـ Vibe وطريقة التفكير</h2>
+            <p>مش مجرد كود شغال، دي عقلية كاملة. بحب الحاجات الرايقة، والمزيكا اللي بتفصلني عن العالم وقت المذاكرة أو الـ Gaming.</p>
+            
+            <div class="mood-box">
+                <span id="mood-text">الـ Mood الحالي للصفحة: 🟢 رايق وبدح</span>
+                <button class="mood-btn" onclick="changeMood()">غير الـ Vibe</button>
+            </div>
+        </div>
+
+        <!-- قسم 3 -->
+        <div id="setup" class="content-panel">
+            <h2><span>🌌</span> الـ الـ Daily Setup & Focus</h2>
+            <p>هنا مساحتي الخاصة اللي بهرب فيها من دوشة المناهج والكتب. الـ Setup بتاعي هو المكان اللي بتطلع منه الأفكار الطرقعة.</p>
+            <div class="stat-grid">
+                <div class="stat-card" style="grid-column: span 2;">
+                    <span class="num" style="font-size: 1.2rem; color: #00f5d4;">المشروب الرسمي للمذاكرة</span>
+                    <span class="label">قهوة سبرسو أو مشروب طاقة بارد يسند الدماغ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم 4 -->
+        <div id="future" class="content-panel">
+            <h2><span>🚀</span> كبسولة المستقبل - Senior 2027</h2>
+            <p>المحطة الجاية كبيرة، والهدف واضح. سنة 2027 مش هتكون مجرد سنة تخرج من الثانوي، دي بداية الانطلاق الفعلي للشغل العالي والـ Next Level.</p>
+            <blockquote style="border-right: 4px solid var(--accent-pink); padding-right: 15px; margin: 20px 0; color: #edf2f7; font-style: italic;">
+                "توقعوا أي حاجة، لأن الهدوء اللي قبل العاصفة دايماً بيطلع عظمة."
+            </blockquote>
+        </div>
+
+    </div>
+
+    <footer>
+        // Designed by Ahmed Waleed & Powered by Creativity © 2026
+    </footer>
+
+    <!-- جافا سكريبت للحركات التفاعلية السريعة والروقان -->
+    <script>
+        function switchTab(evt, tabId) {
+            // إخفاء كل الأقسام
+            const panels = document.querySelectorAll('.content-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // إلغاء تفعيل الأزرار
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // إظهار القسم المختار وتفعيل زره
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // حركة الـ Easter Egg لتغيير الـ Vibe والـ Mood
+        const moods = [
+            "🟢 رايق وبدح",
+            "🔴 فصلت شحن من الفيزياء",
+            "🔥 دمار وفول باور",
+            "✨ جين زي مستمع لـ لوفي"
+        ];
+        let currentMoodIdx = 0;
+        
+        function changeMood() {
+            currentMoodIdx = (currentMoodIdx + 1) % moods.length;
+            document.getElementById('mood-text').innerText = "الـ Mood الحالي للصفحة: " + moods[currentMoodIdx];
+            
+            // تغيير بسيط في لون النيون كحركة صايعة
+            const colors = ['#00f5d4', '#ff007f', '#9b5de5', '#f15bb5'];
+            document.documentElement.style.setProperty('--accent-color', colors[currentMoodIdx]);
+        }
+    </script>
+</body>
+</html>
