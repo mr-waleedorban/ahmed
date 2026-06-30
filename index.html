@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Modern Hub v6.0</title>
+    <title>Ahmed Waleed // Ultimate Hub v8.0</title>
     <style>
         :root {
             --bg-color: #030712;
@@ -15,492 +15,389 @@
             --muted-text: #9ca3af;
         }
 
-        .hype-mode {
-            --bg-color: #0b0114;
-            --card-bg: rgba(30, 4, 53, 0.7);
-            --accent-glow: #ff0055;
-            --accent-pink: #00e5ff;
-        }
-
-        .study-mode {
-            --bg-color: #020d0f;
-            --card-bg: rgba(7, 30, 34, 0.7);
-            --accent-glow: #00ff66;
-            --accent-pink: #aacc00;
-        }
-
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0; padding: 0;
             overflow-x: hidden;
-            transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
         }
 
-        #splash-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #030712;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: monospace;
-            transition: opacity 0.5s ease;
-        }
-        .boot-text {
-            color: var(--accent-glow);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            border-left: 2px solid var(--accent-glow);
-            padding-left: 10px;
-            animation: blink .75s step-end infinite;
+        /* شريط الأذكار العلوى المودرن */
+        #dhikr-ticker {
+            background: linear-gradient(90deg, rgba(255,0,127,0.1), rgba(0,245,212,0.1));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center; padding: 12px; font-size: 1rem;
+            color: #fff; font-weight: 500; position: sticky; top: 0; z-index: 999;
+            transition: all 0.5s ease;
         }
 
-        .main-blur {
-            position: fixed;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(0,245,212,0.08) 0%, rgba(0,0,0,0) 70%);
-            top: -150px; left: -150px; z-index: -1;
-            pointer-events: none;
+        /* تأثير الجليتش والـ Prank */
+        .glitch-active {
+            animation: screenShake 0.1s infinite !important;
+            background: #1a000c !important;
+            filter: hue-rotate(90deg) contrast(200%);
+        }
+        .glitch-text {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); color: var(--accent-pink);
+            font-family: monospace; font-size: 3rem; font-weight: bold; z-index: 10000;
+            text-shadow: 2px 2px #00f5d4; text-align: center; pointer-events: none;
         }
 
-        header { text-align: center; padding: 50px 20px 20px 20px; }
-
+        header { text-align: center; padding: 40px 20px 20px 20px; }
         .modern-logo {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
+            font-size: 4rem; font-weight: 800; letter-spacing: -2px;
             background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            cursor: pointer; display: inline-block; transition: transform 0.2s;
         }
-        .modern-logo:hover { transform: scale(1.08) rotate(-2deg); }
-
+        .modern-logo:hover { transform: scale(1.05); }
         .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
 
-        .xp-bar-container {
-            max-width: 180px; margin: 15px auto;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 30px; padding: 6px 14px;
-            font-size: 0.8rem; display: flex; justify-content: space-between;
-        }
-
-        .countdown-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            max-width: 550px; margin: 0 auto 40px auto;
-            padding: 20px; border-radius: 24px; text-align: center;
-        }
-        .timer { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
-        .time-box {
-            background: rgba(255,255,255,0.02);
-            padding: 12px; border-radius: 16px; min-width: 65px;
-            border: 1px solid var(--border-color);
-        }
-        .time-box span { display: block; font-size: 1.6rem; font-weight: 700; color: #fff; }
-        .time-box label { font-size: 0.7rem; color: var(--muted-text); }
-
-        .main-container { max-width: 800px; margin: 0 auto; padding: 0 20px 80px 20px; }
+        .main-container { max-width: 850px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
         
-        .nav-tabs { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 8px; }
-        .nav-tabs::-webkit-scrollbar { display: none; }
-
-        .tab-btn {
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border-color);
-            color: var(--muted-text);
-            padding: 12px 24px; border-radius: 16px;
-            cursor: pointer; font-weight: 500; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        .tab-btn:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
-        .tab-btn.active {
-            background: #fff; color: #000; font-weight: 600; border-color: #fff;
-            box-shadow: 0 8px 24px rgba(255,255,255,0.12);
+        .control-panel {
+            background: var(--card-bg); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .content-panel {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 28px; padding: 35px;
-            border: 1px solid var(--border-color);
-            display: none;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        /* الكروت وتأثير الجاذبية */
+        .gravity-card {
+            background: var(--card-bg); backdrop-filter: blur(16px);
+            border-radius: 24px; padding: 30px; border: 1px solid var(--border-color);
+            margin-bottom: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            position: relative; transform-origin: center center;
         }
-        .content-panel.active { display: block; animation: panelFade 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
-
-        h2 { font-size: 1.5rem; font-weight: 600; margin-top: 0; display: flex; align-items: center; gap: 12px; }
-
-        .skill-bar { width: 100%; background: rgba(255,255,255,0.03); border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 20px; }
-        .skill-progress { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-glow)); width: 0%; transition: width 1.2s cubic-bezier(0.1, 1, 0.1, 1); }
-
-        .mindmap-container { display: flex; flex-direction: column; gap: 20px; margin-top: 25px; }
-        .mindmap-node {
-            background: rgba(255,255,255,0.01); border: 1px solid var(--border-color);
-            padding: 20px; border-radius: 18px; transition: transform 0.3s;
+        .gravity-card.falling {
+            position: fixed; z-index: 99; cursor: grab; margin-bottom: 0;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7); border-color: var(--accent-glow);
         }
-        .mindmap-node:hover { transform: translateX(-5px); border-color: var(--accent-glow); }
-        .mindmap-node h4 { margin: 0 0 8px 0; font-size: 1.1rem; color: #fff; }
-        .mindmap-node p { margin: 0; font-size: 0.88rem; color: var(--muted-text); line-height: 1.5; }
+        .gravity-card.falling:active { cursor: grabbing; }
 
-        .games-grid { display: flex; flex-direction: column; gap: 40px; }
-        .game-block {
-            background: rgba(255,255,255,0.01); padding: 25px;
-            border-radius: 22px; border: 1px solid var(--border-color);
-            text-align: center;
+        h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
+
+        /* محاكي المطر والـ Pomodoro */
+        .rain-container { position: relative; width: 100%; height: 250px; border-radius: 16px; overflow: hidden; margin-top: 15px; }
+        #rainCanvas { position: absolute; top:0; left:0; width:100%; height:100%; background: #070a13; }
+        .pomo-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; z-index: 2; background: rgba(3, 7, 18, 0.75); padding: 20px 40px; border-radius: 20px;
+            backdrop-filter: blur(8px); border: 1px solid var(--border-color);
         }
-        
-        .modern-canvas-container { position: relative; margin: 20px auto; display: inline-block; }
-        canvas.modern-screen {
-            background: #070b15; border: 1px solid var(--border-color);
-            border-radius: 20px; display: block; max-width: 100%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        }
-        
+        .pomo-time { font-size: 2.2rem; font-weight: 700; color: #fff; font-family: monospace; margin-bottom: 10px; }
+
         .modern-btn {
-            background: transparent; border: 1px solid var(--accent-glow);
-            color: #fff; padding: 12px 30px; border-radius: 14px;
-            cursor: pointer; font-weight: 600; font-size: 0.9rem;
-            transition: all 0.3s; margin-top: 15px;
-        }
-        .modern-btn:hover { background: #fff; color: #000; border-color: #fff; box-shadow: 0 10px 25px rgba(255,255,255,0.15); }
-
-        /* Modern Grid XO */
-        .xo-grid-modern { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 260px; margin: 25px auto; }
-        .xo-cell-modern {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
-            height: 80px; border-radius: 18px; display: flex; justify-content: center;
-            align-items: center; font-size: 2rem; font-weight: 300; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .xo-cell-modern:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
-
-        .mood-selector { display: flex; gap: 12px; margin-top: 20px; }
-        .mood-btn {
-            flex: 1; padding: 14px; border: 1px solid var(--border-color);
-            border-radius: 16px; cursor: pointer; font-weight: 600; background: rgba(255,255,255,0.02); color: #fff;
+            background: transparent; border: 1px solid var(--accent-glow); color: #fff;
+            padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
             transition: all 0.3s;
         }
-        .mood-btn:hover { background: #fff; color: #000; }
+        .modern-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-glow); } }
-        @keyframes panelFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.5; }
+        /* خانة ذكر الله وقراءة القرآن */
+        .quran-box {
+            background: linear-gradient(135deg, rgba(0,245,212,0.03), rgba(255,255,255,0.01));
+            border: 1px solid rgba(0, 245, 212, 0.2); border-radius: 16px; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 15px;
+        }
+        .quran-info h4 { margin: 0 0 5px 0; color: #fff; font-size: 1.1rem; }
+        .quran-info p { margin: 0; color: var(--muted-text); font-size: 0.85rem; }
+        .quran-checkbox {
+            width: 28px; height: 28px; border-radius: 10px; border: 2px solid var(--accent-glow);
+            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s;
+        }
+        .quran-checkbox.checked { background: var(--accent-glow); color: #030712; }
+        .quran-checkbox::after { content: '✓'; font-weight: bold; display: none; }
+        .quran-checkbox.checked::after { display: block; }
+
+        @keyframes screenShake {
+            0% { transform: translate(3px, 2px) rotate(0deg); }
+            20% { transform: translate(-2px, -3px) rotate(-1deg); }
+            40% { transform: translate(-3px, 1px) rotate(1deg); }
+            60% { transform: translate(2px, -2px) rotate(0deg); }
+            80% { transform: translate(-1px, 3px) rotate(1deg); }
+            100% { transform: translate(3px, -1px) rotate(-1deg); }
+        }
+
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.5; }
     </style>
 </head>
 <body>
 
-    <div id="splash-screen">
-        <div class="boot-text">Connecting to Ahmed's Mainframe v6.0...</div>
-    </div>
+    <!-- شريط الأذكار العشوائية التلقائي -->
+    <div id="dhikr-ticker">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
 
-    <div class="main-blur"></div>
+    <!-- شاشة الـ Prank الوهمية -->
+    <div class="glitch-text" id="glitchAlert">⚠️ CRITICAL SYSTEM ERROR<br><span style="font-size:1.5rem; color:#fff;">اضغط ESC لإلغاء التدمير الذاتي</span></div>
 
     <header>
-        <div class="modern-logo">AW</div>
-        <div class="tagline">// Senior 2027 // System Hub</div>
-        
-        <div class="xp-bar-container">
-            <span>LVL <span id="user-lvl">1</span></span>
-            <span style="color:var(--muted-text)">|</span>
-            <span><span id="user-xp">0</span> XP</span>
-        </div>
+        <!-- جرب تضغط كذا ضغطة سريعة هنا لتفعيل الـ Prank -->
+        <div class="modern-logo" onclick="registerClick()">AW</div>
+        <div class="tagline">// Web Dev Environment // Physics Matrix v8.0</div>
     </header>
 
-    <div class="countdown-container">
-        <div style="font-size:0.85rem; color:var(--muted-text); font-weight:600; letter-spacing:1px;">THE GRADUATION COUNTDOWN</div>
-        <div class="timer">
-            <div class="time-box"><span id="days">00</span><label>Days</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
-            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
-            <div class="time-box"><span id="secs">00</span><label>Secs</label></div>
-        </div>
-    </div>
-
     <div class="main-container">
-        
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab(event, 'about')">👤 Identity</button>
-            <button class="tab-btn" onclick="switchTab(event, 'skills')">📊 Stats</button>
-            <button class="tab-btn" onclick="switchTab(event, 'mindmap')">🗺️ Goals</button>
-            <button class="tab-btn" onclick="switchTab(event, 'games')">✨ Cyber Arcade</button>
-            <button class="tab-btn" onclick="switchTab(event, 'mood')">🎨 Ambience</button>
+
+        <!-- لوحة التحكم لتفعيل الجاذبية -->
+        <div class="control-panel">
+            <span style="font-size: 0.9rem; color: var(--muted-text);">مستشعر فيزياء النظام الرقمي:</span>
+            <button class="modern-btn" onclick="activateGravity()" id="gravityBtn">تفعيل حقل الجاذبية 🛸</button>
         </div>
 
-        <!-- التاب 1 -->
-        <div id="about" class="content-panel active">
-            <h2>Identity Profile</h2>
-            <p style="color: var(--muted-text); line-height: 1.6;">أحمد وليد، 18 سنة. طالب في الصف الثالث الثانوي دفعة 2027. أتحرك في الفضاء الرقمي بين الدراسة، تطوير الويب، وصناعة الـ Vibes الخاصة بي.</p>
-        </div>
-
-        <!-- التاب 2 -->
-        <div id="skills" class="content-panel">
-            <h2>Performance Stats</h2>
-            
-            <p style="font-size:0.9rem; margin-bottom:5px;">Physics Resistance</p>
-            <div class="skill-bar"><div class="skill-progress" data-width="15%"></div></div>
-            
-            <p style="font-size:0.9rem; margin-bottom:5px;">Creative Web Architecture</p>
-            <div class="skill-bar"><div class="skill-progress" data-width="88%"></div></div>
-
-            <p style="font-size:0.9rem; margin-bottom:5px;">Focus & Flow State</p>
-            <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
-        </div>
-
-        <!-- التاب 3 -->
-        <div id="mindmap" class="content-panel">
-            <h2>2027 Strategic Roadmap</h2>
-            <div class="mindmap-container">
-                <div class="mindmap-node">
-                    <h4>01 // الـ High School Final Boss</h4>
-                    <p>إخضاع وتفكيك مناهج الثانوية العامة بذكاء وهدوء تام دون استنزاف.</p>
-                </div>
-                <div class="mindmap-node">
-                    <h4>02 // Next-Gen Development</h4>
-                    <p>صقل مهارات الـ Full-Stack والـ UI/UX لبناء تجارب بصرية فائقة القوة.</p>
+        <!-- كارت 1: محاكي نافذة المطر والبومودورو -->
+        <div class="gravity-card" id="card-rain">
+            <h2>🌧️ محاكي نافذة المطر والتركيز</h2>
+            <div class="rain-container">
+                <canvas id="rainCanvas"></canvas>
+                <div class="pomo-overlay">
+                    <div class="pomo-time" id="pomoDisplay">25:00</div>
+                    <button class="modern-btn" id="pomoBtn" onclick="togglePomodoro()">ابدأ التركيز</button>
                 </div>
             </div>
         </div>
 
-        <!-- التاب 4: الألعاب المودرن 100% -->
-        <div id="games" class="content-panel">
-            <h2>Modern Cyber Simulations</h2>
-            <p style="color: var(--muted-text); font-size:0.9rem; margin-bottom:30px;">تجارب تفاعلية بأسلوب مينيماليست حديث يعتمد على الحركة السلسة والـ Particles الخفيفة:</p>
-            
-            <div class="games-grid">
-                
-                <!-- اللعبة 1: Particle Orbit -->
-                <div class="game-block">
-                    <h3 style="margin:0 0 10px 0; font-weight:500;">🌌 1. جاذبية الجزيئات (Particle Orbit)</h3>
-                    <p style="font-size:0.85rem; color:var(--muted-text); margin-bottom:15px;">حرك المؤشر/اصبعك للتحكم بالجاذبية واسحب الجزيئات البيضاء المشعة، وتجنب الموجات الحمراء.</p>
-                    <div class="modern-canvas-container">
-                        <div style="font-size:0.9rem; margin-bottom:8px; font-weight:600;">SCORE: <span id="orbit-score" style="color:var(--accent-glow)">0</span></div>
-                        <canvas id="orbitCanvas" class="modern-screen" width="320" height="260"></canvas>
-                        <button class="modern-btn" onclick="startOrbitGame()">تحميل المحاكاة</button>
-                    </div>
+        <!-- كارت 2: خانة الورد القرآني والروحانيات -->
+        <div class="gravity-card" id="card-faith">
+            <h2>🕋 الورد اليومي والروحانيات</h2>
+            <div class="quran-box">
+                <div class="quran-info">
+                    <h4 id="quranTarget">قراءة حزب من القرآن الكريم اليوم</h4>
+                    <p>احرص على ألا يمر يومك دون بركة كتاب الله.</p>
                 </div>
-
-                <!-- اللعبة 2: Cyber Grid Dash -->
-                <div class="game-block">
-                    <h3 style="margin:0 0 10px 0; font-weight:500;">🧬 2. الاندفاع الشبكي (Grid Dash)</h3>
-                    <p style="font-size:0.85rem; color:var(--muted-text); margin-bottom:15px;">اختبار سرعة استجابة عصبي ومودرن. اضغط على المربعات المضيئة قبل اختفائها الفوري.</p>
-                    <div class="modern-canvas-container">
-                        <div style="font-size:0.9rem; margin-bottom:8px; font-weight:600;">REFLEX SCORE: <span id="dash-score" style="color:var(--accent-pink)">0</span></div>
-                        <canvas id="dashCanvas" class="modern-screen" width="320" height="240"></canvas>
-                        <button class="modern-btn" onclick="startDashGame()" style="border-color:var(--accent-pink)">بدء مصفوفة الاندفاع</button>
-                    </div>
-                </div>
-
-                <!-- اللعبة 3: Minimalist Tic-Tac-Toe -->
-                <div class="game-block">
-                    <h3 style="margin:0 0 10px 0; font-weight:500;">❌ 3. مصفوفة النيون المستقرة (X-O Matrix)</h3>
-                    <div id="xo-status" style="font-size:0.85rem; color: var(--accent-glow); font-weight:600;">Awaiting Input: X</div>
-                    <div class="xo-grid-modern">
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 0)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 1)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 2)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 3)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 4)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 5)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 6)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 7)"></div>
-                        <div class="xo-cell-modern" onclick="playModernXO(this, 8)"></div>
-                    </div>
-                    <span style="font-size:0.8rem; cursor:pointer; text-decoration:underline;" onclick="resetModernXO()">تطهير المصفوفة</span>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- التاب 5 -->
-        <div id="mood" class="content-panel">
-            <h2>Select System Theme</h2>
-            <div class="mood-selector">
-                <button class="mood-btn" onclick="changeSystemTheme('default')">Default Minimal</button>
-                <button class="mood-btn" style="color: #ff0055;" onclick="changeSystemTheme('hype')">Vibrant Cyber</button>
-                <button class="mood-btn" style="color: #00ff66;" onclick="changeSystemTheme('study')">Focus Protocol</button>
+                <div class="quran-checkbox" id="quranCheck" onclick="toggleQuranCheck()"></div>
             </div>
         </div>
 
     </div>
 
-    <footer>// Optimized Experience // Ahmed Waleed</footer>
+    <footer>Ahmed Waleed // Designed for Infinity 2026</footer>
 
     <script>
-        // إزالة شاشة التحميل الترحيبية سريعا
-        window.addEventListener('DOMContentLoaded', () => {
+        // ================= 1. نظام الأذكار التلقائي المتغير =================
+        const dhikrs = [
+            "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+            "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+            "لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ العَلِيِّ العَظِيمِ",
+            "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
+            "لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+            "الْحَمْدُ لِلَّهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ",
+            "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ"
+        ];
+
+        function changeDhikr() {
+            const ticker = document.getElementById('dhikr-ticker');
+            const randomDhikr = dhikrs[Math.floor(Math.random() * dhikrs.length)];
+            ticker.style.opacity = 0;
             setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(() => { splash.style.display = 'none'; }, 500);
-            }, 1000);
+                ticker.innerText = randomDhikr;
+                ticker.style.opacity = 1;
+            }, 500);
+        }
+        setInterval(changeDhikr, 12000); // يتغير الذكر تلقائياً كل 12 ثانية لتجنب التشتيت البصري
+
+        function toggleQuranCheck() {
+            const checkBox = document.getElementById('quranCheck');
+            checkBox.classList.toggle('checked');
+            if(checkBox.classList.contains('checked')) {
+                document.getElementById('quranTarget').style.textDecoration = "line-through";
+            } else {
+                document.getElementById('quranTarget').style.textDecoration = "none";
+            }
+        }
+
+
+        // ================= 2. محاكي نافذة المطر (Canvas physics) =================
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+        let drops = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < 60; i++) {
+            drops.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                len: Math.random() * 15 + 10,
+                speed: Math.random() * 4 + 4
+            });
+        }
+
+        function drawRain() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)';
+            ctx.lineWidth = 1.5;
+            ctx.lineCap = 'round';
+
+            drops.forEach(p => {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x, p.y + p.len);
+                ctx.stroke();
+
+                p.y += p.speed;
+                if (p.y > canvas.height) {
+                    p.y = -p.len;
+                    p.x = Math.random() * canvas.width;
+                }
+            });
+            requestAnimationFrame(drawRain);
+        }
+        drawRain();
+
+        // عداد البومودورو المصغر
+        let pomoMinutes = 25, pomoSeconds = 0, pomoTimer = null, isRunning = false;
+        function togglePomodoro() {
+            const btn = document.getElementById('pomoBtn');
+            if (isRunning) {
+                clearInterval(pomoTimer);
+                btn.innerText = "استئناف";
+                isRunning = false;
+            } else {
+                isRunning = true;
+                btn.innerText = "إيقاف مؤقت";
+                pomoTimer = setInterval(() => {
+                    if (pomoSeconds === 0) {
+                        if (pomoMinutes === 0) {
+                            clearInterval(pomoTimer);
+                            alert("عاش يا أحمد! وقت التركيز انتهى، خد بريك سريِع.");
+                            pomoMinutes = 25; pomoSeconds = 0;
+                            isRunning = false;
+                            btn.innerText = "ابدأ التركيز";
+                        } else {
+                            pomoMinutes--; pomoSeconds = 59;
+                        }
+                    } else {
+                        pomoSeconds--;
+                    }
+                    document.getElementById('pomoDisplay').innerText = 
+                        `${String(pomoMinutes).padStart(2, '0')}:${String(pomoSeconds).padStart(2, '0')}`;
+                }, 1000);
+            }
+        }
+
+
+        // ================= 3. فكرة تدمير الشاشة والـ Prank =================
+        let logoClicks = 0;
+        function registerClick() {
+            logoClicks++;
+            if (logoClicks >= 5) { // تفعيل التأثير بعد 5 ضغطات متتالية على اللوجو
+                triggerSystemGlitch();
+                logoClicks = 0;
+            }
+        }
+
+        function triggerSystemGlitch() {
+            document.body.classList.add('glitch-active');
+            document.getElementById('glitchAlert').style.display = 'block';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { // الخروج من الـ Prank عبر زر الـ Esc
+                document.body.classList.remove('glitch-active');
+                document.getElementById('glitchAlert').style.display = 'none';
+            }
         });
 
-        // نظام الـ XP والـ Levels الخفيف
-        let currentXP = 0; let currentLevel = 1;
-        function triggerXPGain(points) {
-            currentXP += points;
-            if(currentXP >= 100) { currentXP -= 100; currentLevel++; }
-            document.getElementById('user-xp').innerText = currentXP;
-            document.getElementById('user-lvl').innerText = currentLevel;
-        }
 
-        // كاونتر التخرج المتدفق
-        const graduationTimeline = new Date("June 1, 2027 00:00:00").getTime();
-        setInterval(() => {
-            const timeNow = new Date().getTime(); const distance = graduationTimeline - timeNow;
-            document.getElementById('days').innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            document.getElementById('hours').innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-            document.getElementById('mins').innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-            document.getElementById('secs').innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
-        }, 1000);
+        // ================= 4. كونسول التحكم في الجاذبية الكامل =================
+        let gravityActive = false;
+        let physicsObjects = [];
+        const gravityConstant = 0.4;
+        const bounce = 0.65;
 
-        function switchTab(e, id) {
-            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active'); e.currentTarget.classList.add('active');
-            if(id === 'skills') { document.querySelectorAll('.skill-progress').forEach(b => b.style.width = b.getAttribute('data-width')); }
-            triggerXPGain(6);
-        }
-
-        function changeSystemTheme(theme) {
-            document.body.className = '';
-            if(theme !== 'default') document.body.classList.add(`${theme}-mode`);
-            triggerXPGain(15);
-        }
-
-        // ================= الألعاب المودرن المتطورة =================
-
-        // 1. Particle Orbit Game Engine
-        const oCanvas = document.getElementById("orbitCanvas"); const oCtx = oCanvas.getContext("2d");
-        let mouseNode = {x: 160, y: 130}, targetParticles = [], alertWaves = [], orbitScore = 0, orbitLoop, isOrbitRunning = false;
-
-        oCanvas.addEventListener('mousemove', (e) => { const r = oCanvas.getBoundingClientRect(); mouseNode.x = e.clientX - r.left; mouseNode.y = e.clientY - r.top; });
-        oCanvas.addEventListener('touchmove', (e) => { const r = oCanvas.getBoundingClientRect(); mouseNode.x = e.touches[0].clientX - r.left; mouseNode.y = e.touches[0].clientY - r.top; });
-
-        function startOrbitGame() {
-            if(isOrbitRunning) cancelAnimationFrame(orbitLoop);
-            isOrbitRunning = true; orbitScore = 0; targetParticles = []; alertWaves = [];
-            document.getElementById("orbit-score").innerText = orbitScore;
-            runOrbitEngine();
-        }
-
-        function runOrbitEngine() {
-            if(!isOrbitRunning) return;
-            oCtx.fillStyle = "rgba(7, 11, 21, 0.2)"; oCtx.fillRect(0, 0, oCanvas.width, oCanvas.height);
-
-            // رسم مركز الجاذبية (ثقب النيون المتوهج)
-            oCtx.fillStyle = "rgba(0, 245, 212, 0.6)"; oCtx.beginPath(); oCtx.arc(mouseNode.x, mouseNode.y, 8, 0, Math.PI*2); oCtx.fill();
-
-            // توليد جزيئات مشعة عشوائية هادئة
-            if(Math.random() < 0.08) targetParticles.push({x: Math.random()*oCanvas.width, y: Math.random()*oCanvas.height, alpha: 1});
-            // توليد جزيئات حمراء خطيرة
-            if(Math.random() < 0.02) alertWaves.push({x: Math.random()*oCanvas.width, y: -10, speed: Math.random()*2+2});
-
-            // تحديث الجزيئات البيضاء النظيفة ومحاكاتها لجذبها نحوك
-            targetParticles.forEach((p, index) => {
-                let dx = mouseNode.x - p.x; let dy = mouseNode.y - p.y;
-                p.x += dx * 0.06; p.y += dy * 0.06; // سحب سلس بالفيزياء المغناطيسية
-                oCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-                oCtx.beginPath(); oCtx.arc(p.x, p.y, 3, 0, Math.PI*2); oCtx.fill();
-
-                if(Math.hypot(dx, dy) < 12) { targetParticles.splice(index, 1); orbitScore += 5; document.getElementById("orbit-score").innerText = orbitScore; }
-            });
-
-            // تحديث وتفادي نبضات الخطر الحمراء
-            alertWaves.forEach((w, index) => {
-                w.y += w.speed;
-                oCtx.fillStyle = "rgba(255, 0, 127, 0.7)";
-                oCtx.beginPath(); oCtx.arc(w.x, w.y, 6, 0, Math.PI*2); oCtx.fill();
-
-                if(w.y > oCanvas.height) alertWaves.splice(index, 1);
-                if(Math.hypot(mouseNode.x - w.x, mouseNode.y - w.y) < 14) { isOrbitRunning = false; alert(`⚡ انتهت المحاكاة البصرية. السكور النهائي: ${orbitScore}`); triggerXPGain(orbitScore); }
-            });
-
-            orbitLoop = requestAnimationFrame(runOrbitEngine);
-        }
-
-        // 2. Cyber Grid Dash
-        const dCanvas = document.getElementById("dashCanvas"); const dCtx = dCanvas.getContext("2d");
-        let activeTarget = null, dashScore = 0, lastSpawn = 0, isDashRunning = false, dashLoop;
-
-        function startDashGame() {
-            if(isDashRunning) cancelAnimationFrame(dashLoop);
-            isDashRunning = true; dashScore = 0; lastSpawn = 0; activeTarget = null;
-            document.getElementById("dash-score").innerText = dashScore;
-            runDashEngine();
-        }
-
-        function runDashEngine() {
-            if(!isDashRunning) return;
-            dCtx.fillStyle = "#070b15"; dCtx.fillRect(0, 0, dCanvas.width, dCanvas.height);
-
-            // رسم خلفية شبكية ثلاثية خفيفة وبسيطة جدا جدا
-            dCtx.strokeStyle = "rgba(255,255,255,0.02)"; dCtx.lineWidth = 1;
-            for(let i=0; i<dCanvas.width; i+=40) { dCtx.beginPath(); dCtx.moveTo(i, 0); dCtx.lineTo(i, dCanvas.height); dCtx.stroke(); }
-            for(let j=0; j<dCanvas.height; j+=40) { dCtx.beginPath(); dCtx.moveTo(0, j); dCtx.lineTo(dCanvas.width, j); dCtx.stroke(); }
-
-            let now = Date.now();
-            if(!activeTarget || now - lastSpawn > 1100) {
-                activeTarget = { x: Math.floor(Math.random()*6 + 1)*40, y: Math.floor(Math.random()*4 + 1)*40, size: 24, life: 1.0 };
-                lastSpawn = now;
-            }
-
-            if(activeTarget) {
-                activeTarget.life -= 0.015;
-                if(activeTarget.life <= 0) { isDashRunning = false; alert("⏱️ انتهت النافذة الزمنية السريعة! مجموع نقاطك: " + dashScore); return; }
-                dCtx.fillStyle = `rgba(255, 0, 127, ${activeTarget.life})`;
-                dCtx.shadowBlur = 15; dCtx.shadowColor = "var(--accent-pink)";
-                dCtx.fillRect(activeTarget.x - 12, activeTarget.y - 12, activeTarget.size, activeTarget.size);
-                dCtx.shadowBlur = 0; // تنظيف الظل
-            }
-
-            dashLoop = requestAnimationFrame(runDashEngine);
-        }
-
-        dCanvas.addEventListener('mousedown', triggerDashHit);
-        dCanvas.addEventListener('touchstart', (e) => { triggerDashHit(e.touches[0]); });
-
-        function triggerDashHit(e) {
-            if(!isDashRunning || !activeTarget) return;
-            const rect = dCanvas.getBoundingClientRect();
-            const clickX = e.clientX - rect.left; const clickY = e.clientY - rect.top;
-            if(Math.abs(clickX - activeTarget.x) < 25 && Math.abs(clickY - activeTarget.y) < 25) {
-                dashScore += 10; document.getElementById("dash-score").innerText = dashScore;
-                activeTarget = null; // يختفي فوراً لتوليد آخر
-            }
-        }
-
-        // 3. Modern Matrix XO
-        let xoBoard = ["", "", "", "", "", "", "", "", ""]; let xoSign = "X";
-        function playModernXO(cell, idx) {
-            if(xoBoard[idx] !== "" || verifyXOWinner()) return;
-            xoBoard[idx] = xoSign; cell.innerText = xoSign;
-            cell.style.color = xoSign === "X" ? "var(--accent-glow)" : "var(--accent-pink)";
-            cell.style.borderColor = xoSign === "X" ? "var(--accent-glow)" : "var(--accent-pink)";
+        function activateGravity() {
+            if (gravityActive) return;
+            gravityActive = true;
             
-            if(verifyXOWinner()) { document.getElementById('xo-status').innerText = `🏆 Matrix Master: ${xoSign}`; triggerXPGain(25); return; }
-            if(!xoBoard.includes("")) { document.getElementById('xo-status').innerText = "🤝 Matrix Equilibrium (Tie)"; return; }
-            xoSign = xoSign === "X" ? "O" : "X";
-            document.getElementById('xo-status').innerText = `Awaiting Input: ${xoSign}`;
+            const btn = document.getElementById('gravityBtn');
+            btn.innerText = "حقل الجاذبية نشط 🌌";
+            btn.style.borderColor = "var(--accent-pink)";
+
+            const cards = document.querySelectorAll('.gravity-card');
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                
+                // تحويل العنصر من مقيد داخل الدوم إلى عنصر طائر حر الحركة
+                card.style.width = rect.width + 'px';
+                card.style.left = rect.left + 'px';
+                card.style.top = rect.top + 'px';
+                card.classList.add('falling');
+
+                let obj = {
+                    element: card,
+                    x: rect.left,
+                    y: rect.top,
+                    w: rect.width,
+                    h: rect.height,
+                    vx: (Math.random() - 0.5) * 8, // سرعة اندفاع أفقية عشوائية لحظة السقوط
+                    vy: 0,
+                    isDragging: false
+                };
+
+                physicsObjects.push(obj);
+                setupDrag(obj);
+            });
+
+            requestAnimationFrame(updatePhysics);
         }
-        function verifyXOWinner() {
-            const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return lines.some(l => l.every(i => xoBoard[i] === xoSign));
+
+        function setupDrag(obj) {
+            obj.element.addEventListener('mousedown', (e) => {
+                obj.isDragging = true;
+                obj.vx = 0; obj.vy = 0;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!obj.isDragging) return;
+                obj.x = e.clientX - obj.w/2;
+                obj.y = e.clientY - obj.h/2;
+                obj.element.style.left = obj.x + 'px';
+                obj.element.style.top = obj.y + 'px';
+            });
+
+            window.addEventListener('mouseup', () => {
+                if(obj.isDragging) {
+                    obj.isDragging = false;
+                    obj.vy = 2; // يرجع يسقط فوراً بعد تركه بالماوس
+                }
+            });
         }
-        function resetModernXO() {
-            xoBoard = ["", "", "", "", "", "", "", "", ""]; xoSign = "X";
-            document.getElementById('xo-status').innerText = "Awaiting Input: X";
-            document.querySelectorAll('.xo-cell-modern').forEach(c => { c.innerText = ""; c.style.borderColor = "var(--border-color)"; });
+
+        function updatePhysics() {
+            const winH = window.innerHeight;
+            const winW = window.innerWidth;
+
+            physicsObjects.forEach(obj => {
+                if (obj.isDragging) return;
+
+                obj.vy += gravityConstant; // تطبيق الجاذبية
+                obj.x += obj.vx;
+                obj.y += obj.vy;
+
+                // التصادم مع القاع (الأرضية)
+                if (obj.y + obj.h > winH) {
+                    obj.y = winH - obj.h;
+                    obj.vy = -obj.vy * bounce;
+                    obj.vx *= 0.9; // احتكاك مع الأرض
+                }
+
+                // التصادم مع الجدران الجانبية
+                if (obj.x < 0) { obj.x = 0; obj.vx = -obj.vx * bounce; }
+                if (obj.x + obj.w > winW) { obj.x = winW - obj.w; obj.vx = -obj.vx * bounce; }
+
+                obj.element.style.left = obj.x + 'px';
+                obj.element.style.top = obj.y + 'px';
+            });
+
+            requestAnimationFrame(updatePhysics);
         }
     </script>
 </body>
