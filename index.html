@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub</title>
+    <title>Ahmed Waleed // Ultimate Hub v2.0</title>
     <style>
         :root {
             --bg-color: #060911;
@@ -14,6 +14,22 @@
             --muted-text: #9ca3af;
         }
 
+        /* ثيم المود الحماسي */
+        .hype-mode {
+            --bg-color: #0d0116;
+            --card-bg: #220336;
+            --accent-color: #ff0055;
+            --accent-pink: #00f5d4;
+        }
+
+        /* ثيم مود المذاكرة والهدوء */
+        .study-mode {
+            --bg-color: #070f11;
+            --card-bg: #0b1f24;
+            --accent-color: #38b000;
+            --accent-pink: #70e000;
+        }
+
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-color);
@@ -21,6 +37,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            transition: all 0.5s ease;
         }
 
         /* شاشة التحميل الافتتاحية */
@@ -56,7 +73,6 @@
             z-index: -1;
         }
 
-        /* جزيئات النيون التي تتبع الماوس */
         .cursor-particle {
             position: fixed;
             width: 6px; height: 6px;
@@ -70,7 +86,7 @@
 
         header {
             text-align: center;
-            padding: 50px 20px 10px 20px;
+            padding: 40px 20px 10px 20px;
         }
 
         .creative-logo {
@@ -98,7 +114,21 @@
             color: var(--accent-color);
             font-family: monospace;
             font-size: 1rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* نظام الـ XP والـ Level العلوي */
+        .xp-bar-container {
+            max-width: 200px;
+            margin: 0 auto 15px auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 245, 212, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .countdown-container {
@@ -130,13 +160,25 @@
         .time-box label { font-size: 0.75rem; color: var(--muted-text); }
 
         .main-container { max-width: 850px; margin: 0 auto; padding: 0 20px 60px 20px; }
-        .nav-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 5px; }
+        
+        /* التابات محسنة وتدعم التمرير على الموبايل */
+        .nav-tabs { 
+            display: flex; 
+            justify-content: flex-start; 
+            gap: 8px; 
+            margin-bottom: 25px; 
+            overflow-x: auto; 
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-tabs::-webkit-scrollbar { height: 4px; }
+        .nav-tabs::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
 
         .tab-btn {
             background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.05);
             color: var(--text-color);
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 14px;
             cursor: pointer;
             font-weight: 600;
@@ -165,10 +207,79 @@
 
         h2 { color: var(--accent-color); margin-top: 0; font-size: 1.6rem; display: flex; align-items: center; gap: 10px; }
 
+        /* قسم الـ Stats */
         .skill-wrapper { margin-top: 20px; }
         .skill-info { display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 5px; }
         .skill-bar { width: 100%; background: #151c2c; border-radius: 10px; height: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.02); }
         .skill-progress { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-color)); border-radius: 10px; width: 0%; transition: width 1s ease-in-out; }
+
+        /* خريطة العقل الجرافيكال للـ Senior */
+        .mindmap-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            padding-right: 20px;
+            border-right: 2px dashed var(--accent-color);
+            margin-top: 20px;
+        }
+        .mindmap-node {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 15px;
+            border-radius: 12px;
+            position: relative;
+        }
+        .mindmap-node::before {
+            content: '';
+            position: absolute;
+            right: -27px; top: 22px;
+            width: 10px; height: 10px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-pink);
+        }
+        .mindmap-node h4 { margin: 0 0 5px 0; color: var(--accent-color); }
+        .mindmap-node p { margin: 0; font-size: 0.85rem; color: var(--muted-text); }
+
+        /* لعبة الـ XO المدمجة لشخصين */
+        .xo-game {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 240px;
+            margin: 20px auto;
+        }
+        .xo-cell {
+            background: #161f30;
+            border: 1px solid rgba(255,255,255,0.1);
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .xo-cell:hover { background: rgba(0, 245, 212, 0.1); }
+
+        /* أزرار المود رايقر */
+        .mood-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .mood-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #000;
+        }
 
         .spotify-card {
             background: #04060a;
@@ -210,7 +321,6 @@
             background: rgba(255,255,255,0.04); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; border-right: 3px solid var(--accent-color);
         }
 
-        /* الأنميشنز */
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
         @keyframes fadeParticle { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.2); } }
@@ -227,12 +337,11 @@
 </head>
 <body>
 
-    <!-- الشاشة الافتتاحية الكرييتف -->
+    <!-- الشاشة الافتتاحية -->
     <div id="splash-screen">
-        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space ]</div>
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v2.0 ]</div>
     </div>
 
-    <!-- المؤثر الصوتي الخفيف -->
     <script>
         function playClickSound() {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -255,6 +364,12 @@
         <div class="creative-logo" onclick="playLogoEffect()">A.W</div>
         <h1>Ahmed Waleed</h1>
         <div class="tagline">Senior_2027_Loading...</div>
+        
+        <!-- نظام الـ XP والترفيه الجديد -->
+        <div class="xp-bar-container">
+            <span>⭐ المستوي: <span id="user-lvl">1</span></span>
+            <span>XP: <span id="user-xp">0</span>/100</span>
+        </div>
     </header>
 
     <div class="countdown-container">
@@ -269,12 +384,17 @@
 
     <div class="main-container">
         
+        <!-- التابات الجديدة مدمجة مع القديمة بسلاسة -->
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 هويتي</button>
             <button class="tab-btn" onclick="switchTab(event, 'skills')">⚡ الـ Stats (RPG)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'mindmap')">🧠 خريطة الهدف 2027</button>
+            <button class="tab-btn" onclick="switchTab(event, 'games')">🕹️ سينما الألعاب (2P)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'mood')">🎵 الـ Mood Changer</button>
             <button class="tab-btn" onclick="switchTab(event, 'secret')">📬 صندوق الصراحة</button>
         </div>
 
+        <!-- التاب 1: عني -->
         <div id="about" class="content-panel active">
             <h2><span>👤</span> من أنا؟</h2>
             <p>أحمد وليد، 18 سنة، طالب بالصف الثالث الثانوي (دفعة 2027). عايش في الـ Vibe الرايق ومقضيها تحديات ودح وسعي للقمة.</p>
@@ -288,6 +408,7 @@
             </div>
         </div>
 
+        <!-- التاب 2: الإحصائيات الـ RPG -->
         <div id="skills" class="content-panel">
             <h2><span>⚡</span> الـ Character Stats</h2>
             <p>مستويات الطاقة والمهارات الحالية على طريقة ألعاب الـ RPG:</p>
@@ -304,10 +425,62 @@
             </div>
 
             <div class="achieve-badge" id="click-achieve" style="display:none;">
-                <span>🏆</span> <b>إنجاز جديد:</b> أنت فضولي جداً وفتشت في مهاراتي!
+                <span>🏆</span> <b>إنجاز جديد:</b> أنت فضولي جداً وفتشت في مهاراتي! (+20 XP)
             </div>
         </div>
 
+        <!-- التاب الجديد 3: خريطة العقل والأهداف للمستقبل (Mind Map) -->
+        <div id="mindmap" class="content-panel">
+            <h2><span>🧠</span> خريطة طريق أحمد وليد (Senior 2027)</h2>
+            <p>دي الخطة الذهنية متقسمة علشان نوصل لهدف الـ Graduation الرايق:</p>
+            
+            <div class="mindmap-container">
+                <div class="mindmap-node">
+                    <h4>الهدف الأول: ترويض بعبع الثانوية العامة 🎯</h4>
+                    <p>تقفيل المواد العلمية، تظبيط النوم، ومقاومة تشتيت السوشيال ميديا.</p>
+                </div>
+                <div class="mindmap-node">
+                    <h4>الهدف الثاني: عتاد الـ Coding والـ Tech 💻</h4>
+                    <p>بناء بورتفوليو مليان مشاريع وتطوير مهارات الـ Web Full Stack.</p>
+                </div>
+                <div class="mindmap-node">
+                    <h4>القمة: حفلة الـ Graduation وسنة 2027 🎓</h4>
+                    <p>الوصول لليوم الكبير بمجموع يشرف ودخول هندسة أو حاسبات.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- التاب الجديد 4: ألعاب ويب لشخصين (2-Players Game) -->
+        <div id="games" class="content-panel">
+            <h2><span>🕹️</span> لعبة التحدي السريع (لاعب ضد لاعب بنفس الجهاز)</h2>
+            <p>قاعد مع صاحبك وفصلتوا مذاكرة؟ اتحداه هنا في جولة X-O سريعة نيون:</p>
+            <div id="xo-status" style="text-align: center; color: var(--accent-color); font-weight: bold;">دور اللاعب: X</div>
+            <div class="xo-game">
+                <div class="xo-cell" onclick="makeMove(this, 0)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 1)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 2)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 3)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 4)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 5)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 6)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 7)"></div>
+                <div class="xo-cell" onclick="makeMove(this, 8)"></div>
+            </div>
+            <button onclick="resetXO()" style="display:block; margin: 10px auto; background:none; border:1px solid var(--accent-pink); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة اللعب</button>
+        </div>
+
+        <!-- التاب الجديد 5: الـ Mood Changer الذكي -->
+        <div id="mood" class="content-panel">
+            <h2><span>🎵</span> مغير الـ Mood والأجواء</h2>
+            <p>اختار المود اللي بتمر بيه دلوقتي، وهيتم تغيير ألوان وتصميم الموقع بالكامل ليناسب الـ Vibe بتاعك:</p>
+            <div class="mood-selector">
+                <button class="mood-btn" style="background:#00f5d4;" onclick="changeMood('default')">الوضع العادي الرايق</button>
+                <button class="mood-btn" style="background:#ff0055;" onclick="changeMood('hype')">وضع الحماس والـ Gaming 🔥</button>
+                <button class="mood-btn" style="background:#38b000;" onclick="changeMood('study')">وضع الدح والتركيز 📚</button>
+            </div>
+        </div>
+
+        <!-- التاب 6: الصراحة القديم -->
         <div id="secret" class="content-panel">
             <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
             <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأنا هشوفها لوحدي!</p>
@@ -319,6 +492,7 @@
             <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال بنجاح! 😎</div>
         </div>
 
+        <!-- لوحة التحكم -->
         <div id="admin-panel">
             <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن (أحمد وليد)</h2>
             <p>هنا الرسايل السرية اللي مبعوتالك من صحابك وزوار موقعك:</p>
@@ -333,18 +507,17 @@
     </footer>
 
     <script>
-        // كود إخفاء شاشة التحميل الافتتاحية بعد ثانيتين
+        // إخفاء الشاشة الافتتاحية
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 500);
+                setTimeout(() => { splash.style.display = 'none'; }, 500);
             }, 1800);
+            addXP(10); // مكافأة دخول الموقع
         });
 
-        // كود جزيئات النيون التي تتبع حركة الماوس أو اللمس
+        // نظام الجزيئات للماوس
         window.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.15) return; 
             const particle = document.createElement('div');
@@ -356,7 +529,21 @@
             setTimeout(() => particle.remove(), 400);
         });
 
-        // العداد التنازلي لـ سنة 2027
+        // نظام الـ XP والـ Level
+        let xp = 0;
+        let lvl = 1;
+        function addXP(amount) {
+            xp += amount;
+            if(xp >= 100) {
+                xp = xp - 100;
+                lvl++;
+                alert(`🎉 عاش! مستواك في موقع أحمد زاد وبقيت ليفل ${lvl}!`);
+            }
+            document.getElementById('user-xp').innerText = xp;
+            document.getElementById('user-lvl').innerText = lvl;
+        }
+
+        // العداد التنازلي
         const targetDate = new Date("June 1, 2027 00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -367,9 +554,10 @@
             document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
 
-        // تبديل الأقسام + أنميشن شريط الطاقة + تأثير الصوت
+        // تبديل التابات والـ Stats
         function switchTab(evt, tabId) {
             playClickSound(); 
+            addXP(5); // يمنح XP عند استكشاف الأقسام
             document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
@@ -379,8 +567,62 @@
                 document.querySelectorAll('.skill-progress').forEach(bar => {
                     bar.style.width = bar.getAttribute('data-width');
                 });
+                if(document.getElementById('click-achieve').style.display === 'none') {
+                    addXP(20);
+                }
                 document.getElementById('click-achieve').style.display = 'flex';
             }
+        }
+
+        // مغير الأجواء والمود
+        function changeMood(mode) {
+            playClickSound();
+            document.body.className = ''; // ريست
+            if(mode === 'hype') document.body.classList.add('hype-mode');
+            if(mode === 'study') document.body.classList.add('study-mode');
+            addXP(15);
+        }
+
+        // محرك لعبة XO المدمجة لشخصين
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        function makeMove(cell, index) {
+            if(board[index] !== "" || checkWinner()) return;
+            playClickSound();
+            board[index] = currentPlayer;
+            cell.innerText = currentPlayer;
+            cell.style.color = currentPlayer === "X" ? "var(--accent-color)" : "var(--accent-pink)";
+            
+            if(checkWinner()) {
+                document.getElementById('xo-status').innerText = `🎉 كفووو! اللاعب ${currentPlayer} كسب الجولة!`;
+                addXP(30);
+                return;
+            }
+            if(!board.includes("")) {
+                document.getElementById('xo-status').innerText = `🤝 تعادل رايق بين البطلين!`;
+                return;
+            }
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById('xo-status').innerText = `دور اللاعب: ${currentPlayer}`;
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0,1,2], [3,4,5], [6,7,8],
+                [0,3,6], [1,4,7], [2,5,8],
+                [0,4,8], [2,4,6]
+            ];
+            return winPatterns.some(pattern => {
+                return pattern.every(idx => board[idx] === currentPlayer);
+            });
+        }
+
+        function resetXO() {
+            playClickSound();
+            board = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            document.getElementById('xo-status').innerText = "دور اللاعب: X";
+            document.querySelectorAll('.xo-cell').forEach(c => c.innerText = "");
         }
 
         function playLogoEffect() {
@@ -390,6 +632,7 @@
             setTimeout(() => logo.style.transform = "none", 150);
         }
 
+        // حفظ الرسايل السرية
         function saveMessage() {
             playClickSound();
             const text = document.getElementById('user-msg').value;
@@ -402,6 +645,7 @@
             document.getElementById('user-msg').value = '';
             document.getElementById('sent-alert').style.display = 'block';
             setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
+            addXP(10);
         }
 
         function openAdmin() {
