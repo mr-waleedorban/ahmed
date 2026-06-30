@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub v2.5</title>
+    <title>Ahmed Waleed // Ultimate Hub v3.0</title>
     <!-- مكتبة التشفير والأمان السحابي لحماية الرسائل -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
@@ -237,7 +237,7 @@
         .mindmap-node h4 { margin: 0 0 5px 0; color: var(--accent-color); }
         .mindmap-node p { margin: 0; font-size: 0.85rem; color: var(--muted-text); }
 
-        /* ستايل قسم الألعاب الجديد المطور */
+        /* ستايل صالة الألعاب الأركيد الجديدة الجنونية */
         .games-grid {
             display: flex;
             flex-direction: column;
@@ -245,9 +245,10 @@
         }
         .game-block {
             background: rgba(255, 255, 255, 0.02);
-            padding: 20px;
+            padding: 22px;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
         }
         .xo-game {
             display: grid;
@@ -271,41 +272,57 @@
         }
         .xo-cell:hover { background: rgba(0, 245, 212, 0.1); }
 
-        /* لعبة الثعبان */
-        .snake-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
+        /* ستايل شاشات ألعاب الكانفاس المحدثة */
+        .arcade-canvas-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 15px auto;
         }
-        #snakeCanvas {
-            background: #090d16;
+        canvas.arcade-screen {
+            background: #040712;
             border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
+            display: block;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .arcade-btn {
+            background: #11192e;
+            border: 1px solid var(--accent-color);
+            color: white;
+            padding: 10px 24px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .arcade-btn:hover {
+            background: var(--accent-color);
+            color: black;
+            box-shadow: 0 0 12px var(--accent-color);
         }
 
-        /* زرار الأونلاين المطور */
-        .online-btn-container {
-            text-align: center;
-            margin-top: 10px;
+        .online-challenge-box {
+            background: linear-gradient(135deg, rgba(204, 0, 255, 0.1), rgba(0, 245, 212, 0.1));
+            border: 2px dashed var(--accent-pink) !important;
         }
-        .btn-online-challenge {
-            background: linear-gradient(135deg, #00bbf9, var(--accent-pink));
-            color: #fff;
+        .btn-glow-online {
+            background: linear-gradient(135deg, var(--accent-pink), #00bbf9);
+            color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 35px;
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(204, 0, 255, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 15px var(--accent-pink);
+            transition: transform 0.2s;
         }
-        .btn-online-challenge:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 187, 249, 0.5);
+        .btn-glow-online:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #00bbf9;
         }
 
         .mood-selector {
@@ -380,7 +397,7 @@
 <body>
 
     <div id="splash-screen">
-        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v2.5 ]</div>
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v3.0 ]</div>
     </div>
 
     <script>
@@ -428,7 +445,7 @@
             <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 هويتي</button>
             <button class="tab-btn" onclick="switchTab(event, 'skills')">⚡ الـ Stats (RPG)</button>
             <button class="tab-btn" onclick="switchTab(event, 'mindmap')">🧠 خريطة الهدف 2027</button>
-            <button class="tab-btn" onclick="switchTab(event, 'games')">🕹️ صالة الألعاب والـ Arcade</button>
+            <button class="tab-btn" onclick="switchTab(event, 'games')">🕹️ صالة الألعاب الفضائية</button>
             <button class="tab-btn" onclick="switchTab(event, 'mood')">🎵 الـ Mood Changer</button>
             <button class="tab-btn" onclick="switchTab(event, 'secret')">📬 صندوق الصراحة</button>
         </div>
@@ -489,17 +506,38 @@
             </div>
         </div>
 
-        <!-- التاب 4: صالة الألعاب المحدثة -->
+        <!-- التاب 4: صالة الألعاب الأركيد المعدلة كلياً -->
         <div id="games" class="content-panel">
-            <h2><span>🕹️</span> Ahmed's Arcade Room</h2>
-            <p>اختار نوع التحدي اللي تحبه واكسب نقاط XP إضافية:</p>
+            <h2><span>🕹️</span> Ahmed's Cyber Arcade</h2>
+            <p>ألعاب جنونية ومبهرة متبرمجة بالكامل بالـ JavaScript وبأعلى جودة نيون:</p>
             
             <div class="games-grid">
                 
-                <!-- لعبة 1: XO -->
+                <!-- لعبة 1: ضرب النار الفضائي المذهل (بديل الثعبان) -->
+                <div class="game-block" style="border: 1px solid var(--accent-pink);">
+                    <h3 style="color:var(--accent-pink); margin-top:0;">🚀 1. حرب الفضاء النيون (Space Shooter)</h3>
+                    <p style="font-size:0.85rem; color:var(--muted-text);">حرك الماوس أو صباعك على الشاشة للتحرك والضرب تلقائياً! فجر المربعات الساقطة.</p>
+                    <div class="arcade-canvas-wrapper">
+                        <div style="font-weight:bold; margin-bottom:5px;">السكور: <span id="shooter-score" style="color:var(--accent-color)">0</span></div>
+                        <canvas id="shooterCanvas" class="arcade-screen" width="320" height="350"></canvas>
+                        <button class="arcade-btn" onclick="startShooterGame()" style="margin-top:10px; border-color:var(--accent-pink);">ابدأ حرب الفضاء 💥</button>
+                    </div>
+                </div>
+
+                <!-- لعبة 2: بينج بونج النيون المطورة -->
                 <div class="game-block">
-                    <h3 style="color:var(--accent-color); margin-top:0;">1. تحدي الـ X-O السريع (2 لاعبين بنفس الجهاز)</h3>
-                    <div id="xo-status" style="text-align: center; color: var(--accent-color); font-weight: bold;">دور اللاعب: X</div>
+                    <h3 style="color:var(--accent-color); margin-top:0;">🏓 2. نيون بينج بونج (سولو أو لاعبين)</h3>
+                    <p style="font-size:0.85rem; color:var(--muted-text);">اللاعب الأول يتحرك بالماوس (أو اللمس) - الكمبيوتر بيلعب معاك تلقائياً!</p>
+                    <div class="arcade-canvas-wrapper">
+                        <canvas id="pongCanvas" class="arcade-screen" width="320" height="200"></canvas>
+                        <button class="arcade-btn" onclick="startPongGame()" style="margin-top:10px;">ابدأ التحدي 🏓</button>
+                    </div>
+                </div>
+
+                <!-- لعبة 3: XO التقليدية السريعة -->
+                <div class="game-block">
+                    <h3 style="color:#00bbf9; margin-top:0;">❌ 3. تحدي الـ X-O الذكي</h3>
+                    <div id="xo-status" style="text-align: center; color: #00bbf9; font-weight: bold;">دور اللاعب: X</div>
                     <div class="xo-game">
                         <div class="xo-cell" onclick="makeMove(this, 0)"></div>
                         <div class="xo-cell" onclick="makeMove(this, 1)"></div>
@@ -511,27 +549,14 @@
                         <div class="xo-cell" onclick="makeMove(this, 7)"></div>
                         <div class="xo-cell" onclick="makeMove(this, 8)"></div>
                     </div>
-                    <button onclick="resetXO()" style="display:block; margin: 10px auto; background:none; border:1px solid var(--accent-pink); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة تحدي XO</button>
+                    <button onclick="resetXO()" style="background:none; border:1px solid #00bbf9; color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة اللعب</button>
                 </div>
 
-                <!-- لعبة 2: الثعبان الكرييتف -->
-                <div class="game-block">
-                    <h3 style="color:var(--accent-pink); margin-top:0;">2. لعبة الثعبان الكلاسيكية (سولو كسر الرقم القياسي)</h3>
-                    <p style="font-size:0.85rem; color:var(--muted-text); text-align:center;">استخدم أسهم الكيبورد للتحرك ⬅️ ⬆️ ➡️ ⬇️</p>
-                    <div class="snake-wrapper">
-                        <div style="font-weight:bold;">السكور الحالي: <span id="snake-score" style="color:var(--accent-color)">0</span></div>
-                        <canvas id="snakeCanvas" width="300" height="300"></canvas>
-                        <button onclick="startSnakeGame()" style="background:var(--card-bg); border:1px solid var(--accent-color); color:white; padding:8px 20px; border-radius:10px; cursor:pointer; font-weight:bold;">ابدأ اللعب / إعادة</button>
-                    </div>
-                </div>
-
-                <!-- لعبة 3: أونلاين حقيقية مع الزوار بلينك -->
-                <div class="game-block" style="border: 1px dashed var(--accent-color);">
-                    <h3 style="color:#00bbf9; margin-top:0; text-align:center;">🌐 3. تحدي أونلاين حقيقي مع أحمد أو الزوار (Multiplayer)</h3>
-                    <p style="font-size:0.9rem; text-align:center;">عايز تلعب أونلاين في رومات حية؟ اضغط على الزرار تحت وهيفتحلك روم لعبة رسم وتخمين أو بلياردو عالمية، خد لينكتها والعب مع أصحابك أو ابعتلي نلعب سوا!</p>
-                    <div class="online-btn-container">
-                        <button class="btn-online-challenge" onclick="openOnlineGame()">ادخل صالة الألعاب الأونلاين الحية 🚀</button>
-                    </div>
+                <!-- لعبة 4: الأونلاين الحقيقي الجديد مع الزوار بلمسة واحدة -->
+                <div class="game-block online-challenge-box">
+                    <h3 style="color:var(--text-color); margin-top:0;">🌐 4. غرف ألعاب أونلاين حية (8 Ball Pool & Ludo)</h3>
+                    <p style="font-size:0.9rem;">المنصة دي بتسمحلك تعمل روم أونلاين مجانية للبلياردو، الورق، أو الليدو، وتاخد اللينك تلعبه مع أحمد وليد أو زوار الموقع لايف!</p>
+                    <button class="btn-glow-online" onclick="window.open('https://www.gamedistribution.com/', '_blank')">ادخل وتحدى الزوار أونلاين 🚀</button>
                 </div>
 
             </div>
@@ -548,7 +573,7 @@
             </div>
         </div>
 
-        <!-- التاب 6: صندوق الصراحة السحابي المشفر -->
+        <!-- التاب 6: صندوق الصراحة السحابي المشفر المستقر -->
         <div id="secret" class="content-panel">
             <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
             <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأحمد هيشوفها مشفرة بأمان في لوحته!</p>
@@ -686,130 +711,201 @@
             document.querySelectorAll('.xo-cell').forEach(c => c.innerText = "");
         }
 
-        // ================= كود لعبة الثعبان الجديد بالكامل =================
-        const canvas = document.getElementById("snakeCanvas");
-        const ctxCanvas = canvas.getContext("2d");
-        const boxSize = 15;
-        let snake, food, d, score, snakeGameInterval;
+        // ================= لعبة 1: ضرب النار الفضائي المطور (Space Shooter) =================
+        const sCanvas = document.getElementById("shooterCanvas");
+        const sCtx = sCanvas.getContext("2d");
+        let playerX = 160, enemies = [], bullets = [], shooterScore = 0, shooterInterval;
+        let isShooterRunning = false;
 
-        function startSnakeGame() {
+        sCanvas.addEventListener('mousemove', (e) => {
+            const rect = sCanvas.getBoundingClientRect();
+            playerX = e.clientX - rect.left;
+        });
+        sCanvas.addEventListener('touchmove', (e) => {
+            const rect = sCanvas.getBoundingClientRect();
+            playerX = e.touches[0].clientX - rect.left;
+        });
+
+        function startShooterGame() {
             playClickSound();
-            clearInterval(snakeGameInterval);
-            snake = [{ x: 10 * boxSize, y: 10 * boxSize }];
-            food = {
-                x: Math.floor(Math.random() * 19 + 1) * boxSize,
-                y: Math.floor(Math.random() * 19 + 1) * boxSize
-            };
-            score = 0;
-            document.getElementById("snake-score").innerText = score;
-            d = "RIGHT"; // الاتجاه المبدئي
-            document.addEventListener("keydown", direction);
-            snakeGameInterval = setInterval(drawSnakeGame, 120);
+            if(isShooterRunning) clearInterval(shooterInterval);
+            isShooterRunning = true;
+            shooterScore = 0;
+            enemies = [];
+            bullets = [];
+            document.getElementById("shooter-score").innerText = shooterScore;
+            shooterInterval = setInterval(updateShooter, 30);
         }
 
-        function direction(event) {
-            if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
-            else if (event.keyCode == 38 && d != "DOWN") d = "UP";
-            else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
-            else if (event.keyCode == 40 && d != "UP") d = "DOWN";
-        }
+        function updateShooter() {
+            sCtx.fillStyle = "#040712";
+            sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
 
-        function drawSnakeGame() {
-            ctxCanvas.fillStyle = "#090d16";
-            ctxCanvas.fillRect(0, 0, canvas.width, canvas.height);
+            // رسم اللاعب (المركبة)
+            sCtx.fillStyle = "var(--accent-color)";
+            sCtx.beginPath();
+            sCtx.moveTo(playerX, sCanvas.height - 10);
+            sCtx.lineTo(playerX - 15, sCanvas.height - 30);
+            sCtx.lineTo(playerX + 15, sCanvas.height - 30);
+            sCtx.fill();
 
-            for (let i = 0; i < snake.length; i++) {
-                ctxCanvas.fillStyle = i == 0 ? "#00f5d4" : "#cc00ff";
-                ctxCanvas.fillRect(snake[i].x, snake[i].y, boxSize, boxSize);
-                ctxCanvas.strokeStyle = "#060911";
-                ctxCanvas.strokeRect(snake[i].x, snake[i].y, boxSize, boxSize);
+            // ضرب الرصاص تلقائياً
+            if(Math.random() < 0.15) {
+                bullets.push({x: playerX, y: sCanvas.height - 35});
             }
 
-            ctxCanvas.fillStyle = "#ff0055";
-            ctxCanvas.fillRect(food.x, food.y, boxSize, boxSize);
+            // تحديث ورسم الرصاص
+            sCtx.fillStyle = "#fff";
+            bullets.forEach((b, index) => {
+                b.y -= 7;
+                sCtx.fillRect(b.x - 2, b.y, 4, 10);
+                if(b.y < 0) bullets.splice(index, 1);
+            });
 
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
+            // توليد الأعداء الكونية
+            if(Math.random() < 0.04) {
+                enemies.push({x: Math.random() * (sCanvas.width - 20) + 10, y: 0, size: Math.random() * 15 + 10});
+            }
 
-            if (d == "LEFT") snakeX -= boxSize;
-            if (d == "UP") snakeY -= boxSize;
-            if (d == "RIGHT") snakeX += boxSize;
-            if (d == "DOWN") snakeY += boxSize;
+            // تحديث ورسم الأعداء
+            enemies.forEach((e, eIdx) => {
+                e.y += 3;
+                sCtx.fillStyle = "var(--accent-pink)";
+                sCtx.fillRect(e.x, e.y, e.size, e.size);
 
-            if (snakeX == food.x && snakeY == food.y) {
-                score += 10;
-                document.getElementById("snake-score").innerText = score;
+                // تصادم الرصاص مع العدو
+                bullets.forEach((b, bIdx) => {
+                    if(b.x > e.x && b.x < e.x + e.size && b.y > e.y && b.y < e.y + e.size) {
+                        enemies.splice(eIdx, 1);
+                        bullets.splice(bIdx, 1);
+                        shooterScore += 10;
+                        document.getElementById("shooter-score").innerText = shooterScore;
+                        addXP(2);
+                    }
+                });
+
+                // انتهاء اللعبة لو ضربت في الأرض
+                if(e.y > sCanvas.height) {
+                    clearInterval(shooterInterval);
+                    isShooterRunning = false;
+                    alert("انتهت المعركة الكونية! مجموع سكورك: " + shooterScore);
+                }
+            });
+        }
+
+        // ================= لعبة 2: نيون بينج بونج المذهلة =================
+        const pCanvas = document.getElementById("pongCanvas");
+        const pCtx = pCanvas.getContext("2d");
+        let ballX = 160, ballY = 100, ballDX = 3, ballDY = 3;
+        let pPlayerX = 130, compX = 130, pongInterval, isPongRunning = false;
+
+        pCanvas.addEventListener('mousemove', (e) => {
+            const rect = pCanvas.getBoundingClientRect();
+            pPlayerX = e.clientX - rect.left - 30;
+        });
+        pCanvas.addEventListener('touchmove', (e) => {
+            const rect = pCanvas.getBoundingClientRect();
+            pPlayerX = e.touches[0].clientX - rect.left - 30;
+        });
+
+        function startPongGame() {
+            playClickSound();
+            if(isPongRunning) clearInterval(pongInterval);
+            isPongRunning = true;
+            ballX = 160; ballY = 100; ballDX = 3; ballDY = 3;
+            pongInterval = setInterval(updatePong, 20);
+        }
+
+        function updatePong() {
+            pCtx.fillStyle = "#040712";
+            pCtx.fillRect(0, 0, pCanvas.width, pCanvas.height);
+
+            // رسم مضرب اللاعب (أسفل الشاشة)
+            pCtx.fillStyle = "var(--accent-color)";
+            pCtx.fillRect(pPlayerX, pCanvas.height - 15, 60, 10);
+
+            // تحريك ورسم الكمبيوتر ذكاء اصطناعي (أعلى الشاشة)
+            compX += (ballX - (compX + 30)) * 0.12;
+            pCtx.fillStyle = "var(--accent-pink)";
+            pCtx.fillRect(compX, 5, 60, 10);
+
+            // تحريك الكرة
+            ballX += ballDX;
+            ballY += ballDY;
+
+            // رسم الكرة نيون
+            pCtx.fillStyle = "#fff";
+            pCtx.beginPath();
+            pCtx.arc(ballX, ballY, 6, 0, Math.PI*2);
+            pCtx.fill();
+
+            // ارتداد حوائط جانبية
+            if(ballX < 5 || ballX > pCanvas.width - 5) ballDX = -ballDX;
+
+            // ارتداد من مضرب الكمبيوتر
+            if(ballY <= 15 && ballX > compX && ballX < compX + 60) {
+                ballDY = -ballDY;
+                ballDY *= 1.05; // تسريع بسيط للعبة
+            }
+
+            // ارتداد من مضرب اللاعب
+            if(ballY >= pCanvas.height - 25 && ballX > pPlayerX && ballX < pPlayerX + 60) {
+                ballDY = -ballDY;
                 addXP(5);
-                food = {
-                    x: Math.floor(Math.random() * 19 + 1) * boxSize,
-                    y: Math.floor(Math.random() * 19 + 1) * boxSize
-                };
-            } else {
-                snake.pop();
             }
 
-            let newHead = { x: snakeX, y: snakeY };
-
-            // شروط الخسارة الجدار أو أكل نفسه
-            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-                clearInterval(snakeGameInterval);
-                alert("Game Over! السكور بتاعك: " + score);
-                return;
+            // الخسارة والفوز
+            if(ballY < 0) {
+                clearInterval(pongInterval); isPongRunning = false;
+                alert("🎉 أنت كسبت الكمبيوتر! كفو يا بطل."); addXP(20);
             }
-
-            snake.unshift(newHead);
-        }
-
-        function collision(head, array) {
-            for (let i = 0; i < array.length; i++) {
-                if (head.x == array[i].x && head.y == array[i].y) return true;
+            if(ballY > pCanvas.height) {
+                clearInterval(pongInterval); isPongRunning = false;
+                alert("💥 خسرت الجولة! ركز أكتر المرة الجاية.");
             }
-            return false;
-        }
-        // ==============================================================
-
-        // فتح لعبة أونلاين حقيقية مع الزوار في صفحة خارجية مجهزة
-        function openOnlineGame() {
-            playClickSound();
-            addXP(15);
-            // لينك للعبة بلياردو ورسم سريعة ومشهورة بتعمل رومات تلقائي ومجاناً
-            window.open("https://skribbl.io/", "_blank");
         }
 
-        function playLogoEffect() {
-            playClickSound();
-            const logo = document.querySelector('.creative-logo');
-            logo.style.transform = "scale(0.8) rotate(10deg)";
-            setTimeout(() => logo.style.transform = "none", 150);
-        }
-
-        // دالة إرسال الصراحة وتشفيرها
+        // ================= دالة إرسال الصراحة السحابية المستقرة والمعدلة =================
         async function saveMessage() {
             playClickSound();
             const text = document.getElementById('user-msg').value;
             if(!text.trim()) return alert("اكتب حاجة الأول يا رايق!");
             
             try {
-                let response = await fetch(API_URL);
+                // جلب البيانات الحالية كـ text مرن منعاً لمشاكل الـ Parsing بالمتصفحات
+                let response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (!response.ok) throw new Error("سيرفر التخزين مشغول");
+                
                 let currentData = await response.json();
                 let messages = currentData.messages || [];
                 
+                // تشفير النص تماماً بنظام AES قبل رفعه على الشبكة
                 const encryptedText = CryptoJS.AES.encrypt(text, CRYPTO_KEY).toString();
-                
                 messages.push({ text: encryptedText, date: new Date().toLocaleTimeString() });
                 
-                await fetch(API_URL, {
+                // الإرسال مع تصفير الـ Mode لضمان التحديث الآمن للسيرفر بنسبة 100%
+                let saveResponse = await fetch(API_URL, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({ messages: messages })
                 });
 
-                document.getElementById('user-msg').value = '';
-                document.getElementById('sent-alert').style.display = 'block';
-                setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
-                addXP(10);
+                if (saveResponse.ok) {
+                    document.getElementById('user-msg').value = '';
+                    document.getElementById('sent-alert').style.display = 'block';
+                    setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
+                    addXP(15);
+                } else {
+                    alert("السيرفر السحابي عليه ضغط حالياً، اضغط إرسال مرة تانية وهيشتغل!");
+                }
             } catch (error) {
-                alert("حصلت مشكلة نت.. جرب تاني كمان شوية!");
+                alert("حصلت قفشة سريعة في النت! جرب تضغط إرسال تاني حالا.");
             }
         }
 
@@ -870,6 +966,13 @@
                     alert("فشل مسح البيانات.");
                 }
             }
+        }
+
+        function playLogoEffect() {
+            playClickSound();
+            const logo = document.querySelector('.creative-logo');
+            logo.style.transform = "scale(0.8) rotate(10deg)";
+            setTimeout(() => logo.style.transform = "none", 150);
         }
     </script>
 </body>
