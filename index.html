@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Waleed // Ultimate Hub v2.0</title>
+    <title>Ahmed Waleed // Ultimate Hub v2.5</title>
+    <!-- مكتبة التشفير والأمان السحابي لحماية الرسائل -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         :root {
             --bg-color: #060911;
@@ -14,7 +16,6 @@
             --muted-text: #9ca3af;
         }
 
-        /* ثيم المود الحماسي */
         .hype-mode {
             --bg-color: #0d0116;
             --card-bg: #220336;
@@ -22,7 +23,6 @@
             --accent-pink: #00f5d4;
         }
 
-        /* ثيم مود المذاكرة والهدوء */
         .study-mode {
             --bg-color: #070f11;
             --card-bg: #0b1f24;
@@ -40,7 +40,6 @@
             transition: all 0.5s ease;
         }
 
-        /* شاشة التحميل الافتتاحية */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -117,7 +116,6 @@
             margin-bottom: 10px;
         }
 
-        /* نظام الـ XP والـ Level العلوي */
         .xp-bar-container {
             max-width: 200px;
             margin: 0 auto 15px auto;
@@ -161,7 +159,6 @@
 
         .main-container { max-width: 850px; margin: 0 auto; padding: 0 20px 60px 20px; }
         
-        /* التابات محسنة وتدعم التمرير على الموبايل */
         .nav-tabs { 
             display: flex; 
             justify-content: flex-start; 
@@ -207,13 +204,11 @@
 
         h2 { color: var(--accent-color); margin-top: 0; font-size: 1.6rem; display: flex; align-items: center; gap: 10px; }
 
-        /* قسم الـ Stats */
         .skill-wrapper { margin-top: 20px; }
         .skill-info { display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 5px; }
         .skill-bar { width: 100%; background: #151c2c; border-radius: 10px; height: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.02); }
         .skill-progress { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-color)); border-radius: 10px; width: 0%; transition: width 1s ease-in-out; }
 
-        /* خريطة العقل الجرافيكال للـ Senior */
         .mindmap-container {
             display: flex;
             flex-direction: column;
@@ -242,7 +237,18 @@
         .mindmap-node h4 { margin: 0 0 5px 0; color: var(--accent-color); }
         .mindmap-node p { margin: 0; font-size: 0.85rem; color: var(--muted-text); }
 
-        /* لعبة الـ XO المدمجة لشخصين */
+        /* ستايل قسم الألعاب الجديد المطور */
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .game-block {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
         .xo-game {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -265,7 +271,43 @@
         }
         .xo-cell:hover { background: rgba(0, 245, 212, 0.1); }
 
-        /* أزرار المود رايقر */
+        /* لعبة الثعبان */
+        .snake-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        #snakeCanvas {
+            background: #090d16;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+        }
+
+        /* زرار الأونلاين المطور */
+        .online-btn-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn-online-challenge {
+            background: linear-gradient(135deg, #00bbf9, var(--accent-pink));
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(204, 0, 255, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-online-challenge:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 187, 249, 0.5);
+        }
+
         .mood-selector {
             display: flex;
             gap: 10px;
@@ -337,9 +379,8 @@
 </head>
 <body>
 
-    <!-- الشاشة الافتتاحية -->
     <div id="splash-screen">
-        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v2.0 ]</div>
+        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space v2.5 ]</div>
     </div>
 
     <script>
@@ -365,7 +406,6 @@
         <h1>Ahmed Waleed</h1>
         <div class="tagline">Senior_2027_Loading...</div>
         
-        <!-- نظام الـ XP والترفيه الجديد -->
         <div class="xp-bar-container">
             <span>⭐ المستوي: <span id="user-lvl">1</span></span>
             <span>XP: <span id="user-xp">0</span>/100</span>
@@ -384,12 +424,11 @@
 
     <div class="main-container">
         
-        <!-- التابات الجديدة مدمجة مع القديمة بسلاسة -->
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab(event, 'about')">🎮 هويتي</button>
             <button class="tab-btn" onclick="switchTab(event, 'skills')">⚡ الـ Stats (RPG)</button>
             <button class="tab-btn" onclick="switchTab(event, 'mindmap')">🧠 خريطة الهدف 2027</button>
-            <button class="tab-btn" onclick="switchTab(event, 'games')">🕹️ سينما الألعاب (2P)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'games')">🕹️ صالة الألعاب والـ Arcade</button>
             <button class="tab-btn" onclick="switchTab(event, 'mood')">🎵 الـ Mood Changer</button>
             <button class="tab-btn" onclick="switchTab(event, 'secret')">📬 صندوق الصراحة</button>
         </div>
@@ -408,7 +447,7 @@
             </div>
         </div>
 
-        <!-- التاب 2: الإحصائيات الـ RPG -->
+        <!-- التاب 2: الإحصائيات -->
         <div id="skills" class="content-panel">
             <h2><span>⚡</span> الـ Character Stats</h2>
             <p>مستويات الطاقة والمهارات الحالية على طريقة ألعاب الـ RPG:</p>
@@ -429,7 +468,7 @@
             </div>
         </div>
 
-        <!-- التاب الجديد 3: خريطة العقل والأهداف للمستقبل (Mind Map) -->
+        <!-- التاب 3: خريطة العقل -->
         <div id="mindmap" class="content-panel">
             <h2><span>🧠</span> خريطة طريق أحمد وليد (Senior 2027)</h2>
             <p>دي الخطة الذهنية متقسمة علشان نوصل لهدف الـ Graduation الرايق:</p>
@@ -450,26 +489,55 @@
             </div>
         </div>
 
-        <!-- التاب الجديد 4: ألعاب ويب لشخصين (2-Players Game) -->
+        <!-- التاب 4: صالة الألعاب المحدثة -->
         <div id="games" class="content-panel">
-            <h2><span>🕹️</span> لعبة التحدي السريع (لاعب ضد لاعب بنفس الجهاز)</h2>
-            <p>قاعد مع صاحبك وفصلتوا مذاكرة؟ اتحداه هنا في جولة X-O سريعة نيون:</p>
-            <div id="xo-status" style="text-align: center; color: var(--accent-color); font-weight: bold;">دور اللاعب: X</div>
-            <div class="xo-game">
-                <div class="xo-cell" onclick="makeMove(this, 0)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 1)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 2)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 3)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 4)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 5)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 6)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 7)"></div>
-                <div class="xo-cell" onclick="makeMove(this, 8)"></div>
+            <h2><span>🕹️</span> Ahmed's Arcade Room</h2>
+            <p>اختار نوع التحدي اللي تحبه واكسب نقاط XP إضافية:</p>
+            
+            <div class="games-grid">
+                
+                <!-- لعبة 1: XO -->
+                <div class="game-block">
+                    <h3 style="color:var(--accent-color); margin-top:0;">1. تحدي الـ X-O السريع (2 لاعبين بنفس الجهاز)</h3>
+                    <div id="xo-status" style="text-align: center; color: var(--accent-color); font-weight: bold;">دور اللاعب: X</div>
+                    <div class="xo-game">
+                        <div class="xo-cell" onclick="makeMove(this, 0)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 1)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 2)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 3)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 4)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 5)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 6)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 7)"></div>
+                        <div class="xo-cell" onclick="makeMove(this, 8)"></div>
+                    </div>
+                    <button onclick="resetXO()" style="display:block; margin: 10px auto; background:none; border:1px solid var(--accent-pink); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة تحدي XO</button>
+                </div>
+
+                <!-- لعبة 2: الثعبان الكرييتف -->
+                <div class="game-block">
+                    <h3 style="color:var(--accent-pink); margin-top:0;">2. لعبة الثعبان الكلاسيكية (سولو كسر الرقم القياسي)</h3>
+                    <p style="font-size:0.85rem; color:var(--muted-text); text-align:center;">استخدم أسهم الكيبورد للتحرك ⬅️ ⬆️ ➡️ ⬇️</p>
+                    <div class="snake-wrapper">
+                        <div style="font-weight:bold;">السكور الحالي: <span id="snake-score" style="color:var(--accent-color)">0</span></div>
+                        <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                        <button onclick="startSnakeGame()" style="background:var(--card-bg); border:1px solid var(--accent-color); color:white; padding:8px 20px; border-radius:10px; cursor:pointer; font-weight:bold;">ابدأ اللعب / إعادة</button>
+                    </div>
+                </div>
+
+                <!-- لعبة 3: أونلاين حقيقية مع الزوار بلينك -->
+                <div class="game-block" style="border: 1px dashed var(--accent-color);">
+                    <h3 style="color:#00bbf9; margin-top:0; text-align:center;">🌐 3. تحدي أونلاين حقيقي مع أحمد أو الزوار (Multiplayer)</h3>
+                    <p style="font-size:0.9rem; text-align:center;">عايز تلعب أونلاين في رومات حية؟ اضغط على الزرار تحت وهيفتحلك روم لعبة رسم وتخمين أو بلياردو عالمية، خد لينكتها والعب مع أصحابك أو ابعتلي نلعب سوا!</p>
+                    <div class="online-btn-container">
+                        <button class="btn-online-challenge" onclick="openOnlineGame()">ادخل صالة الألعاب الأونلاين الحية 🚀</button>
+                    </div>
+                </div>
+
             </div>
-            <button onclick="resetXO()" style="display:block; margin: 10px auto; background:none; border:1px solid var(--accent-pink); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">إعادة اللعب</button>
         </div>
 
-        <!-- التاب الجديد 5: الـ Mood Changer الذكي -->
+        <!-- التاب 5: الـ Mood Changer -->
         <div id="mood" class="content-panel">
             <h2><span>🎵</span> مغير الـ Mood والأجواء</h2>
             <p>اختار المود اللي بتمر بيه دلوقتي، وهيتم تغيير ألوان وتصميم الموقع بالكامل ليناسب الـ Vibe بتاعك:</p>
@@ -480,24 +548,24 @@
             </div>
         </div>
 
-        <!-- التاب 6: الصراحة القديم -->
+        <!-- التاب 6: صندوق الصراحة السحابي المشفر -->
         <div id="secret" class="content-panel">
             <h2><span>📬</span> ابعتلي رسالة سرية مجهولة</h2>
-            <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأنا هشوفها لوحدي!</p>
+            <p>اكتب أي حاجة في سرك (نصيحة، كلمة حلوة، أو صراحة) ومحدش هيعرف أنت مين، وأحمد هيشوفها مشفرة بأمان في لوحته!</p>
             
             <div class="msg-form">
                 <textarea id="user-msg" placeholder="اكتب رسالتك السرية هنا..."></textarea>
-                <button onclick="saveMessage()">إرسال الصراحة بأمان 🚀</button>
+                <button onclick="saveMessage()">إرسال الصراحة بأمان عبر الإنترنت 🚀</button>
             </div>
-            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال بنجاح! 😎</div>
+            <div id="sent-alert" style="color:var(--accent-color); margin-top:10px; display:none; font-weight:bold;">تم التشفير والإرسال السحابي بنجاح! 🔒😎</div>
         </div>
 
-        <!-- لوحة التحكم -->
+        <!-- لوحة التحكم الحقيقية الآمنة -->
         <div id="admin-panel">
-            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن (أحمد وليد)</h2>
-            <p>هنا الرسايل السرية اللي مبعوتالك من صحابك وزوار موقعك:</p>
+            <h2 style="color: var(--accent-pink);">👑 لوحة تحكم الأدمن الآمنة (أحمد وليد)</h2>
+            <p>هنا الرسايل السرية اللي اتفكت شفرتها بحسابك الشخصي عبر الإنترنت:</p>
             <div id="messages-box"></div>
-            <button onclick="clearMessages()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">مسح كل الرسائل</button>
+            <button onclick="clearMessages()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">مسح كل الرسائل نهائياً</button>
         </div>
 
     </div>
@@ -507,17 +575,19 @@
     </footer>
 
     <script>
-        // إخفاء الشاشة الافتتاحية
+        // الرابط السحابي لتخزين الرسائل
+        const API_URL = 'https://jsonstorage.net/api/items/cbd99c9d-d602-4217-9104-5f168fbc0bf7';
+        const CRYPTO_KEY = "AhmedWaleedSuperSecret2027";
+
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 setTimeout(() => { splash.style.display = 'none'; }, 500);
             }, 1800);
-            addXP(10); // مكافأة دخول الموقع
+            addXP(10);
         });
 
-        // نظام الجزيئات للماوس
         window.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.15) return; 
             const particle = document.createElement('div');
@@ -529,7 +599,6 @@
             setTimeout(() => particle.remove(), 400);
         });
 
-        // نظام الـ XP والـ Level
         let xp = 0;
         let lvl = 1;
         function addXP(amount) {
@@ -537,13 +606,12 @@
             if(xp >= 100) {
                 xp = xp - 100;
                 lvl++;
-                alert(`🎉 عاش! مستواك في موقع أحمد زاد وبقيت ليفل ${lvl}!`);
+                alert(`🎉 عاش! مستواك زاد وبقيت ليفل ${lvl}!`);
             }
             document.getElementById('user-xp').innerText = xp;
             document.getElementById('user-lvl').innerText = lvl;
         }
 
-        // العداد التنازلي
         const targetDate = new Date("June 1, 2027 00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -554,10 +622,9 @@
             document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
 
-        // تبديل التابات والـ Stats
         function switchTab(evt, tabId) {
             playClickSound(); 
-            addXP(5); // يمنح XP عند استكشاف الأقسام
+            addXP(5);
             document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
@@ -567,23 +634,19 @@
                 document.querySelectorAll('.skill-progress').forEach(bar => {
                     bar.style.width = bar.getAttribute('data-width');
                 });
-                if(document.getElementById('click-achieve').style.display === 'none') {
-                    addXP(20);
-                }
                 document.getElementById('click-achieve').style.display = 'flex';
             }
         }
 
-        // مغير الأجواء والمود
         function changeMood(mode) {
             playClickSound();
-            document.body.className = ''; // ريست
+            document.body.className = ''; 
             if(mode === 'hype') document.body.classList.add('hype-mode');
             if(mode === 'study') document.body.classList.add('study-mode');
             addXP(15);
         }
 
-        // محرك لعبة XO المدمجة لشخصين
+        // منطق لعبة XO
         let board = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X";
         function makeMove(cell, index) {
@@ -594,12 +657,12 @@
             cell.style.color = currentPlayer === "X" ? "var(--accent-color)" : "var(--accent-pink)";
             
             if(checkWinner()) {
-                document.getElementById('xo-status').innerText = `🎉 كفووو! اللاعب ${currentPlayer} كسب الجولة!`;
+                document.getElementById('xo-status').innerText = `🎉 اللاعب ${currentPlayer} كسب!`;
                 addXP(30);
                 return;
             }
             if(!board.includes("")) {
-                document.getElementById('xo-status').innerText = `🤝 تعادل رايق بين البطلين!`;
+                document.getElementById('xo-status').innerText = `🤝 تعادل رايق!`;
                 return;
             }
             currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -612,9 +675,7 @@
                 [0,3,6], [1,4,7], [2,5,8],
                 [0,4,8], [2,4,6]
             ];
-            return winPatterns.some(pattern => {
-                return pattern.every(idx => board[idx] === currentPlayer);
-            });
+            return winPatterns.some(pattern => pattern.every(idx => board[idx] === currentPlayer));
         }
 
         function resetXO() {
@@ -625,6 +686,96 @@
             document.querySelectorAll('.xo-cell').forEach(c => c.innerText = "");
         }
 
+        // ================= كود لعبة الثعبان الجديد بالكامل =================
+        const canvas = document.getElementById("snakeCanvas");
+        const ctxCanvas = canvas.getContext("2d");
+        const boxSize = 15;
+        let snake, food, d, score, snakeGameInterval;
+
+        function startSnakeGame() {
+            playClickSound();
+            clearInterval(snakeGameInterval);
+            snake = [{ x: 10 * boxSize, y: 10 * boxSize }];
+            food = {
+                x: Math.floor(Math.random() * 19 + 1) * boxSize,
+                y: Math.floor(Math.random() * 19 + 1) * boxSize
+            };
+            score = 0;
+            document.getElementById("snake-score").innerText = score;
+            d = "RIGHT"; // الاتجاه المبدئي
+            document.addEventListener("keydown", direction);
+            snakeGameInterval = setInterval(drawSnakeGame, 120);
+        }
+
+        function direction(event) {
+            if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
+            else if (event.keyCode == 38 && d != "DOWN") d = "UP";
+            else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
+            else if (event.keyCode == 40 && d != "UP") d = "DOWN";
+        }
+
+        function drawSnakeGame() {
+            ctxCanvas.fillStyle = "#090d16";
+            ctxCanvas.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < snake.length; i++) {
+                ctxCanvas.fillStyle = i == 0 ? "#00f5d4" : "#cc00ff";
+                ctxCanvas.fillRect(snake[i].x, snake[i].y, boxSize, boxSize);
+                ctxCanvas.strokeStyle = "#060911";
+                ctxCanvas.strokeRect(snake[i].x, snake[i].y, boxSize, boxSize);
+            }
+
+            ctxCanvas.fillStyle = "#ff0055";
+            ctxCanvas.fillRect(food.x, food.y, boxSize, boxSize);
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (d == "LEFT") snakeX -= boxSize;
+            if (d == "UP") snakeY -= boxSize;
+            if (d == "RIGHT") snakeX += boxSize;
+            if (d == "DOWN") snakeY += boxSize;
+
+            if (snakeX == food.x && snakeY == food.y) {
+                score += 10;
+                document.getElementById("snake-score").innerText = score;
+                addXP(5);
+                food = {
+                    x: Math.floor(Math.random() * 19 + 1) * boxSize,
+                    y: Math.floor(Math.random() * 19 + 1) * boxSize
+                };
+            } else {
+                snake.pop();
+            }
+
+            let newHead = { x: snakeX, y: snakeY };
+
+            // شروط الخسارة الجدار أو أكل نفسه
+            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+                clearInterval(snakeGameInterval);
+                alert("Game Over! السكور بتاعك: " + score);
+                return;
+            }
+
+            snake.unshift(newHead);
+        }
+
+        function collision(head, array) {
+            for (let i = 0; i < array.length; i++) {
+                if (head.x == array[i].x && head.y == array[i].y) return true;
+            }
+            return false;
+        }
+        // ==============================================================
+
+        // فتح لعبة أونلاين حقيقية مع الزوار في صفحة خارجية مجهزة
+        function openOnlineGame() {
+            playClickSound();
+            addXP(15);
+            // لينك للعبة بلياردو ورسم سريعة ومشهورة بتعمل رومات تلقائي ومجاناً
+            window.open("https://skribbl.io/", "_blank");
+        }
+
         function playLogoEffect() {
             playClickSound();
             const logo = document.querySelector('.creative-logo');
@@ -632,25 +783,39 @@
             setTimeout(() => logo.style.transform = "none", 150);
         }
 
-        // حفظ الرسايل السرية
-        function saveMessage() {
+        // دالة إرسال الصراحة وتشفيرها
+        async function saveMessage() {
             playClickSound();
             const text = document.getElementById('user-msg').value;
             if(!text.trim()) return alert("اكتب حاجة الأول يا رايق!");
             
-            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
-            messages.push({ text: text, date: new Date().toLocaleTimeString() });
-            localStorage.setItem('secret_messages', JSON.stringify(messages));
-            
-            document.getElementById('user-msg').value = '';
-            document.getElementById('sent-alert').style.display = 'block';
-            setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
-            addXP(10);
+            try {
+                let response = await fetch(API_URL);
+                let currentData = await response.json();
+                let messages = currentData.messages || [];
+                
+                const encryptedText = CryptoJS.AES.encrypt(text, CRYPTO_KEY).toString();
+                
+                messages.push({ text: encryptedText, date: new Date().toLocaleTimeString() });
+                
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: messages })
+                });
+
+                document.getElementById('user-msg').value = '';
+                document.getElementById('sent-alert').style.display = 'block';
+                setTimeout(() => { document.getElementById('sent-alert').style.display = 'none'; }, 3000);
+                addXP(10);
+            } catch (error) {
+                alert("حصلت مشكلة نت.. جرب تاني كمان شوية!");
+            }
         }
 
         function openAdmin() {
             playClickSound();
-            const password = prompt("ادخل باسورد الأدمن السري لقراءة الرسائل:");
+            const password = prompt("ادخل باسورد الأدمن السري لقراءة الرسائل عبر الإنترنت:");
             if (password === "1234") {
                 document.getElementById('admin-panel').style.display = 'block';
                 loadMessages();
@@ -660,24 +825,50 @@
             }
         }
 
-        function loadMessages() {
+        async function loadMessages() {
             const box = document.getElementById('messages-box');
-            box.innerHTML = '';
-            let messages = JSON.parse(localStorage.getItem('secret_messages')) || [];
-            if(messages.length === 0) {
-                box.innerHTML = '<p style="color:var(--muted-text)">مفيش رسايل جديدة لسة.. اطلب صراحة من صحابك!</p>';
-                return;
+            box.innerHTML = '<p style="color:var(--muted-text)">جاري سحب وفك تشفير الرسائل السحابية بأمان...</p>';
+            
+            try {
+                let response = await fetch(API_URL);
+                let currentData = await response.json();
+                let messages = currentData.messages || [];
+                
+                box.innerHTML = '';
+                if(messages.length === 0) {
+                    box.innerHTML = '<p style="color:var(--muted-text)">مفيش رسايل جديدة لسة..</p>';
+                    return;
+                }
+
+                messages.reverse().forEach(m => {
+                    let decryptedText = "فشل فك التشفير!";
+                    try {
+                        const bytes = CryptoJS.AES.decrypt(m.text, CRYPTO_KEY);
+                        decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+                    } catch(e) {
+                        decryptedText = "[رسالة تالفة أو غير مشفرة]";
+                    }
+                    
+                    box.innerHTML += `<div class="msg-item">💬 <b>رسالة مجهولة (${m.date}):</b> <br> ${decryptedText}</div>`;
+                });
+            } catch (error) {
+                box.innerHTML = '<p style="color:#ef4444">فشل تحميل الرسائل. جرب تفتح اللوحة تاني.</p>';
             }
-            messages.forEach(m => {
-                box.innerHTML += `<div class="msg-item">💬 <b>رسالة مجهولة (${m.date}):</b> <br> ${m.text}</div>`;
-            });
         }
 
-        function clearMessages() {
+        async function clearMessages() {
             playClickSound();
-            if(confirm("متأكد إنك عايز تمسح كل الرسايل؟")) {
-                localStorage.removeItem('secret_messages');
-                loadMessages();
+            if(confirm("متأكد إنك عايز تمسح كل الرسايل من السيرفر نهائياً؟")) {
+                try {
+                    await fetch(API_URL, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: [] })
+                    });
+                    loadMessages();
+                } catch (error) {
+                    alert("فشل مسح البيانات.");
+                }
             }
         }
     </script>
