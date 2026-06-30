@@ -23,29 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* شاشة التحميل الافتتاحية */
-        #splash-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--bg-color);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: monospace;
-            transition: opacity 0.5s ease, visibility 0.5s;
-        }
-        .boot-text {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            border-left: 2px solid var(--accent-color);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 1.5s steps(30, end), blink .75s step-end infinite;
-        }
-
         .bg-glow {
             position: fixed;
             width: 400px;
@@ -211,9 +188,7 @@
         }
 
         /* الأنميشنز */
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
-        @keyframes fadeParticle { 0% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 0.2; } }
+        @keyframes fadeParticle { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.2); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes glitchGlow {
             0%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-color), 0 0 30px var(--accent-color); }
@@ -227,12 +202,7 @@
 </head>
 <body dir="rtl">
 
-    <!-- شاشة التحميل الافتتاحية -->
-    <div id="splash-screen">
-        <div class="boot-text">🤖 [ System Booting... Accessing Ahmed's Space ]</div>
-    </div>
-
-    <!-- المؤثر الصوتي الخفيف -->
+    <!-- المؤثر الصوتي الخفيف (Synth Click) -->
     <script>
         function playClickSound() {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -263,4 +233,4 @@
             <div class="time-box"><span id="days">00</span><label>Days</label></div>
             <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
             <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
-            <div class="time-box"><span id="secs">00</span>Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+            <Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
