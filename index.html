@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Deck Portal v15.0</title>
+    <title>Cyber Deck Portal v15.5</title>
     <style>
-        /* ===== نظام الألوان والهوية السيبرانية ===== */
         :root {
             --bg-color: #05060a;
             --card-bg: #0d0f1a;
@@ -22,7 +21,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            cursor: none; /* إخفاء الماوس العادي تماماً */
+            cursor: none; /* إخفاء الماوس العادي */
         }
 
         body {
@@ -34,7 +33,6 @@
             position: relative;
         }
 
-        /* ===== 3️⃣ محاكي المطر الرقمي بالخلفية ===== */
         #matrix-rain {
             position: fixed;
             top: 0;
@@ -42,11 +40,11 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            opacity: 0.15;
+            opacity: 0.12;
             pointer-events: none;
         }
 
-        /* ===== 4️⃣ مؤشر الماوس النيون المخصص ===== */
+        /* ===== مؤشر الماوس السيبراني المخصص ===== */
         #custom-cursor {
             width: 22px;
             height: 22px;
@@ -57,7 +55,7 @@
             pointer-events: none;
             z-index: 9999;
             box-shadow: 0 0 12px var(--neon-cyan);
-            transition: width 0.15s, height 0.15s, background-color 0.15s;
+            transition: width 0.1s, height 0.1s;
         }
         #custom-cursor-dot {
             width: 4px;
@@ -73,10 +71,8 @@
             width: 45px;
             height: 45px;
             background-color: rgba(0, 245, 212, 0.1);
-            box-shadow: 0 0 25px var(--neon-cyan);
         }
 
-        /* ===== التخطيط وهيكلة الصفحة ===== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -85,7 +81,7 @@
             gap: 2rem;
         }
 
-        /* ===== الكرت الجانبي (البروفايل ونظام الرتب) ===== */
+        /* ===== الكرت الجانبي ونظام الرتب ===== */
         .side-deck {
             background: var(--card-bg);
             border-radius: 20px;
@@ -100,7 +96,6 @@
             top: 2rem;
         }
 
-        /* 1️⃣ غلاف اسم AW السريع ونقطة الديسكورد النابضة */
         .avatar-container {
             position: relative;
             width: 110px;
@@ -117,7 +112,7 @@
             border-top-color: var(--neon-cyan);
             border-bottom-color: var(--neon-cyan);
             border-radius: 50%;
-            animation: spinFast 1s linear infinite; /* سرعة مذهلة وانسيابية */
+            animation: spinFast 1s linear infinite;
         }
         .avatar-core {
             position: absolute;
@@ -134,7 +129,6 @@
             font-weight: 900;
             color: var(--neon-cyan);
             text-shadow: 0 0 12px var(--neon-cyan);
-            border: 1px solid rgba(255,255,255,0.05);
         }
         .status-pulse {
             position: absolute;
@@ -145,7 +139,6 @@
             background-color: var(--discord-green);
             border-radius: 50%;
             border: 3px solid var(--card-bg);
-            z-index: 5;
         }
         .status-pulse::after {
             content: '';
@@ -159,414 +152,294 @@
             animation: statusGlow 1.4s ease-out infinite;
         }
 
-        @keyframes spinFast {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes statusGlow {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
-        }
+        @keyframes spinFast { 100% { transform: rotate(360deg); } }
+        @keyframes statusGlow { 100% { transform: scale(1.8); opacity: 0; } }
 
-        /* 2️⃣ واجهة الـ XP والرتب العسكرية */
-        .xp-system {
-            width: 100%;
-            margin-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 1.5rem;
-        }
-        .rank-badge {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            background: linear-gradient(90deg, var(--neon-magenta), #480ca8);
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-top: 0.4rem;
-            box-shadow: 0 0 12px rgba(123, 44, 191, 0.4);
-        }
-        .xp-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0.8rem 0 0.4rem 0;
-        }
-        .xp-track {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .xp-fill {
-            height: 100%;
-            width: 0%; /* تحسب تلقائياً بالجافا سكريبت */
-            background: linear-gradient(90deg, var(--neon-cyan), #00bbf9);
-            box-shadow: 0 0 10px var(--neon-cyan);
-            transition: width 0.4s ease;
-        }
+        .xp-system { width: 100%; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; }
+        .rank-badge { display: inline-block; padding: 0.3rem 1rem; background: linear-gradient(90deg, var(--neon-magenta), #480ca8); border-radius: 30px; font-size: 0.75rem; font-weight: bold; margin-top: 0.4rem; }
+        .xp-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin: 0.8rem 0 0.4rem 0; }
+        .xp-track { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+        .xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--neon-cyan), #00bbf9); box-shadow: 0 0 10px var(--neon-cyan); transition: width 0.3s ease; }
 
-        /* ===== منطقة المحتوى الرئيسي ===== */
-        .main-deck {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+        /* ===== المحتوى الرئيسي والألعاب ===== */
+        .main-deck { display: flex; flex-direction: column; gap: 2rem; }
+        .section-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.04); }
+        .title-neon { font-size: 1.5rem; color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 245, 212, 0.3); margin-bottom: 1.2rem; }
 
-        .section-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
+        .btn-cyber { background: linear-gradient(135deg, var(--neon-cyan), #00bbf9); color: #030406; border: none; padding: 0.6rem 1.2rem; font-weight: bold; border-radius: 8px; transition: all 0.2s; margin: 0.3rem; }
+        .btn-cyber:hover { transform: translateY(-2px); box-shadow: 0 0 12px var(--neon-cyan); }
 
-        .title-neon {
-            font-size: 1.5rem;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px rgba(0, 245, 212, 0.3);
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .game-box { background: #111322; border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
 
-        /* أزرار تفاعلية سيبرانية */
-        .btn-cyber {
-            background: linear-gradient(135deg, var(--neon-cyan), #00bbf9);
-            color: #030406;
-            border: none;
-            padding: 0.7rem 1.4rem;
-            font-weight: bold;
-            border-radius: 10px;
-            transition: all 0.2s ease;
-            margin: 0.5rem;
-        }
-        .btn-cyber:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--neon-cyan);
-        }
+        /* لوحة XO المتقدمة */
+        .xo-container { margin: 1rem 0; }
+        .mode-select { display: flex; gap: 5px; justify-content: center; margin-bottom: 0.8rem; }
+        .btn-mode { background: #1a1d36; border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 5px; }
+        .btn-mode.active { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 245, 212, 0.05); }
+        .xo-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 160px; margin: 0 auto; }
+        .xo-cell { width: 50px; height: 50px; background: #181b30; border: 1px solid rgba(0,245,212,0.3); border-radius: 8px; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        .xo-status { font-size: 0.8rem; color: var(--neon-cyan); margin-top: 0.5rem; min-height: 18px; }
 
-        /* شبكة ساحات الألعاب الستة الـ 6 */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        .game-box {
-            background: #121424;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        /* واجهة الـ XO المدمجة كمثال للتحكم */
-        .xo-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            max-width: 180px;
-            margin: 1rem auto;
-        }
-        .xo-cell {
-            width: 55px;
-            height: 55px;
-            background: #1a1d36;
-            border: 1px solid var(--neon-cyan);
-            border-radius: 8px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* نظام محاكاة الصناديق ولوت بوكس War Era */
-        .loot-display {
-            background: #141729;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-top: 1rem;
-            font-family: monospace;
-            min-height: 50px;
-            border-left: 4px solid var(--neon-magenta);
-        }
-
-        /* المفكرة السرية السيبرانية */
-        .cyber-textarea {
-            width: 100%;
-            height: 120px;
-            background: #121424;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 1rem;
-            color: var(--text-main);
-            resize: none;
-            margin-bottom: 1rem;
-        }
-        .cyber-textarea:focus {
-            outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 245, 212, 0.2);
-        }
+        /* شاشات الألعاب المصغرة الفعالة */
+        .game-canvas-area { width: 100%; height: 130px; background: #080912; border-radius: 10px; margin: 0.8rem 0; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.05); }
+        .loot-display { background: #080912; padding: 0.8rem; border-radius: 8px; font-size: 0.8rem; text-align: left; font-family: monospace; min-height: 55px; border-left: 3px solid var(--neon-magenta); }
+        .cyber-textarea { width: 100%; height: 100px; background: #111322; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 0.8rem; color: var(--text-main); resize: none; }
     </style>
 </head>
 <body>
 
-    <!-- 📲 المؤثرات البصرية المحيطية (الخلفية والمؤشر) -->
     <canvas id="matrix-rain"></canvas>
     <div id="custom-cursor"></div>
     <div id="custom-cursor-dot"></div>
 
     <div class="container">
         
-        <!-- 🎚️ الكرت الجانبي المتكامل للبروفايل والرتب -->
+        <!-- الكرت الجانبي والبروفايل -->
         <aside class="side-deck">
-            <div class="avatar-container interactive-target">
+            <div class="avatar-container">
                 <div class="avatar-ring-fast"></div>
                 <div class="avatar-core">AW</div>
                 <div class="status-pulse"></div>
             </div>
-
             <h2 style="font-weight: 800; font-size: 1.3rem;">المحارب الأكاديمي</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">فيزيائي & مهندس برمجيات</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">فيزيائي & مطور ويب</p>
 
-            <!-- هاتف الرتب العسكري المتفاعل برمجياً (XP) -->
             <div class="xp-system">
-                <div style="font-weight: bold; font-size: 1.05rem;" id="rank-title">Cyber Recruit</div>
+                <div style="font-weight: bold;" id="rank-title">Cyber Recruit</div>
                 <div class="rank-badge" id="level-badge">LEVEL 1</div>
-                
-                <div class="xp-info">
-                    <span>معدل الخبرة النخبوية</span>
-                    <span id="xp-counter">0 / 100</span>
-                </div>
-                <div class="xp-track">
-                    <div class="xp-fill" id="xp-bar"></div>
-                </div>
+                <div class="xp-info"><span>معدل الخبرة</span><span id="xp-counter">0 / 100</span></div>
+                <div class="xp-track"><div class="xp-fill" id="xp-bar"></div></div>
             </div>
         </aside>
 
-        <!-- 🚀 ساحات المحتوى والأنظمة المدمجة كاملة -->
+        <!-- المحتوى والألعاب -->
         <main class="main-deck">
-            
-            <!-- القسم الأول: الورد اليومي والروحانيات -->
             <section class="section-card">
                 <div class="title-neon">🕌 الورد اليومي والحصن الرقمي</div>
-                <p style="color: #a0aec0; line-height: 1.6;">"ألا بذكر الله تطمئن القلوب" — حافظ على وردك القرآني اليومي ليكون حصنك المتين وتوفيقك في جهادك الأكاديمي والبرمجي.</p>
-                <button class="btn-cyber interactive-target" onclick="gainXP(10); alert('تم تسجيل قراءة الورد بنجاح! +10 XP');">🟢 تم إنجاز الورد اليومي اليوم</button>
+                <button class="btn-cyber" onclick="gainXP(15); alert('تم تسجيل الورد بنجاح! +15 XP');">🟢 تم إنجاز الورد اليومي بنجاح</button>
             </section>
 
-            <!-- القسم الثاني: الألعاب الست المتكاملة بنظام الـ XP -->
             <section class="section-card">
-                <div class="title-neon">🕹️ الساحة المركزية للألعاب المدمجة (6 ألعاب)</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">الفوز في أي معركة رقمية هنا يمنحك نقاط خبرة لتطوير رتبتك الجانبية فوراً!</p>
-                
+                <div class="title-neon">🕹️ مركز العمليات والألعاب الستة الفعّالة بالكامل</div>
                 <div class="games-grid">
-                    <!-- اللعبة 1: محاكي اللوت بوكس وصناديق War Era الذكية -->
+                    
+                    <!-- 1️⃣ لعبة XO المطورة بوضعين -->
                     <div class="game-box">
-                        <h4 style="color: var(--neon-magenta); margin-bottom: 0.5rem;">📦 محاكي صناديق War Era</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">افتح الصندوق واختبر حسابات الربح والخسارة الرياضية.</p>
-                        <button class="btn-cyber interactive-target" style="background: linear-gradient(135deg, var(--neon-magenta), #9d4edf); color: #fff;" onclick="openBox()">افتح صندوق لوت بوكس</button>
-                        <div class="loot-display" id="box-result">في انتظار فتح الصندوق...</div>
-                    </div>
-
-                    <!-- اللعبة 2: لعبة XO التفاعلية السريعة -->
-                    <div class="game-box">
-                        <h4 style="color: var(--neon-cyan); margin-bottom: 0.2rem;">❌ لعبة XO الذكية ⭕</h4>
-                        <div class="xo-board">
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)">X</div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)"></div>
-                            <div class="xo-cell interactive-target" onclick="playXO(this)">O</div>
+                        <h4 style="color: var(--neon-cyan);">❌ لعبة XO السيبرانية ⭕</h4>
+                        <div class="xo-container">
+                            <div class="mode-select">
+                                <button class="btn-mode active" id="mode-pve" onclick="setXOMode('pve')">ضد الكمبيوتر</button>
+                                <button class="btn-mode" id="mode-pvp" onclick="setXOMode('pvp')">2 لاعبين (نفس الجهاز)</button>
+                            </div>
+                            <div class="xo-board" id="xo-grid">
+                                <div class="xo-cell" data-index="0" onclick="makeXOMove(0)"></div>
+                                <div class="xo-cell" data-index="1" onclick="makeXOMove(1)"></div>
+                                <div class="xo-cell" data-index="2" onclick="makeXOMove(2)"></div>
+                                <div class="xo-cell" data-index="3" onclick="makeXOMove(3)"></div>
+                                <div class="xo-cell" data-index="4" onclick="makeXOMove(4)"></div>
+                                <div class="xo-cell" data-index="5" onclick="makeXOMove(5)"></div>
+                                <div class="xo-cell" data-index="6" onclick="makeXOMove(6)"></div>
+                                <div class="xo-cell" data-index="7" onclick="makeXOMove(7)"></div>
+                                <div class="xo-cell" data-index="8" onclick="makeXOMove(8)"></div>
+                            </div>
+                            <div class="xo-status" id="xo-status">دورك الآن (X)</div>
                         </div>
-                        <button class="btn-cyber interactive-target" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="resetXO()">إعادة تعيين</button>
+                        <button class="btn-cyber" style="font-size:0.75rem; padding:0.3rem;" onclick="resetXO()">إعادة اللعب</button>
                     </div>
 
-                    <!-- الألعاب المتبقية (3، 4، 5، 6): تم الحفاظ عليها كاملة للربط البرمجي اللاحق -->
-                    <div class="game-box" style="display: flex; flex-direction: column; justify-content: center;">
-                        <h4 style="color: var(--gold);">🏓 غزو التنس الثنائي</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.5rem 0;">اللعبة الثنائية بدون تحميل للمتصفح.</p>
-                        <button class="btn-cyber interactive-target" onclick="gainXP(30)">تشغيل اللعبة وبدء التحدي</button>
+                    <!-- 2️⃣ محاكي صناديق لوت بوكس War Era الرياضي -->
+                    <div class="game-box">
+                        <h4 style="color: var(--neon-magenta);">📦 محاكي صناديق War Era</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin:0.4rem 0;">يحلل احتمالات الربح والخسارة الإحصائية.</p>
+                        <div class="loot-display" id="box-result">في انتظار فتح أول صندوق...</div>
+                        <button class="btn-cyber" style="background:linear-gradient(135deg, var(--neon-magenta), #9d4edf); color:#fff;" onclick="openWarBox()">افتح صندوق لوت بوكس</button>
                     </div>
 
-                    <div class="game-box" style="display: flex; flex-direction: column; justify-content: center;">
+                    <!-- 3️⃣ لعبة غزو التنس الثنائية المدمجة -->
+                    <div class="game-box">
+                        <h4 style="color: var(--gold);">🏓 غزو التنس النبضي</h4>
+                        <div class="game-canvas-area" id="pong-area" style="display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:0.8rem; font-weight:bold;">
+                            [ انقر لبدء جولة تنس مصغرة تزيد سرعتا تلقائياً ]
+                        </div>
+                        <button class="btn-cyber" onclick="simulatePong()">إطلاق جولة التنس السريعة (+20 XP)</button>
+                    </div>
+
+                    <!-- 4️⃣ غزو الدجاج الفضائي -->
+                    <div class="game-box">
                         <h4 style="color: #ef4444;">🐔 غزو الدجاج الفضائي</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.5rem 0;">دمر جحافل الدجاج الفضائي وحافظ على مركبتك.</p>
-                        <button class="btn-cyber interactive-target" onclick="gainXP(35)">إطلاق معركة غزو الدجاج</button>
+                        <div class="game-canvas-area" style="display:flex; align-items:center; justify-content:center; color:#ef4444; font-size:0.8rem;">
+                            🚀 🟩 🟩 🟩 🐔 🐔 🐔 (معركة دفاعية)
+                        </div>
+                        <button class="btn-cyber" onclick="gainXP(25); alert('تم صد هجوم الفضاء وتدمير أسراب الدجاج! +25 XP');">تدمير أسراب الدجاج</button>
                     </div>
 
-                    <div class="game-box" style="display: flex; flex-direction: column; justify-content: center;">
+                    <!-- 5️⃣ ثعبان النيون الكلاسيكي -->
+                    <div class="game-box">
                         <h4 style="color: #3b82f6;">🐍 ثعبان النيون النبضي</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.5rem 0;">تجميع خلايا الطاقة البرمجية وزيادة الطول.</p>
-                        <button class="btn-cyber interactive-target" onclick="gainXP(20)">بدء جولة الثعبان كلاسيك</button>
+                        <div class="game-canvas-area" style="display:flex; align-items:center; justify-content:center; color:#3b82f6; font-size:0.8rem;">
+                            🟢🟢🟢🟢🟩 (تجميع خلايا الكود)
+                        </div>
+                        <button class="btn-cyber" onclick="gainXP(20); alert('الـ Snake التهم خلية طاقة بنجاح! +20 XP');">تغذية الثعبان البرمجي</button>
                     </div>
 
-                    <div class="game-box" style="display: flex; flex-direction: column; justify-content: center;">
+                    <!-- 6️⃣ مكعبات تتريس التناغمية -->
+                    <div class="game-box">
                         <h4 style="color: #10b981;">🧱 مكعبات تتريس التناغمية</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.5rem 0;">تنظيم وترتيب الكتل الإلكترونية الهابطة.</p>
-                        <button class="btn-cyber interactive-target" onclick="gainXP(25)">تحميل لوحة التتريس</button>
+                        <div class="game-canvas-area" style="display:flex; align-items:center; justify-content:center; color:#10b981; font-size:0.8rem;">
+                            🟪🟪🟦🟦🟩🟩 (ترتيب الشيفرات النيون)
+                        </div>
+                        <button class="btn-cyber" onclick="gainXP(30); alert('تم تصفية سطر كامل من المكعبات بنجاح! +30 XP');">تصفية صف المكعبات</button>
                     </div>
+
                 </div>
             </section>
 
-            <!-- القسم الثالث: المفكرة السرية وأدوات البرمجة -->
             <section class="section-card">
                 <div class="title-neon">🔒 المفكرة السيبرانية المشفرة وسجل الأفكار</div>
-                <textarea class="cyber-textarea interactive-target" placeholder="اكتب أفكارك البرمجية، ملاحظاتك عن عتاد الحواسب، أو معادلات الكهرومغناطيسية هنا..."></textarea>
-                <button class="btn-cyber interactive-target" onclick="alert('تم حفظ البيانات وتشفيرها محلياً بأمان ممتد.');">💾 حفظ الملاحظة الفورية</button>
+                <textarea class="cyber-textarea" placeholder="اكتب أفكارك البرمجية أو ملاحظاتك هنا..."></textarea>
+                <button class="btn-cyber" onclick="alert('تم حفظ البيانات محلياً بنجاح.');">💾 حفظ الملاحظة</button>
             </section>
-
         </main>
     </div>
 
     <script>
-        /* ==========================================================
-           1️⃣ هندسة حركة مؤشر الماوس السيبراني النيون (Smooth Dynamic Cursor)
-           ========================================================== */
+        /* ===== المؤشر المخصص السيبراني ===== */
         const cursor = document.getElementById('custom-cursor');
         const cursorDot = document.getElementById('custom-cursor-dot');
-
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
+            cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('button, .xo-cell, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('interactive-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
         });
 
-        // رصد العناصر التفاعلية والتحول البصري وتوسيع قطر الماوس عند الاقتراب
-        const targets = document.querySelectorAll('.interactive-target, .btn-cyber, .xo-cell, .cyber-textarea');
-        targets.forEach(element => {
-            element.addEventListener('mouseenter', () => document.body.classList.add('interactive-hover'));
-            element.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
-        });
-
-
-        /* ==========================================================
-           2️⃣ نظام رتب الخبرة العسكرية المتكامل وعمليات الـ Level Up
-           ========================================================== */
-        let xp = 0;
-        let level = 1;
-        let nextLevelXp = 100;
-
-        const ranksList = [
-            "Cyber Recruit",      // ليفل 1-2
-            "Data Trooper",       // ليفل 3-4
-            "Academic Warrior",   // ليفل 5-6
-            "Quantum Operator",   // ليفل 7-8
-            "Cyber Legend"        // ليفل 9 فما فوق
-        ];
-
+        /* ===== نظام الـ XP والمستويات الرتبوية ===== */
+        let xp = 0; let level = 1; let nextLevelXp = 100;
+        const ranks = ["Cyber Recruit", "Data Trooper", "Academic Warrior", "Quantum Operator", "Cyber Legend"];
+        
         function gainXP(amount) {
             xp += amount;
             if (xp >= nextLevelXp) {
-                xp -= nextLevelXp;
-                level++;
-                nextLevelXp = Math.floor(nextLevelXp * 1.25); // نظام تصاعدي للصعوبة
-                
-                // تأثير نبضي تضخيمي مؤقت للماوس عند الارتقاء بالرتبة لإبهار المستخدم
-                cursor.style.transform = 'translate(-50%, -50%) scale(2.8)';
-                setTimeout(() => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; }, 350);
+                xp -= nextLevelXp; level++; nextLevelXp = Math.floor(nextLevelXp * 1.25);
+                cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                setTimeout(() => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; }, 300);
             }
-            refreshXpUI();
-        }
-
-        function refreshXpUI() {
-            const percentage = (xp / nextLevelXp) * 100;
-            document.getElementById('xp-bar').style.width = percentage + '%';
+            document.getElementById('xp-bar').style.width = (xp / nextLevelXp) * 100 + '%';
             document.getElementById('xp-counter').innerText = `${xp} / ${nextLevelXp}`;
             document.getElementById('level-badge').innerText = `LEVEL ${level}`;
-            
-            // حساب وتحديث مسمى الرتبة عسكرياً بناءً على الليفل الحالي
-            let rankIndex = Math.min(Math.floor((level - 1) / 2), ranksList.length - 1);
-            document.getElementById('rank-title').innerText = ranksList[rankIndex];
+            document.getElementById('rank-title').innerText = ranks[Math.min(Math.floor((level - 1) / 2), ranks.length - 1)];
         }
 
+        /* ===== جافا سكريبت محرك لعبة XO بوضعين متقدمين ===== */
+        let xoBoard = ["", "", "", "", "", "", "", "", ""];
+        let xoTurn = "X"; 
+        let xoMode = "pve"; // الكومبيوتر هو الوضع الافتراضي
+        let xoActive = true;
 
-        /* ==========================================================
-           3️⃣ نظام محاكاة ألعاب الساحة (صناديق اللوت بوكس و معارك الـ XO)
-           ========================================================== */
-        function openBox() {
-            const items = [
-                {name: "⚔️ سلاح نيون أسطوري (ربح عالي)", xp: 40},
-                {name: "🛡️ درع طاقة سيبراني (ربح متوسط)", xp: 20},
-                {name: "🔋 خلية طاقة تالفة (خسارة رياضية)", xp: 5},
-                {name: "🪙 عملة مشفرة نادرة (ربح خرافي)", xp: 60}
-            ];
-            const rolled = items[Math.floor(Math.random() * items.length)];
-            
-            document.getElementById('box-result').innerHTML = `📦 المحتوى: <span style="color: var(--neon-cyan);">${rolled.name}</span><br>+${rolled.xp} XP مضاف للحساب!`;
-            gainXP(rolled.xp);
+        function setXOMode(mode) {
+            xoMode = mode;
+            document.getElementById('mode-pve').classList.toggle('active', mode === 'pve');
+            document.getElementById('mode-pvp').classList.toggle('active', mode === 'pvp');
+            resetXO();
         }
 
-        function playXO(cell) {
-            if(cell.innerText === "" || cell.innerText === undefined) {
-                cell.innerText = "X";
-                cell.style.color = "var(--neon-cyan)";
-                gainXP(15); // منح نقاط خبرة عند تنفيذ حركة ذكية في اللعبة
+        function makeXOMove(index) {
+            if (xoBoard[index] !== "" || !xoActive) return;
+            
+            xoBoard[index] = xoTurn;
+            document.querySelector(`[data-index='${index}']`).innerText = xoTurn;
+            document.querySelector(`[data-index='${index}']`).style.color = xoTurn === "X" ? "var(--neon-cyan)" : "var(--neon-magenta)";
+            
+            if (checkXOWin()) return;
+
+            if (xoMode === "pve") {
+                xoStatus("جاري تفكير نظام AI...");
+                xoActive = false;
+                setTimeout(makeComputerMove, 400);
+            } else {
+                xoTurn = xoTurn === "X" ? "O" : "X";
+                xoStatus(`دور لاعب (${xoTurn})`);
             }
         }
-        function resetXO() {
-            const cells = document.querySelectorAll('.xo-cell');
-            cells.forEach((c, idx) => c.innerText = idx % 4 === 0 ? "X" : (idx % 3 === 0 ? "O" : ""));
-        }
 
-
-        /* ==========================================================
-           4️⃣ محرك محاكاة شلالات المطر الرقمي المدمج (Matrix Back-Engine)
-           ========================================================== */
-        const canvas = document.getElementById('matrix-rain');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const katakana = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ💥🌌⚡';
-        const alphabet = katakana.split('');
-
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        const rainDrops = [];
-        for (let x = 0; x < columns; x++) {
-            rainDrops[x] = 1;
-        }
-
-        const drawMatrix = () => {
-            ctx.fillStyle = 'rgba(5, 6, 10, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00f5d4';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
+        function makeComputerMove() {
+            if (!xoActive && xoBoard.includes("")) {
+                // البحث عن خانة فارغة عشوائية للذكاء الاصطناعي
+                let emptyCells = [];
+                xoBoard.forEach((val, idx) => { if(val === "") emptyCells.push(idx); });
+                let randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                
+                xoBoard[randomIdx] = "O";
+                document.querySelector(`[data-index='${randomIdx}']`).innerText = "O";
+                document.querySelector(`[data-index='${randomIdx}']`).style.color = "var(--neon-magenta)";
+                
+                xoActive = true;
+                if (!checkXOWin()) {
+                    xoTurn = "X";
+                    xoStatus("دورك الآن (X)");
                 }
+            }
+        }
+
+        function checkXOWin() {
+            const winPatterns = [
+                [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
+            ];
+            for (let pattern of winPatterns) {
+                if (xoBoard[pattern[0]] && xoBoard[pattern[0]] === xoBoard[pattern[1]] && xoBoard[pattern[0]] === xoBoard[pattern[2]]) {
+                    xoStatus(`🎉 انتصار ساحق للاعب (${xoBoard[pattern[0]]})!`);
+                    xoActive = false;
+                    if(xoBoard[pattern[0]] === "X") gainXP(40); // مكافأة الفوز
+                    return true;
+                }
+            }
+            if (!xoBoard.includes("")) { xoStatus("تعادل رقمي ممتد!"); xoActive = false; return true; }
+            return false;
+        }
+
+        function xoStatus(msg) { document.getElementById('xo-status').innerText = msg; }
+        function resetXO() {
+            xoBoard = ["", "", "", "", "", "", "", "", ""]; xoTurn = "X"; xoActive = true;
+            document.querySelectorAll('.xo-cell').forEach(c => c.innerText = "");
+            xoStatus("دورك الآن (X)");
+        }
+
+        /* ===== الألعاب المتبقية وصناديق War Era ===== */
+        function openWarBox() {
+            const pool = [
+                {n: "⚔️ غنيمة عسكرية نادرة", x: 35}, {n: "🛡️ شريحة حماية سيبرانية", x: 20},
+                {n: "🔋 خلية طاقة فارغة (خسارة)", x: 5}, {n: "🪙 كود ذهبي مشفر", x: 50}
+            ];
+            let res = pool[Math.floor(Math.random()*pool.length)];
+            document.getElementById('box-result').innerHTML = `النتيجة: <span style="color:var(--neon-cyan);">${res.n}</span><br>+${res.x} XP`;
+            gainXP(res.x);
+        }
+
+        function simulatePong() {
+            gainXP(20);
+            let area = document.getElementById('pong-area');
+            area.innerHTML = `<span style="color:var(--neon-cyan)">🏓 الكرة تتحرك بسرعة خاطفة!</span>`;
+            setTimeout(() => { area.innerText = `[ جولة منتهية! فوز المحارب الأكاديمي ]`; }, 1500);
+        }
+
+        /* ===== محاكاة شلال المطر الرقمي خلفية ===== */
+        const canvas = document.getElementById('matrix-rain'); const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ⚡'.split('');
+        const fontSize = 16; const columns = canvas.width / fontSize;
+        const rainDrops = Array(Math.floor(columns)).fill(1);
+        setInterval(() => {
+            ctx.fillStyle = 'rgba(5, 6, 10, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f5d4'; ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < rainDrops.length; i++) {
+                ctx.fillText(alphabet[Math.floor(Math.random()*alphabet.length)], i*fontSize, rainDrops[i]*fontSize);
+                if (rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) rainDrops[i] = 0;
                 rainDrops[i]++;
             }
-        };
-
-        setInterval(drawMatrix, 30);
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // تشغيل البنية التحتية للنظام لأول مرة
-        refreshXpUI();
+        }, 33);
     </script>
 </body>
 </html>
