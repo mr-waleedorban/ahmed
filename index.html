@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v18.5 - Master Edition</title>
+    <title>Ultimate Core Hub v20.0 - Real AI Chat Edition</title>
     <style>
         :root {
             --bg-color: #030008;
@@ -217,7 +217,7 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         footer { text-align: center; padding: 40px; font-size: 0.9rem; color: var(--muted-text); border-top: 1px solid rgba(255,255,255,0.03); letter-spacing: 0.5px; }
 
-        /* ================= 🤖 ستايل المساعد الذكي العائم والمودات ================= */
+        /* ================= 🤖 ستايل المساعد الذكي العائم المطور ================= */
         .ai-floating-widget {
             position: fixed; bottom: 25px; right: 25px; z-index: 9998;
             font-family: inherit; direction: rtl;
@@ -230,7 +230,7 @@
         .ai-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: var(--accent-pink); }
         
         .ai-chat-window {
-            position: absolute; bottom: 75px; right: 0; width: 350px; height: 480px;
+            position: absolute; bottom: 75px; right: 0; width: 360px; height: 500px;
             background: rgba(10, 5, 22, 0.95); backdrop-filter: blur(20px);
             border: 1px solid var(--border-color); border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
@@ -264,7 +264,7 @@
         .ai-messages-zone {
             flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
         }
-        .ai-msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; line-height: 1.4; white-space: pre-wrap; }
+        .ai-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; line-height: 1.45; white-space: pre-wrap; }
         .ai-msg.system { background: rgba(255,255,255,0.04); color: #fff; align-self: flex-start; border-top-right-radius: 2px; border: 1px solid rgba(255,255,255,0.05); }
         .ai-msg.user { background: linear-gradient(135deg, rgba(255,0,127,0.2), rgba(139,92,246,0.2)); color: #fff; align-self: flex-end; border-top-left-radius: 2px; border: 1px solid rgba(255, 0, 127, 0.15); }
         
@@ -294,7 +294,7 @@
     <header>
         <div class="stay-positive-badge">STAY POSITIVE</div>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v18.5 // Master Dashboard</div>
+        <div class="tagline">// Ultimate Core Hub v20.0 // Real Gemini AI Dashboard</div>
     </header>
 
     <div class="main-container">
@@ -413,7 +413,7 @@
                 <div style="font-size:0.85rem; color:var(--accent-glow); margin-bottom:15px;">كل مهمة تخلصها وتضغط "تم" هتزود رصيدك +20 XP فوراً عشان تفتح الباكجات!</div>
                 <div class="todo-wrapper">
                     <div class="todo-input-bar">
-                        <input type="text" id="todoInput" class="mindmap-input" placeholder="اكتب المهمة أو المذاكرة المطلوبة منك يا أحمد...">
+                        <input type="text" id="todoInput" class="mindmap-input" placeholder="اكتب المهمة أو المذاكرة المطلوبة منك...">
                         <button class="modern-btn" onclick="addTodoItem()">➕ إضافة مهمة</button>
                     </div>
                     <div class="todo-list" id="todoListContainer"></div>
@@ -467,25 +467,25 @@
 
     </div>
 
-    <!-- ================= 🤖 المساعد الذكي العائم بالمودات ================= -->
+    <!-- ================= 🤖 المساعد الذكي الحقيقي (متصل بـ Gemini API) ================= -->
     <div class="ai-floating-widget">
         <button class="ai-toggle-btn" onclick="toggleAiChat()">🤖</button>
         <div class="ai-chat-window" id="aiChatWindow">
             <div class="ai-chat-header">
-                <h3>⚡ مساعد AW الذكي</h3>
-                <span style="font-size: 0.75rem; color: var(--accent-glow); font-family: monospace;">Online</span>
+                <h3>⚡ مساعد Core Hub الذكي (Gemini)</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-glow); font-family: monospace;">AI ONLINE</span>
             </div>
             <div class="ai-modes-bar">
-                <button class="ai-mode-btn active" onclick="setAiMode('general', this)">💬 عام</button>
+                <button class="ai-mode-btn active" onclick="setAiMode('general', this)">💬 عام وتطوير</button>
                 <button class="ai-mode-btn mode-study" onclick="setAiMode('study', this)">📚 فيزياء ومذاكرة</button>
-                <button class="ai-mode-btn mode-gaming" onclick="setAiMode('gaming', this)">🎮 حظ وجيمنج</button>
+                <button class="ai-mode-btn mode-gaming" onclick="setAiMode('gaming', this)">🎮 جيمنج وهاردوير</button>
             </div>
             <div class="ai-messages-zone" id="aiMessagesZone">
-                <div class="ai-msg system">يا هلا يا أحمد! أنا المساعد الخاص بيك. اختار المود اللي تحبه من فوق وكلمني في أي حاجة! 🔥</div>
+                <div class="ai-msg system">أهلاً بك! أنا المساعد الذكي الخاص بـ أحمد وليد. قمت بمساعدته في تطوير هذا الـ Hub المتكامل. يمكنك التحدث معي في أي موضوع في العالم، أو اختيار المود المناسب لك بالكامل من الأعلى! 🔥</div>
             </div>
             <div class="ai-input-bar">
-                <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="اسألني أي حاجة يا بطل..." onkeydown="if(event.key === 'Enter') sendAiMessage()">
-                <button class="ai-send-btn" onclick="sendAiMessage()">إرسال</button>
+                <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="اكتب سؤالك هنا وسيرد الـ AI مباشرة..." onkeydown="if(event.key === 'Enter') sendAiMessage()">
+                <button class="ai-send-btn" id="aiSendBtn" onclick="sendAiMessage()">إرسال</button>
             </div>
         </div>
     </div>
@@ -517,35 +517,7 @@
             }
         }, 7000);
 
-        const playerDatabase = {
-            gold: [
-                { name: "Maguire", rat: 79, pos: "CB", club: "Man United" },
-                { name: "Antony", rat: 81, pos: "RW", club: "Man United" },
-                { name: "Gakpo", rat: 83, pos: "LW", club: "Liverpool" },
-                { name: "Chauameni", rat: 83, pos: "CDM", club: "Real Madrid" },
-                { name: "Nunez", rat: 82, pos: "ST", club: "Liverpool" }
-            ],
-            mega: [
-                { name: "Pedri", rat: 86, pos: "CM", club: "Barcelona" },
-                { name: "Saka", rat: 87, pos: "RW", club: "Arsenal" },
-                { name: "Leao", rat: 86, pos: "LW", club: "AC Milan" },
-                { name: "Son", rat: 87, pos: "LW", club: "Tottenham" },
-                { name: "Musiala", rat: 88, pos: "CAM", club: "Bayern" },
-                { name: "Martinez", rat: 89, pos: "GK", club: "Aston Villa" }
-            ],
-            ultimate: [
-                { name: "C. Ronaldo", rat: 96, pos: "ST", club: "Al Nassr" },
-                { name: "L. Messi", rat: 95, pos: "CAM", club: "Inter Miami" },
-                { name: "K. Mbappe", rat: 97, pos: "ST", club: "Real Madrid" },
-                { name: "E. Haaland", rat: 94, pos: "ST", club: "Man City" },
-                { name: "Vini Jr.", rat: 93, pos: "LW", club: "Real Madrid" },
-                { name: "J. Bellingham", rat: 92, pos: "CM", club: "Real Madrid" },
-                { name: "Salah", rat: 93, pos: "RW", club: "Liverpool" }
-            ]
-        };
-
         let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 0;
-        let myClub = JSON.parse(localStorage.getItem('ahmed_my_club')) || [];
         let loadedProofBase64 = "";
 
         function updateXpDisplay() {
@@ -571,21 +543,18 @@
 
         function submitDailyQuranWithProof() {
             if (!loadedProofBase64) {
-                alert("🚨 للمصداقية يا غالي! لازم ترفع سكرين شوت أو تصوّر صفحة المصحف الأول قبل ما تدوس تأكيد عشان تاخد الـ XP.");
+                alert("🚨 للمصداقية! يجب رفع لقطة شاشة أولاً قبل التأكيد.");
                 return;
             }
             userXp += 100;
-            localStorage.setItem('ahmed_quran_last_proof', loadedProofBase64);
-            alert("عاش عليك يا بطل اوعا تكون غشيت ومقراتش الصفحه ومتنساش تصل ع النبي يا صديقي 💜🔥");
             updateXpDisplay();
-            document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-glow); font-weight:bold;">✨ تم تسجيل ورد اليوم ورفع الإثبات بنجاح! رائع يا أحمد استمر وصلي على النبي.</div>';
+            alert("عاش جداً! تم تسجيل الورد وإضافة الـ XP بنجاح. تذكر الصلاة على النبي 💜");
         }
 
         function failDailyQuran() {
             userXp = Math.max(0, userXp - 20);
-            alert("تم خصم -20 XP. يلا معلش تتعوض بكره ومستنيين لقطة الشاشة الجاية للالتزام الكامل! 💪");
             updateXpDisplay();
-            document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-pink); font-weight:bold;">❌ تم تسجيل عدم القراءة اليوم وخصم الـ XP. في انتظارك غداً!</div>';
+            alert("تم خصم 20 XP. تتعوض غداً مع الالتزام بالرفع بالتأكيد! 💪");
         }
 
         function switchTab(tabId) {
@@ -595,7 +564,6 @@
             event.currentTarget.classList.add('active');
         }
 
-        // تحسين حركة الكورسر النيون المخصص المتواجد في كودك
         const cursorDot = document.getElementById('cursorDot');
         const cursorGlow = document.getElementById('cursorGlow');
         document.addEventListener('mousemove', (e) => {
@@ -607,13 +575,18 @@
             }, 50);
         });
 
-        // تشغيل أولي لعرض الـ XP
         document.addEventListener('DOMContentLoaded', () => {
             updateXpDisplay();
         });
 
-        // ================= 🤖 محاكي ردود المساعد الذكي بالمودات (AI Client Logic) =================
+
+        // ================= 🤖 محرك ربط الذكاء الاصطناعي الحقيقي (Google Gemini API) =================
+        
+        // المفتاح مدمج وجاهز تماماً للعمل فوراً هنا
+        const GEMINI_API_KEY = "AIzaSyAQ.Ab8RN6KiQUobRxMU7KhHo43fNFUKLR_ZqoB_V66SFDQOC3XUiQ"; 
+        
         let currentAiMode = 'general';
+        let chatHistory = []; 
 
         function toggleAiChat() {
             document.getElementById('aiChatWindow').classList.toggle('open');
@@ -628,74 +601,88 @@
             let systemMsg = "";
             
             if(mode === 'general') {
-                systemMsg = "تم تفعيل [المود العام] 💬. أنا هنا لدردشتك العادية، تعديل أكواد موقعك، أو أي فكرة تانية في دماغك!";
+                systemMsg = "🤖 تم تفعيل [المود العام والتطوير] بالذكاء الكامل. اسألني في البرمجة أو أي شيء تريده في الحياة!";
             } else if(mode === 'study') {
-                systemMsg = "تم تفعيل [مود الفيزياء والمذاكرة] 📚. جاهز لتبسيط قوانين أجهزة القياس، والـ Electromagnetic Induction، وعمل أحسن خرائط ذهنية تلم المنهج!";
+                systemMsg = "📚 تم تفعيل [مود الفيزياء والمذاكرة]. سأركز على صياغة المعادلات وشرح القوانين بالتفصيل العلمي.";
             } else if(mode === 'gaming') {
-                systemMsg = "تم تفعيل [مود الحظ والجيمنج] 🎮. هنا بنحلل باكس، ونحسب احتمالات ونسب مكسب صناديق الألعاب، ونظبط الـ Hardware وتبريد الـ CPU!";
+                systemMsg = "🎮 تم تفعيل [مود الجيمنج والهاردوير]. سأقوم بمساعدتك في تحليل أداء الألعاب، التبريد، والمعالجات.";
             }
             
             let msgEl = document.createElement('div');
             msgEl.className = 'ai-msg system';
-            msgEl.style.borderColor = 'var(--accent-gold)';
+            msgEl.style.borderColor = 'var(--accent-glow)';
             msgEl.innerText = systemMsg;
             zone.appendChild(msgEl);
             zone.scrollTop = zone.scrollHeight;
         }
 
-        function sendAiMessage() {
+        async function sendAiMessage() {
             let input = document.getElementById('aiChatInput');
+            let sendBtn = document.getElementById('aiSendBtn');
             let text = input.value.trim();
             if(!text) return;
 
-            // عرض رسالة المستخدم
             let zone = document.getElementById('aiMessagesZone');
+            
             let userMsg = document.createElement('div');
             userMsg.className = 'ai-msg user';
             userMsg.innerText = text;
             zone.appendChild(userMsg);
             
             input.value = '';
+            input.disabled = true;
+            sendBtn.disabled = true;
             zone.scrollTop = zone.scrollHeight;
 
-            // توليد رد ذكي محلي بناءً على المود والكلمات المفتاحية
-            setTimeout(() => {
-                let replyText = generateAiReply(text, currentAiMode);
+            let waitingMsg = document.createElement('div');
+            waitingMsg.className = 'ai-msg system';
+            waitingMsg.innerText = "جاري التفكير والكتابة... ⚡";
+            zone.appendChild(waitingMsg);
+            zone.scrollTop = zone.scrollHeight;
+
+            chatHistory.push({ role: "user", parts: [{ text: text }] });
+
+            try {
+                let reply = await callGeminiAPI(currentAiMode);
+                waitingMsg.remove(); 
+                
                 let aiMsg = document.createElement('div');
                 aiMsg.className = 'ai-msg system';
-                aiMsg.innerText = replyText;
+                aiMsg.innerText = reply;
                 zone.appendChild(aiMsg);
-                zone.scrollTop = zone.scrollHeight;
-            }, 800);
+                
+                chatHistory.push({ role: "model", parts: [{ text: reply }] });
+            } catch (error) {
+                waitingMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالـ AI الحقيقي، تأكد من سلامة المفتاح والاتصال بالإنترنت.";
+            }
+
+            input.disabled = false;
+            sendBtn.disabled = false;
+            input.focus();
+            zone.scrollTop = zone.scrollHeight;
         }
 
-        function generateAiReply(text, mode) {
-            let lower = text.toLowerCase();
+        async function callGeminiAPI(mode) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+            let systemInstruction = "أنت المساعد الذكي الخاص بـ أحمد وليد (صاحب ومطور هذا الموقع المتكامل Core Hub). ردودك يجب أن تكون تفاعلية، عميقة، ومكتوبة بالعامية المصرية الودودة والذكية جداً. لا تقل للمستخدمين اسمائهم تلقائياً، بل عرف نفسك دائماً بأنك 'المساعد الذكي الخاص بـ أحمد وليد'. يمكنك الحديث والرغي في أي موضوع في العالم (سواء فن، علوم، ترفيه، نكت، شات عادي).";
             
-            if (mode === 'study') {
-                if(lower.includes('فيزيا') || lower.includes('قانون') || lower.includes('جهاز') || lower.includes('induction')) {
-                    return "بص يا أحمد، في الحث الكهرومغناطيسي (Electromagnetic Induction)، دايماً افتكر إن قانون فاراداي بيقول إن القوة الدافعة الكهربية المستحثة ($E_m$ أو $\\mathcal{E}$) بتتناسب طردياً مع المعدل الزمني للتغير في الفيض المغناطيسي:\n\n$$\\mathcal{E} = -N \\frac{\\Delta \\Phi_B}{\\Delta t}$$\n\nوالإشارة السالبة دي هي قانون لينز (عشان تعاكس التغير المسبب ليها)! تحب نعمل خريطة ذهنية سريعة نربط بيها أجهزة القياس مع القوانين دي؟ 🧠⚡";
-                }
-                return "مستعد أخص لَك أي درس فيزياء أو نعمل خريطة ذهنية ممتازة لأجهزة القياس. اكتبلي اسم القانون أو الفكرة وسيب الباقي عليا! 🔒";
-            } 
-            
-            else if (mode === 'gaming') {
-                if(lower.includes('صندوق') || lower.includes('باك') || lower.includes('كسبت') || lower.includes('خسرت')) {
-                    return "الحسبة دي لعبتي يا صديقي! عشان نعرف فتح الصناديق كسبان ولا خسران، بنجمع تمن العناصر اللي طلعتلك الفردية في السوق، ونقارنها بسعر بيع الصناديق مقفولة. في أغلب الألعاب، بيع الصناديق المضمونة بيجيب عملة ثابتة أحسن، بس متعة تفتيح الباكس ملهاش مثيل! ⚽🔥";
-                }
-                if(lower.includes('حرارة') || lower.includes('معالج') || lower.includes('cpu') || lower.includes('معجون')) {
-                    return "لو لقيت حرارة الـ CPU بتعدي الـ 80°C في الضغط أو المروحة صوتها عالي جداً، يبقا غالباً المعجون الحراري (Thermal Paste) بدأ ينشف ومحتاج يتغير، أو محتاج تبص على الـ Thermal Pads بتاعة كارت الشاشة عشان الأداء يرجع 100%! 🖥️";
-                }
-                return "مود الجيمنج شغال! كلمني عن تحليل الصناديق، تبريد المعالج، أو ألعاب المتصفح الـ 2-players اللي بتحبها! 🎮🔥";
-            } 
-            
-            else {
-                // المود العام
-                if(lower.includes('برمجة') || lower.includes('موقع') || lower.includes('تعديل')) {
-                    return "كود موقعك الحالي مبني بـ Clean Code ممتاز وأنيميشن النيون فيه رايق جداً! لو عايز نضيف أقسام جديدة أو تأثيرات CSS خرافية تانية، قولي عليها وهديك الكود جاهز فوراً. 💻✨";
-                }
-                return "معاك يا أحمد! المساعد الذكي شغال تمام وتقدر تسألني في البرمجة، أو تطلب مني أفكار تضيفها لتطوير الـ Hub بتاعك! 🚀";
-            }
+            if(mode === 'study') systemInstruction += " انتباه: ركز الآن بأسلوبك على مساعدة المستخدم في المذاكرة، واشرح قوانين الفيزياء (مثل الحث الكهرومغناطيسي، قوانين أجهزة القياس) مدعومة بالمعادلات الرياضية المنسقة.";
+            if(mode === 'gaming') systemInstruction += " انتباه: ركز الآن على مجالات الجيمنج، احتمالات الصناديق، صيانة الكمبيوتر، وتغيير المعجون والوسادات الحرارية لمعالجات الـ CPU وكروت الشاشة.";
+
+            const requestBody = {
+                contents: chatHistory,
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
+
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
         }
     </script>
 </body>
