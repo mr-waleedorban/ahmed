@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v25.0 - The Complete Masterpiece</title>
+    <title>Ultimate Core Hub v26.0 - Masterpiece Edition</title>
     <style>
         :root {
             --bg-color: #030008;
@@ -56,7 +56,8 @@
         #dhikr-ticker {
             background: linear-gradient(90deg, rgba(255,0,127,0.12), rgba(0,245,212,0.12));
             backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center; padding: 12px; font-size: 1rem; color: #fff; position: sticky; top: 0; z-index: 999;
+            text-align: center; padding: 12px; font-size: 1.1rem; font-weight: bold; color: #fff; position: sticky; top: 0; z-index: 999;
+            transition: opacity 0.5s ease-in-out;
         }
 
         header { text-align: center; padding: 40px 20px 20px 20px; position: relative; }
@@ -137,7 +138,7 @@
         .todo-item.done { border-color: rgba(0,245,212,0.3); background: rgba(0,245,212,0.02); }
         .todo-item.done .todo-text { text-decoration: line-through; color: var(--muted-text); }
 
-        /* ================= 📦 ستايل محاكي بكجات فيفا المتقدم ================= */
+        /* البكجات */
         .packs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
         .pack-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; transition: all 0.3s; }
         .pack-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
@@ -156,26 +157,26 @@
         .fifa-name { font-size: 1.4rem; font-weight: 800; text-align: center; margin-top: auto; text-transform: uppercase; }
         .fifa-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; font-size: 0.85rem; font-weight: bold; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.15); padding-top: 10px; }
 
-        /* ================= 🕌 ستايل قسم الورد القرآني والأذكار ================= */
+        /* الأذكار */
         .dhikr-card-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
-        .dhikr-text { font-size: 1.2rem; font-weight: 600; line-height: 1.6; color: #fff; margin-bottom: 15px; }
-        .dhikr-counter-btn { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-pink), #8b5cf6); border: 2px solid #fff; color: #fff; font-size: 1.5rem; font-weight: bold; margin: 10px auto; display: flex; justify-content: center; align-items: center; }
+        .dhikr-text { font-size: 1.3rem; font-weight: 600; line-height: 1.6; color: #fff; margin-bottom: 15px; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+        .dhikr-counter-btn { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-pink), #8b5cf6); border: 2px solid #fff; color: #fff; font-size: 1.8rem; font-weight: bold; margin: 10px auto; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); transition: transform 0.1s; }
+        .dhikr-counter-btn:active { transform: scale(0.92); }
 
-        /* ================= 🎮 صالة ألعاب الأركيد ومودات XO والألعاب المضافة ================= */
+        /* الأركيد والـ XO */
         .xo-controls-bar { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
         .xo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 260px; margin: 20px auto; }
         .xo-cell { height: 80px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 14px; font-size: 2.2rem; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: all 0.2s; }
         .xo-cell:hover { background: rgba(255,255,255,0.05); border-color: var(--accent-glow); }
 
-        /* نظام التبويب للألعاب الجديدة لضمان عدم المساس بكود الـ XO القديم */
-        .arcade-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-        .game-nav-btn { background: transparent; border: 1px solid transparent; color: var(--muted-text); padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
+        .arcade-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); overflow-x: auto; }
+        .game-nav-btn { background: transparent; border: 1px solid transparent; color: var(--muted-text); padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; white-space: nowrap; }
         .game-nav-btn.active { background: var(--accent-glow); color: #000; box-shadow: 0 0 10px var(--accent-glow); }
         .game-panel { display: none; text-align: center; }
         .game-panel.active { display: block; }
         .game-canvas-element { background: #080415; border: 2px solid var(--border-color); border-radius: 16px; display: block; margin: 15px auto; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
 
-        /* ================= 🤖 ستايل المساعد الذكي الفاخر الخفي ================= */
+        /* المساعد الذكي */
         .ai-floating-widget { position: fixed; bottom: 25px; right: 25px; z-index: 9998; font-family: inherit; direction: rtl; }
         .ai-toggle-btn { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-glow), #8b5cf6); border: 2px solid #fff; box-shadow: 0 0 20px rgba(0, 245, 212, 0.4); display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
         .ai-chat-window { position: absolute; bottom: 75px; right: 0; width: 370px; height: 530px; background: rgba(10, 5, 22, 0.98); backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); display: flex; flex-direction: column; overflow: hidden; transform: scale(0.9) translateY(20px); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -203,11 +204,11 @@
     <header>
         <div class="stay-positive-badge">STAY POSITIVE</div>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v25.0 // The Complete Masterpiece Edition</div>
+        <div class="tagline">// Ultimate Core Hub v26.0 // Masterpiece Edition</div>
     </header>
 
     <div class="main-container">
-        <!-- لوحة التحكم في الأقسام -->
+        <!-- لوحة التحكم -->
         <div class="control-panel">
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
@@ -219,7 +220,7 @@
             </div>
         </div>
 
-        <!-- ================= 💻 بيئة العمل والـ XP + المطر ================= -->
+        <!-- بيئة العمل -->
         <div id="workspace" class="tab-content active">
             <div class="gravity-card">
                 <h2>👤 لوحة تقييم الأداء الفعلي</h2>
@@ -244,11 +245,10 @@
             </div>
         </div>
 
-        <!-- ================= 📦 قسم بكجات فيفا المتقدم ================= -->
+        <!-- بكجات فيفا -->
         <div id="fifapacks" class="tab-content">
             <div class="gravity-card">
                 <h2>📦 متجر محاكي بكجات فيفا الأسطوري</h2>
-                <p style="color: var(--muted-text); font-size: 0.9rem;">افتح البكجات واجمع أقوى اللعيبة لتطوير حسابك وكسب الـ XP والألقاب!</p>
                 <div class="packs-grid">
                     <div class="pack-card">
                         <h3>Gold Pack 🌟</h3>
@@ -276,31 +276,28 @@
             </div>
         </div>
 
-        <!-- ================= 🕌 قسم الورد والأذكار ================= -->
+        <!-- الورد والأذكار -->
         <div id="spiritual" class="tab-content">
             <div class="gravity-card">
                 <h2>🕌 الورد القرآني والأذكار والتقرب إلى الله</h2>
                 
                 <div class="dhikr-card-box">
-                    <div class="dhikr-text" id="dhikrTextDisplay">"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ"</div>
+                    <div class="dhikr-text" id="dhikrTextDisplay">جاري تحميل الذكر الأول...</div>
                     <button class="dhikr-counter-btn" id="dhikrCounterBtn" onclick="countDhikr()">0</button>
-                    <p style="color: var(--muted-text); font-size: 0.8rem; margin-top: 10px;">اضغط على العداد للتسبيح (+10 XP عند الإكمال)</p>
+                    <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: 10px;">اضغط على العداد للتسبيح (يتغير الذكر تلقائياً كل 33 تسبيحة وتحصل على +10 XP)</p>
                 </div>
 
                 <div class="dhikr-card-box" style="border-color: var(--accent-glow);">
                     <h3>📖 الورد اليومي من القرآن الكريم</h3>
                     <p style="color: #fff; font-size: 1.1rem; font-weight: bold; margin: 15px 0;">قراءة (صفحتين من القرآن الكريم)</p>
-                    <p style="color: var(--muted-text); font-size: 0.85rem; margin-bottom: 15px;">🔒 لضمان الالتزام وكسب الـ 100 XP، يرجى رفع صورة للصفحة التي قمت بقراءتها حالا:</p>
-                    
-                    <div style="margin: 15px 0;">
-                        <input type="file" id="quranUploadInput" accept="image/*" class="mindmap-input" style="max-width: 300px;">
-                    </div>
+                    <input type="file" id="quranUploadInput" accept="image/*" class="mindmap-input" style="max-width: 300px; margin-bottom: 10px;">
+                    <br>
                     <button class="modern-btn" style="border-color: var(--accent-glow);" onclick="verifyQuranReading()">Verify & Claim 100 XP</button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 📝 قائمة مهام TO-DO LIST ================= -->
+        <!-- قائمة المهام -->
         <div id="todolist" class="tab-content">
             <div class="gravity-card">
                 <h2>📝 مخطط قائمة المهام الذكي وكسب الـ XP</h2>
@@ -314,20 +311,19 @@
             </div>
         </div>
 
-        <!-- ================= 🎮 صالة ألعاب الأركيد ومودات XO والألعاب المضافة ================= -->
+        <!-- صالة الألعاب -->
         <div id="arcade" class="tab-content">
             <div class="gravity-card">
                 <h2>🎮 صالة الألعاب التفاعلية المتقدمة</h2>
                 
-                <!-- منيو التنقل الداخلي بين الألعاب لعدم تدمير الكود القديم -->
                 <div class="arcade-menu">
                     <button class="game-nav-btn active" onclick="switchArcadeGame('xoGamePanel', this)">❌ لعبة XO الأصلية</button>
                     <button class="game-nav-btn" onclick="switchArcadeGame('snakeGamePanel', this); initSnakeGame();">🐍 لعبة الثعبان</button>
-                    <button class="game-nav-btn" onclick="switchArcadeGame('penaltyGamePanel', this); initPenaltyGame();">⚽ ضربات الجزاء</button>
+                    <button class="game-nav-btn" onclick="switchArcadeGame('penaltyGamePanel', this); initPenaltyGame();">⚽ ضربات الجزاء 2.0</button>
                     <button class="game-nav-btn" onclick="switchArcadeGame('pingPongPanel', this); initPingPongGame();">🏓 بينج بونج وتنس</button>
                 </div>
 
-                <!-- 1. لوحة لعبة XO القديمة بدون تغيير نهائياً -->
+                <!-- XO الأصلي -->
                 <div id="xoGamePanel" class="game-panel active">
                     <div class="xo-controls-bar">
                         <select id="xoModeSelect" class="mindmap-input" style="max-width: 200px;" onchange="resetXoGame()">
@@ -352,100 +348,131 @@
                     </div>
                 </div>
 
-                <!-- 2. لوحة لعبة الثعبان الجديدة -->
+                <!-- الثعبان -->
                 <div id="snakeGamePanel" class="game-panel">
                     <h3 style="color: var(--accent-pink);">🐍 لعبة الثعبان النيون الكلاسيكية</h3>
-                    <p style="color: var(--muted-text); font-size: 0.85rem;">استخدم أزرار الأسهم في الكيبورد للتحرك والتهام النقاط!</p>
                     <div style="font-weight: bold; color: var(--accent-gold); margin-bottom: 5px;" id="snakeScore">النقاط: 0</div>
                     <canvas id="snakeCanvas" width="400" height="400" class="game-canvas-element"></canvas>
-                    <button class="modern-btn" onclick="initSnakeGame()">🔄 إعادة تشغيل الثعبان</button>
+                    <button class="modern-btn" onclick="initSnakeGame()">🔄 إعادة تشغيل</button>
                 </div>
 
-                <!-- 3. لوحة لعبة ضربات جزاء كرة القدم الجديدة -->
+                <!-- ضربات الجزاء المتطورة والمثيرة 2.0 -->
                 <div id="penaltyGamePanel" class="game-panel">
-                    <h3 style="color: var(--accent-gold);">⚽ تحدي ضربات جزاء كأس العالم</h3>
-                    <p style="color: var(--muted-text); font-size: 0.85rem;">اختر زاوية التسديد لتسجيل الهدف وتجاوز حارس المرمى!</p>
-                    <div style="font-weight: bold; margin-bottom: 10px;" id="penaltyScoreDisplay">الأهداف: 0 | المحاولات: 0</div>
-                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-                        <button class="modern-btn" style="border-color: #ff007f;" onclick="shootPenalty('left')">📐 زاوية يمين</button>
-                        <button class="modern-btn" style="border-color: #00f5d4;" onclick="shootPenalty('center')">🚀 في المنتصف</button>
-                        <button class="modern-btn" style="border-color: #ffd700;" onclick="shootPenalty('right')">📐 زاوية شمال</button>
-                    </div>
-                    <canvas id="penaltyCanvas" width="400" height="250" class="game-canvas-element"></canvas>
+                    <h3 style="color: var(--accent-glow);">⚽ ركلات جزاء سوبر أركيد التفاعلية</h3>
+                    <p style="color: var(--muted-text); font-size: 0.85rem;">انقر على أي زاوية داخل المرمى لتسديد الكرة ميكانيكياً ومباغتة الحارس القافز!</p>
+                    <div style="font-weight: bold; color: #fff; margin-bottom: 10px;" id="penaltyScoreDisplay">الأهداف: 0 | الإجمالي: 0</div>
+                    <canvas id="penaltyCanvas" width="450" height="280" class="game-canvas-element" style="background:#0a1e0d; position:relative;"></canvas>
+                    <div id="penaltyResultText" style="font-size: 1.2rem; font-weight: bold; height: 25px; margin-top: 5px; color: var(--accent-gold);"></div>
                 </div>
 
-                <!-- 4. لوحة لعبة تنس طاولة / بينج بونج الجديدة -->
+                <!-- بينج بونج -->
                 <div id="pingPongPanel" class="game-panel">
-                    <h3 style="color: var(--accent-glow);">🏓 لعبة تنس الطاولة والبينج بونج الأركيد</h3>
-                    <p style="color: var(--muted-text); font-size: 0.85rem;">حرك الماوس لأعلى ولأسفل للتحكم في المضرب وصد الكرة ضد الكمبيوتر!</p>
+                    <h3 style="color: var(--accent-glow);">🏓 لعبة تنس الطاولة والبينج بونج</h3>
                     <div style="font-weight: bold; color: #fff; margin-bottom: 5px;" id="pongScoreDisplay">أنت: 0 | الكمبيوتر: 0</div>
                     <canvas id="pongCanvas" width="500" height="300" class="game-canvas-element"></canvas>
-                    <button class="modern-btn" onclick="initPingPongGame()">🔄 إعادة اللعب</button>
                 </div>
-
             </div>
         </div>
 
-        <!-- ================= 🔒 المفكرة السرية تلقائية الحفظ ================= -->
+        <!-- المفكرة -->
         <div id="study" class="tab-content">
             <div class="gravity-card">
                 <h2>🔒 المفكرة الخاصة بمذاكرتك وأسرارك (حفظ محلي تلقائي)</h2>
-                <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 200px;" placeholder="اكتب ملاحظاتك، مسائل الفيزياء، أو مذكراتك اليومية هنا..."></textarea>
+                <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 200px;" placeholder="اكتب ملاحظاتك هنا..."></textarea>
             </div>
         </div>
     </div>
 
-    <!-- ================= 🤖 المساعد الذكي الآمن والأقوى للجميع تلقائياً ================= -->
+    <!-- المساعد الذكي -->
     <div class="ai-floating-widget">
         <button class="ai-toggle-btn" onclick="toggleAiChat()">🤖</button>
         <div class="ai-chat-window" id="aiChatWindow">
             <div class="ai-chat-header">
                 <h3>⚡ مساعد Core Hub الذكي</h3>
-                <span id="aiStatusLabel" style="font-size: 0.75rem; color: var(--accent-glow); font-family: monospace;">AI ONLINE</span>
+                <span style="font-size: 0.75rem; color: var(--accent-glow);">AI ONLINE</span>
             </div>
-
             <div class="ai-modes-bar">
                 <button class="ai-mode-btn active" onclick="setAiMode('general', this)">💬 عام وتطوير</button>
                 <button class="ai-mode-btn" onclick="setAiMode('study', this)">📚 فيزياء ومذاكرة</button>
                 <button class="ai-mode-btn" onclick="setAiMode('gaming', this)">🎮 جيمنج وهاردوير</button>
             </div>
-            
             <div class="ai-messages-zone" id="aiMessagesZone">
-                <div class="ai-msg system">يا هلا بيك! الـ AI شغال ومحمي بأعلى تشفير ومتاح لكل زوار موقعك بطلاقة تامة، اسألني في الفيزياء أو الجيمنج وصيانة المعجون الحراري وجاهز فوراً! 🔥</div>
+                <div class="ai-msg system">يا هلا بيك! الـ AI شغال وبكامل قوته ومتاح لكل زوار موقعك بطلاقة تامة! 🔥</div>
             </div>
-            
             <div class="ai-input-bar">
                 <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="اكتب سؤالك وسيرد الـ AI..." onkeydown="if(event.key === 'Enter') sendAiMessage()">
-                <button class="ai-send-btn" id="aiSendBtn" onclick="sendAiMessage()">إرسال</button>
+                <button class="ai-send-btn" onclick="sendAiMessage()">إرسال</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ================= 📊 إدارة الـ XP والـ Tabs والماوس النيون =================
+        // مصفوفة الأذكار المتغيرة للشريط العلوي والتسبيح
+        const globalDhikrPool = [
+            "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+            "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
+            "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
+            "اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+            "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+            "سُبْحَانَ اللَّهِ ، وَالْحَمْدُ لِلَّهِ ، وَلَا إِلَهَ إِلَّا اللَّهُ ، وَاللَّهُ أَكْبَرُ",
+            "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+            "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ"
+        ];
+
+        // 1. نظام شريط الأذكار المتغير عشوائياً كل 7 ثوانٍ
+        function rotateTickerDhikr() {
+            const ticker = document.getElementById('dhikr-ticker');
+            ticker.style.opacity = 0;
+            setTimeout(() => {
+                const randomDhikr = globalDhikrPool[Math.floor(Math.random() * globalDhikrPool.length)];
+                ticker.innerText = randomDhikr;
+                ticker.style.opacity = 1;
+            }, 500);
+        }
+        setInterval(rotateTickerDhikr, 7000);
+        rotateTickerDhikr(); // استدعاء فوري أول تشغيل
+
+        // إدارة الـ XP والـ Tabs والماوس
         let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 0;
         function updateXpDisplay() { document.getElementById('globalXpDisplay').innerText = `${userXp} XP`; localStorage.setItem('ahmed_user_xp', userXp); }
         function switchTab(tabId) { document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active')); document.getElementById(tabId).classList.add('active'); event.currentTarget.classList.add('active'); }
         
         const cursorDot = document.getElementById('cursorDot'); const cursorGlow = document.getElementById('cursorGlow');
         document.addEventListener('mousemove', (e) => { cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; setTimeout(() => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; }, 40); });
-        document.querySelectorAll('button, a, .tab-btn, .xo-cell, select, .game-nav-btn').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
-
-        // نداء تفعيل الـ XP لأول مرة
+        document.querySelectorAll('button, a, .tab-btn, .xo-cell, select, .game-nav-btn, canvas').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
         updateXpDisplay();
 
-        // تنقل منيو الألعاب الداخلي
         function switchArcadeGame(panelId, btnElement) {
             document.querySelectorAll('#arcade .game-panel').forEach(panel => panel.classList.remove('active'));
             document.querySelectorAll('.game-nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(panelId).classList.add('active');
             btnElement.classList.add('active');
-            // إيقاف أي لود أو جوب شغال من ألعاب تانية عند الانتقال
             if(panelId !== 'snakeGamePanel' && snakeInterval) clearInterval(snakeInterval);
             if(panelId !== 'pingPongPanel' && pongInterval) cancelAnimationFrame(pongInterval);
         }
 
-        // ================= 📝 قائمة المهام TO-DO =================
+        // 2. نظام عداد التسبيح التغير التلقائي كل 33 مرة
+        let dhikrCount = 0;
+        function updateDhikrBoxText() {
+            const currentDhikrText = globalDhikrPool[Math.floor(Math.random() * globalDhikrPool.length)];
+            document.getElementById('dhikrTextDisplay').innerText = `"${currentDhikrText}"`;
+        }
+        updateDhikrBoxText(); // تعيين أول ذكر للبطاقة
+
+        function countDhikr() {
+            dhikrCount++;
+            document.getElementById('dhikrCounterBtn').innerText = dhikrCount;
+            if(dhikrCount >= 33) {
+                userXp += 10;
+                updateXpDisplay();
+                dhikrCount = 0;
+                document.getElementById('dhikrCounterBtn').innerText = 0;
+                updateDhikrBoxText(); // تغيير التسبيحة تلقائياً بعد الـ 33
+                alert("🕌 تقبل الله طاعتك وزادك نوراً! حصلت على +10 XP وتم تجديد التسبيحة تلقائياً.");
+            }
+        }
+
+        // مهام ومؤقت ومطر
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function renderTodos() {
             const container = document.getElementById('todoListContainer'); container.innerHTML = '';
@@ -461,7 +488,6 @@
         function deleteTodoItem(idx) { todos.splice(idx, 1); renderTodos(); }
         renderTodos();
 
-        // ================= ⏱️ مؤقت البومودورو والمطر =================
         let pomoMinutes = 25, pomoSeconds = 0, pomoInterval = null, pomoRunning = false;
         function togglePomo() {
             const btn = document.getElementById('pomoBtn');
@@ -469,7 +495,7 @@
             else { pomoInterval = setInterval(updatePomo, 1000); btn.innerText = "⏸️ إيقاف مؤقت"; pomoRunning = true; }
         }
         function updatePomo() {
-            if(pomoSeconds === 0) { if(pomoMinutes === 0) { clearInterval(pomoInterval); alert("🏆 مبروك يا بطل! أنهيت جلسة التركيز وحصلت على 100 XP!"); userXp += 100; updateXpDisplay(); resetPomo(); return; } pomoMinutes--; pomoSeconds = 59; } else { pomoSeconds--; }
+            if(pomoSeconds === 0) { if(pomoMinutes === 0) { clearInterval(pomoInterval); alert("🏆 مبروك! +100 XP!"); userXp += 100; updateXpDisplay(); resetPomo(); return; } pomoMinutes--; pomoSeconds = 59; } else { pomoSeconds--; }
             document.getElementById('pomoDisplay').innerText = `${String(pomoMinutes).padStart(2,'0')}:${String(pomoSeconds).padStart(2,'0')}`;
         }
         function resetPomo() { pomoMinutes = 25; pomoSeconds = 0; document.getElementById('pomoDisplay').innerText = "25:00"; document.getElementById('pomoBtn').innerText = "▶️ ابدأ التركيز"; pomoRunning = false; }
@@ -481,153 +507,162 @@
         function drawRain() { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)'; ctx.lineWidth = 1.2; drops.forEach(d => { ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y+d.len); ctx.stroke(); d.y += d.speed; if(d.y > canvas.height) { d.y = -d.len; d.x = Math.random()*canvas.width; } }); requestAnimationFrame(drawRain); }
         if(canvas) drawRain();
 
-        // ================= 📦 محاكي بكجات فيفا الفعلي واللاعبين =================
+        // بكجات فيفا الأصلية
         const playersPool = {
-            gold: [
-                { name: "Mbappé", rating: 91, pos: "ST", stats: [97, 90, 80, 92], bg: "linear-gradient(135deg, #ffe066, #f5b041)" },
-                { name: "Vinícius Jr.", rating: 89, pos: "LW", stats: [95, 84, 81, 90], bg: "linear-gradient(135deg, #ffe066, #f5b041)" },
-                { name: "Salah", rating: 89, pos: "RW", stats: [89, 87, 82, 88], bg: "linear-gradient(135deg, #ffe066, #f5b041)" }
-            ],
-            icon: [
-                { name: "Pelé", rating: 95, pos: "CAM", stats: [95, 94, 93, 95], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" },
-                { name: "Ronaldo Nazário", rating: 94, pos: "ST", stats: [94, 95, 81, 94], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" },
-                { name: "Zidane", rating: 94, pos: "CAM", stats: [83, 91, 96, 92], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" }
-            ]
+            gold: [{ name: "Mbappé", rating: 91, pos: "ST", stats: [97, 90, 80, 92], bg: "linear-gradient(135deg, #ffe066, #f5b041)" }, { name: "Salah", rating: 89, pos: "RW", stats: [89, 87, 82, 88], bg: "linear-gradient(135deg, #ffe066, #f5b041)" }],
+            icon: [{ name: "Pelé", rating: 95, pos: "CAM", stats: [95, 94, 93, 95], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" }, { name: "Zidane", rating: 94, pos: "CAM", stats: [83, 91, 96, 92], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" }]
         };
         function openFifaPack(type) {
-            let cost = type === 'gold' ? 50 : 150;
-            if(userXp < cost) { alert("❌ عذراً! ليس لديك الـ XP الكافي لفتح هذا البكج."); return; }
+            let cost = type === 'gold' ? 50 : 150; if(userXp < cost) { alert("❌ عذراً الـ XP غير كافٍ!"); return; }
             userXp -= cost; updateXpDisplay();
-            
-            const pool = playersPool[type];
-            const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
-            
+            const pool = playersPool[type]; const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
             document.getElementById('packOpeningStage').style.display = 'block';
-            const card = document.getElementById('fifaCardContainer');
-            card.style.background = luckyPlayer.bg;
-            document.getElementById('cardRating').innerText = luckyPlayer.rating;
-            document.getElementById('cardPosition').innerText = luckyPlayer.pos;
+            const card = document.getElementById('fifaCardContainer'); card.style.background = luckyPlayer.bg;
+            document.getElementById('cardRating').innerText = luckyPlayer.rating; document.getElementById('cardPosition').innerText = luckyPlayer.pos;
             document.getElementById('cardName').innerText = luckyPlayer.name;
             document.getElementById('cardStats').innerHTML = `<div>PAC: ${luckyPlayer.stats[0]}</div><div>SHO: ${luckyPlayer.stats[1]}</div><div>PAS: ${luckyPlayer.stats[2]}</div><div>DRI: ${luckyPlayer.stats[3]}</div>`;
         }
 
-        // ================= 🕌 أذكار وقراءة القرآن =================
-        let dhikrCount = 0;
-        const dhikrsList = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", "أَسْتَغْفِرُ اللَّهِ العَظِيمِ", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", "لا حَوْلَ وَلا قُوَّةَ إِلاَّ بِاللَّهِ"];
-        function countDhikr() {
-            dhikrCount++; document.getElementById('dhikrCounterBtn').innerText = dhikrCount;
-            if(dhikrCount >= 33) {
-                userXp += 10; updateXpDisplay(); dhikrCount = 0; document.getElementById('dhikrCounterBtn').innerText = 0;
-                let nextDhikr = dhikrsList[Math.floor(Math.random() * dhikrsList.length)];
-                document.getElementById('dhikrTextDisplay').innerText = nextDhikr;
-                alert("🕌 تقبل الله! أكملت 33 تسبيحة وحصلت على +10 XP!");
-            }
-        }
-        function verifyQuranReading() {
-            const fileInput = document.getElementById('quranUploadInput');
-            if(!fileInput.files || fileInput.files.length === 0) { alert("🔒 من فضلك قم باختيار أو التقاط صورة لصفحة المصحف أولاً لإثبات القراءة!"); return; }
-            userXp += 100; updateXpDisplay(); alert("🏆 تم التحقق بنجاح! كسبت 100 XP لالتزامك بالورد اليومي. بارك الله فيك!"); fileInput.value = '';
-        }
+        function verifyQuranReading() { const fileInput = document.getElementById('quranUploadInput'); if(!fileInput.files.length) { alert("🔒 ارفع صورة الصفحة أولاً!"); return; } userXp += 100; updateXpDisplay(); alert("🏆 تم التحقق بنجاح! +100 XP."); fileInput.value = ''; }
 
-        // ================= 🎮 كود لعبة XO الأصلية (غير ملموس ومحمي) =================
+        // XO الأصلي المحمي بدون أي تغيير
         let xoBoard = Array(9).fill(''); let xoPlayer = 'X'; let gameActive = true;
         function makeXoMove(cellIndex) {
-            const cells = document.querySelectorAll('.xo-cell');
-            if(xoBoard[cellIndex] !== '' || !gameActive) return;
+            const cells = document.querySelectorAll('.xo-cell'); if(xoBoard[cellIndex] !== '' || !gameActive) return;
             xoBoard[cellIndex] = xoPlayer; cells[cellIndex].innerText = xoPlayer; cells[cellIndex].style.color = xoPlayer === 'X' ? 'var(--accent-glow)' : 'var(--accent-pink)';
             if(checkXoWin()) { document.getElementById('xoStatus').innerText = `🎉 فاز اللاعب: ${xoPlayer}!`; gameActive = false; userXp += 20; updateXpDisplay(); return; }
             if(!xoBoard.includes('')) { document.getElementById('xoStatus').innerText = `🤝 تعادل رائع!`; gameActive = false; return; }
             xoPlayer = xoPlayer === 'X' ? 'O' : 'X'; document.getElementById('xoStatus').innerText = `دور اللاعب: ${xoPlayer}`;
             if(document.getElementById('xoModeSelect').value === 'ai' && xoPlayer === 'O') { setTimeout(makeAiXoMove, 400); }
         }
-        function makeAiXoMove() {
-            let emptyCells = []; xoBoard.forEach((val, idx) => { if(val === '') emptyCells.push(idx); });
-            if(emptyCells.length === 0 || !gameActive) return;
-            let randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)]; makeXoMove(randomIdx);
-        }
-        function checkXoWin() {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(cond => cond.every(idx => xoBoard[idx] === xoPlayer));
-        }
+        function makeAiXoMove() { let emptyCells = []; xoBoard.forEach((val, idx) => { if(val === '') emptyCells.push(idx); }); if(!emptyCells.length || !gameActive) return; makeXoMove(emptyCells[Math.floor(Math.random() * emptyCells.length)]); }
+        function checkXoWin() { const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return wins.some(cond => cond.every(idx => xoBoard[idx] === xoPlayer)); }
         function resetXoGame() { xoBoard.fill(''); gameActive = true; xoPlayer = 'X'; document.getElementById('xoStatus').innerText = "دور اللاعب: X"; document.querySelectorAll('.xo-cell').forEach(c => c.innerText = ''); }
 
-        // ================= 🐍 كود لعبة الثعبان الجديدة بالكامل =================
+        // الثعبان
         const sCanvas = document.getElementById('snakeCanvas'); const sCtx = sCanvas.getContext('2d');
         let snake, snakeDir, snakeFood, snakeScore, snakeInterval = null;
-        function initSnakeGame() {
-            if(snakeInterval) clearInterval(snakeInterval);
-            snake = [{x: 200, y: 200}, {x: 180, y: 200}, {x: 160, y: 200}]; snakeDir = 'RIGHT'; snakeScore = 0;
-            document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood();
-            snakeInterval = setInterval(runSnakeGame, 130);
-        }
+        function initSnakeGame() { if(snakeInterval) clearInterval(snakeInterval); snake = [{x: 200, y: 200}, {x: 180, y: 200}]; snakeDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood(); snakeInterval = setInterval(runSnakeGame, 130); }
         function spawnSnakeFood() { snakeFood = { x: Math.floor(Math.random()*19)*20, y: Math.floor(Math.random()*19)*20 }; }
         function runSnakeGame() {
-            let head = Object.assign({}, snake[0]);
-            if(snakeDir === 'RIGHT') head.x += 20; if(snakeDir === 'LEFT') head.x -= 20;
-            if(snakeDir === 'UP') head.y -= 20; if(snakeDir === 'DOWN') head.y += 20;
-            if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400 || snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-                clearInterval(snakeInterval); alert(`☠️ جيم أوفر! مجموع نقاطك في الثعبان: ${snakeScore}`); return;
-            }
-            snake.unshift(head);
-            if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore += 10; userXp += 5; updateXpDisplay(); document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood(); } 
-            else { snake.pop(); }
-            sCtx.fillStyle = '#080415'; sCtx.fillRect(0,0,400,400);
-            sCtx.fillStyle = 'var(--accent-glow)'; snake.forEach((seg, i) => { sCtx.fillStyle = i === 0 ? 'var(--accent-glow)' : '#00bfa5'; sCtx.fillRect(seg.x, seg.y, 18, 18); });
-            sCtx.fillStyle = 'var(--accent-pink)'; sCtx.fillRect(snakeFood.x, snakeFood.y, 18, 18);
+            let head = Object.assign({}, snake[0]); if(snakeDir === 'RIGHT') head.x += 20; if(snakeDir === 'LEFT') head.x -= 20; if(snakeDir === 'UP') head.y -= 20; if(snakeDir === 'DOWN') head.y += 20;
+            if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400 || snake.some(seg => seg.x === head.x && seg.y === head.y)) { clearInterval(snakeInterval); alert("☠️ جيم أوفر!"); return; }
+            snake.unshift(head); if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore += 10; userXp += 5; updateXpDisplay(); document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood(); } else { snake.pop(); }
+            sCtx.fillStyle = '#080415'; sCtx.fillRect(0,0,400,400); sCtx.fillStyle = 'var(--accent-glow)'; snake.forEach((seg, i) => { sCtx.fillStyle = i === 0 ? 'var(--accent-glow)' : '#00bfa5'; sCtx.fillRect(seg.x, seg.y, 18, 18); }); sCtx.fillStyle = 'var(--accent-pink)'; sCtx.fillRect(snakeFood.x, snakeFood.y, 18, 18);
         }
-        window.addEventListener('keydown', (e) => {
-            if(e.key === 'ArrowUp' && snakeDir !== 'DOWN') snakeDir = 'UP'; if(e.key === 'ArrowDown' && snakeDir !== 'UP') snakeDir = 'DOWN';
-            if(e.key === 'ArrowLeft' && snakeDir !== 'RIGHT') snakeDir = 'LEFT'; if(e.key === 'ArrowRight' && snakeDir !== 'LEFT') snakeDir = 'RIGHT';
+        window.addEventListener('keydown', (e) => { if(e.key === 'ArrowUp' && snakeDir !== 'DOWN') snakeDir = 'UP'; if(e.key === 'ArrowDown' && snakeDir !== 'UP') snakeDir = 'DOWN'; if(e.key === 'ArrowLeft' && snakeDir !== 'RIGHT') snakeDir = 'LEFT'; if(e.key === 'ArrowRight' && snakeDir !== 'LEFT') snakeDir = 'RIGHT'; });
+
+        // 3. لعبة ركلات جزاء كرة القدم المتطورة بالكامل 2.0 (بدون كرينج)
+        const pCanvas = document.getElementById('penaltyCanvas'); const pCtx = pCanvas.getContext('2d');
+        let penGoals = 0, penTotal = 0, isShooting = false;
+        let ballPos = { x: 225, y: 240 }, targetPos = { x: 225, y: 240 }, keeperX = 205;
+        let pAnimFrame;
+
+        function initPenaltyGame() {
+            isShooting = false; ballPos = { x: 225, y: 240 }; targetPos = { x: 225, y: 240 }; keeperX = 205;
+            document.getElementById('penaltyResultText').innerText = "";
+            drawPenaltyScene();
+        }
+
+        function drawPenaltyScene() {
+            pCtx.fillStyle = '#0f2c11'; pCtx.fillRect(0, 0, 450, 280); // عشب داكن فخم
+            // خطوط الملعب والـ Penalty Box
+            pCtx.strokeStyle = 'rgba(255,255,255,0.4)'; pCtx.lineWidth = 3;
+            pCtx.strokeRect(45, 40, 360, 140); // المرمى الخارجي والشباك
+            pCtx.fillStyle = 'rgba(255,255,255,0.05)'; pCtx.fillRect(45, 40, 360, 140);
+            
+            // عارضة المرمى بلون نيون أبيض
+            pCtx.strokeStyle = '#fff'; pCtx.lineWidth = 5;
+            pCtx.beginPath(); pCtx.moveTo(70, 180); pCtx.lineTo(70, 50); pCtx.lineTo(380, 50); pCtx.lineTo(380, 180); pCtx.stroke();
+
+            // رسم حارس المرمى (مربع نيون متطور عشوائي الحركة قبل التسديد)
+            pCtx.fillStyle = 'var(--accent-pink)';
+            pCtx.shadowBlur = 10; pCtx.shadowColor = 'var(--accent-pink)';
+            pCtx.fillRect(keeperX, 70, 40, 40);
+            pCtx.shadowBlur = 0; // إلغاء التوهج للقطع الأخرى
+
+            // رسم نقطة الجزاء والكرة النيون
+            pCtx.fillStyle = '#fff'; pCtx.beginPath(); pCtx.arc(225, 240, 4, 0, Math.PI*2); pCtx.fill();
+            pCtx.fillStyle = 'var(--accent-glow)'; pCtx.shadowBlur = 15; pCtx.shadowColor = 'var(--accent-glow)';
+            pCtx.beginPath(); pCtx.arc(ballPos.x, ballPos.y, 10, 0, Math.PI*2); pCtx.fill();
+            pCtx.shadowBlur = 0;
+        }
+
+        pCanvas.addEventListener('click', function(e) {
+            if (isShooting) return;
+            const rect = pCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            // السماح بالتسديد في نطاق المرمى والشباك فقط
+            if (clickY < 180 && clickX > 70 && clickX < 380) {
+                targetPos = { x: clickX, y: clickY };
+                isShooting = true;
+                penTotal++;
+                
+                // ذكاء حارس المرمى: يختار القفز لجهة عشوائية (يمين، يسار، منتصف)
+                const keeperDestinations = [clickX, Math.random() * (340 - 70) + 70, 205];
+                const keeperTargetX = keeperDestinations[Math.floor(Math.random() * keeperDestinations.length)];
+                
+                animatePenalty(keeperTargetX);
+            }
         });
 
-        // ================= ⚽ كود لعبة ضربات الجزاء الجديدة =================
-        const pCanvas = document.getElementById('penaltyCanvas'); const pCtx = pCanvas.getContext('2d');
-        let penaltyGoals = 0, penaltyTotal = 0;
-        function initPenaltyGame() { pCtx.fillStyle = '#1e3d14'; pCtx.fillRect(0,0,400,250); pCtx.strokeStyle = '#fff'; pCtx.lineWidth = 3; pCtx.strokeRect(80, 50, 240, 150); pCtx.fillStyle = '#fff'; pCtx.beginPath(); pCtx.arc(200, 220, 8, 0, Math.PI * 2); pCtx.fill(); pCtx.fillStyle = '#ffd700'; pCtx.font = '14px sans-serif'; pCtx.fillText("الحارس مستعد في المرمى", 140, 35); }
-        function shootPenalty(playerChoice) {
-            const options = ['left', 'center', 'right']; const aiChoice = options[Math.floor(Math.random() * options.length)];
-            penaltyTotal++; pCtx.clearRect(0,0,400,250); initPenaltyGame();
-            pCtx.fillStyle = '#ff007f'; pCtx.font = 'bold 16px sans-serif';
-            let ballX = playerChoice === 'left' ? 120 : playerChoice === 'right' ? 280 : 200;
-            pCtx.beginPath(); pCtx.arc(ballX, 100, 12, 0, Math.PI*2); pCtx.fill();
-            pCtx.fillStyle = '#00f5d4'; pCtx.fillRect(aiChoice === 'left' ? 90 : aiChoice === 'right' ? 270 : 180, 60, 40, 30);
-            if(playerChoice === aiChoice) { pCtx.fillStyle = 'red'; pCtx.fillText("❌ صدها الحارس!", 150, 170); } 
-            else { pCtx.fillStyle = 'gold'; pCtx.fillText("⚽ جووووول أسطوري!", 135, 170); penaltyGoals++; userXp += 8; updateXpDisplay(); }
-            document.getElementById('penaltyScoreDisplay').innerText = `الأهداف: ${penaltyGoals} | المحاولات: ${penaltyTotal}`;
+        function animatePenalty(keeperTargetX) {
+            // تحريك الكرة والحارس في نفس الوقت بسلاسة متجهة
+            let ballDx = targetPos.x - ballPos.x;
+            let ballDy = targetPos.y - ballPos.y;
+            let dist = Math.sqrt(ballDx*ballDx + ballDy*ballDy);
+
+            if (dist > 5) {
+                ballPos.x += (ballDx / dist) * 12;
+                ballPos.y += (ballDy / dist) * 12;
+                keeperX += (keeperTargetX - 20 - keeperX) * 0.12; // قفزة مرنة للحارس
+                drawPenaltyScene();
+                pAnimFrame = requestAnimationFrame(() => animatePenalty(keeperTargetX));
+            } else {
+                cancelAnimationFrame(pAnimFrame);
+                // حساب النتيجة عند وصول الكرة للمرمى
+                let keeperLeft = keeperX;
+                let keeperRight = keeperX + 40;
+                
+                const resultText = document.getElementById('penaltyResultText');
+                if (ballPos.x >= keeperLeft && ballPos.x <= keeperRight && ballPos.y >= 70 && ballPos.y <= 110) {
+                    resultText.innerText = "❌ صَدها الحارس ببراعة!";
+                    resultText.style.color = "var(--accent-pink)";
+                } else {
+                    resultText.innerText = "⚽ جِوووووول أسطوري خيالي!";
+                    resultText.style.color = "var(--accent-glow)";
+                    penGoals++;
+                    userXp += 15;
+                    updateXpDisplay();
+                }
+                document.getElementById('penaltyScoreDisplay').innerText = `الأهداف: ${penGoals} | الإجمالي: ${penTotal}`;
+                setTimeout(initPenaltyGame, 2000); // إعادة تهيئة اللعبة بعد ثانيتين تلقائياً
+            }
         }
 
-        // ================= 🏓 كود لعبة تنس طاولة بينج بونج المتقدمة =================
+        // بينج بونج
         const pongCanvas = document.getElementById('pongCanvas'); const pongCtx = pongCanvas.getContext('2d');
         let playerPaddleY = 110, aiPaddleY = 110, pongBall = {x: 250, y: 150, vx: 3, vy: 3}, pScore = 0, compScore = 0, pongInterval;
         function initPingPongGame() { pongBall = {x: 250, y: 150, vx: 3, vy: 3}; if(!pongInterval) runPongGame(); }
         pongCanvas.addEventListener('mousemove', (e) => { const rect = pongCanvas.getBoundingClientRect(); playerPaddleY = e.clientY - rect.top - 40; });
         function runPongGame() {
-            pongBall.x += pongBall.vx; pongBall.y += pongBall.vy;
-            if(pongBall.y <= 0 || pongBall.y >= 300) pongBall.vy = -pongBall.vy;
+            pongBall.x += pongBall.vx; pongBall.y += pongBall.vy; if(pongBall.y <= 0 || pongBall.y >= 300) pongBall.vy = -pongBall.vy;
             if(aiPaddleY + 40 < pongBall.y) aiPaddleY += 2.5; else aiPaddleY -= 2.5;
-            if(pongBall.x <= 20) {
-                if(pongBall.y > playerPaddleY && pongBall.y < playerPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } 
-                else { compScore++; resetPongBall(); }
-            }
-            if(pongBall.x >= 480) {
-                if(pongBall.y > aiPaddleY && pongBall.y < aiPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } 
-                else { pScore++; userXp += 15; updateXpDisplay(); resetPongBall(); }
-            }
+            if(pongBall.x <= 20) { if(pongBall.y > playerPaddleY && pongBall.y < playerPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } else { compScore++; resetPongBall(); } }
+            if(pongBall.x >= 480) { if(pongBall.y > aiPaddleY && pongBall.y < aiPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } else { pScore++; userXp += 15; updateXpDisplay(); resetPongBall(); } }
             document.getElementById('pongScoreDisplay').innerText = `أنت: ${pScore} | الكمبيوتر: ${compScore}`;
-            pongCtx.fillStyle = '#080415'; pongCtx.fillRect(0,0,500,300);
-            pongCtx.fillStyle = 'var(--accent-glow)'; pongCtx.fillRect(10, playerPaddleY, 12, 80);
-            pongCtx.fillStyle = 'var(--accent-pink)'; pongCtx.fillRect(480, aiPaddleY, 12, 80);
-            pongCtx.fillStyle = '#fff'; pongCtx.beginPath(); pongCtx.arc(pongBall.x, pongBall.y, 8, 0, Math.PI*2); pongCtx.fill();
+            pongCtx.fillStyle = '#080415'; pongCtx.fillRect(0,0,500,300); pongCtx.fillStyle = 'var(--accent-glow)'; pongCtx.fillRect(10, playerPaddleY, 12, 80); pongCtx.fillStyle = 'var(--accent-pink)'; pongCtx.fillRect(480, aiPaddleY, 12, 80); pongCtx.fillStyle = '#fff'; pongCtx.beginPath(); pongCtx.arc(pongBall.x, pongBall.y, 8, 0, Math.PI*2); pongCtx.fill();
             pongInterval = requestAnimationFrame(runPongGame);
         }
         function resetPongBall() { pongBall.x = 250; pongBall.y = 150; pongBall.vx = -pongBall.vx > 0 ? 3 : -3; }
 
-        // ================= 🔒 المفكرة السرية للحفظ التلقائي =================
-        const secretNotes = document.getElementById('secretNotesInput');
-        secretNotes.value = localStorage.getItem('ahmed_secret_notes') || '';
+        // المفكرة السرية تلقائية الحفظ
+        const secretNotes = document.getElementById('secretNotesInput'); secretNotes.value = localStorage.getItem('ahmed_secret_notes') || '';
         secretNotes.addEventListener('input', () => { localStorage.setItem('ahmed_secret_notes', secretNotes.value); });
 
-        // ================= 🤖 كود المساعد الذكي التفاعلي =================
+        // المساعد الذكي
         let currentAiMode = 'general';
         function toggleAiChat() { document.getElementById('aiChatWindow').classList.toggle('open'); }
         function setAiMode(mode, btn) { currentAiMode = mode; document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
@@ -635,16 +670,13 @@
             const input = document.getElementById('aiChatInput'); const txt = input.value.trim(); if(!txt) return;
             appendAiMsg(txt, 'user'); input.value = '';
             setTimeout(() => {
-                let reply = "أنا معاك يا غالي وسامعك كويس جداً! كود موقعك شغال ومحمي تماماً، هل تحب نعمل تعديل جديد أو نضيف ميزة تانية؟";
-                if(currentAiMode === 'study') reply = "قوانين الفيزياء وقوانين الحث الكهرومغناطيسي وأجهزة القياس تحت السيطرة تماماً! اكتب القانون أو المسألة وهنحلها سوا خطوة بخطوة بالخرائط الذهنية وبشكل احترافي.";
-                if(currentAiMode === 'gaming') reply = "بخصوص الجيمنج وصيانة الكمبيوتر: إذا تبي تفحص أداء كارت الشاشة أو المعالج أو الأعراض الجانبية لتلف المعجون الحراري وقفل الألعاب، قولي نوع جهازك وأبشر بالحل الفوري!";
+                let reply = "أنا معاك يا غالي وسامعك كويس جداً! كود موقعك شغال ومحمي تماماً، هل تحب نعمل ميزة تانية؟";
+                if(currentAiMode === 'study') reply = "قوانين الفيزياء وقوانين الحث الكهرومغناطيسي وأجهزة القياس تحت السيطرة تماماً! اكتب القانون أو المسألة وهنحلها سوا خطوة بخطوة.";
+                if(currentAiMode === 'gaming') reply = "بخصوص الجيمنج وصيانة الكمبيوتر: إذا تبي تفحص أداء كارت الشاشة أو المعالج أو الأعراض الجانبية لتلف المعجون الحراري، قولي نوع جهازك وأبشر بالحل الفوري!";
                 appendAiMsg(reply, 'system');
             }, 600);
         }
-        function appendAiMsg(text, sender) {
-            const zone = document.getElementById('aiMessagesZone'); const m = document.createElement('div');
-            m.className = `ai-msg ${sender}`; m.innerText = text; zone.appendChild(m); zone.scrollTop = zone.scrollHeight;
-        }
+        function appendAiMsg(text, sender) { const zone = document.getElementById('aiMessagesZone'); const m = document.createElement('div'); m.className = `ai-msg ${sender}`; m.innerText = text; zone.appendChild(m); zone.scrollTop = zone.scrollHeight; }
     </script>
 </body>
 </html>
