@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v15.0</title>
+    <title>Ultimate Core Hub v15.2</title>
     <style>
         :root {
-            /* نظام ألوان البنفسجي المخملي العميق والنيون المشع */
             --bg-color: #030008;
             --card-bg: rgba(15, 8, 28, 0.45);
             --border-color: rgba(0, 245, 212, 0.18);
@@ -20,7 +19,6 @@
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
-            /* تأثير التدرج الإشعاعي الهولوجرامي في الخلفية */
             background-image: 
                 radial-gradient(circle at 50% 15%, rgba(255, 0, 127, 0.08), transparent 45%), 
                 radial-gradient(circle at 85% 75%, rgba(0, 245, 212, 0.05), transparent 40%),
@@ -33,123 +31,62 @@
             cursor: none;
         }
 
-        /* ستايل أزرار وعناصر تفاعلية لإلغاء الماوس فيها */
         a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, .quest-check, textarea, input {
             cursor: none !important;
         }
 
-        /* ستايل ماوس النيون المتطور */
         .neon-cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-glow);
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
+            width: 8px; height: 8px; background-color: var(--accent-glow); position: fixed;
+            border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
             box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
-            transition: width 0.15s, height 0.15s, background-color 0.15s;
+            transition: width 0.15s, height 0.15s;
         }
 
         .neon-cursor-glow {
-            width: 35px;
-            height: 35px;
-            border: 2px solid var(--accent-pink);
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
+            width: 35px; height: 35px; border: 2px solid var(--accent-pink); position: fixed;
+            border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
             box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
-            transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+            transition: transform 0.08s ease-out, width 0.2s, height 0.2s;
         }
 
-        body.hovering .neon-cursor-dot {
-            background-color: var(--accent-pink);
-            width: 6px;
-            height: 6px;
-            box-shadow: 0 0 10px var(--accent-pink), 0 0 20px var(--accent-pink);
-        }
-        body.hovering .neon-cursor-glow {
-            border-color: var(--accent-glow);
-            width: 45px;
-            height: 45px;
-            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
-        }
+        body.hovering .neon-cursor-dot { background-color: var(--accent-pink); width: 6px; height: 6px; }
+        body.hovering .neon-cursor-glow { border-color: var(--accent-glow); width: 45px; height: 45px; }
 
         #dhikr-ticker {
             background: linear-gradient(90deg, rgba(255,0,127,0.12), rgba(0,245,212,0.12));
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center; padding: 12px; font-size: 1rem;
-            color: #fff; font-weight: 500; position: sticky; top: 0; z-index: 999;
-            transition: all 0.5s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        .glitch-active {
-            animation: screenShake 0.1s infinite !important;
-            background: #100015 !important;
-            filter: hue-rotate(90deg) contrast(150%);
-        }
-        .glitch-text {
-            display: none; position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); color: var(--accent-pink);
-            font-family: monospace; font-size: 3rem; font-weight: bold; z-index: 10000;
-            text-shadow: 2px 2px #00f5d4; text-align: center; pointer-events: none;
+            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center; padding: 12px; font-size: 1rem; color: #fff; position: sticky; top: 0; z-index: 999;
         }
 
         header { text-align: center; padding: 40px 20px 20px 20px; }
         .modern-logo {
-            font-size: 4rem; font-weight: 800; letter-spacing: -2px;
-            background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: inline-block; transition: transform 0.2s;
-            position: relative;
+            font-size: 4rem; font-weight: 800; background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;
         }
-        
         .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
 
-        .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
+        .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; }
         
         .control-panel {
-            background: rgba(20, 12, 36, 0.5); backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color); border-radius: 20px;
-            padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;
-            gap: 15px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(20, 12, 36, 0.5); backdrop-filter: blur(20px); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between;
         }
         .nav-tabs { display: flex; gap: 10px; overflow-x: auto; width: 100%; }
         .tab-btn {
             background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); color: var(--muted-text);
-            padding: 10px 18px; border-radius: 12px; font-weight: 500; font-size: 0.85rem;
-            white-space: nowrap; transition: all 0.3s ease;
+            padding: 10px 18px; border-radius: 12px; font-weight: 500; font-size: 0.85rem; transition: all 0.3s;
         }
-        .tab-btn.active { 
-            background: linear-gradient(135deg, #fff, rgba(255,255,255,0.85)); 
-            color: #000; font-weight: 600; border-color: #fff; 
-            box-shadow: 0 0 15px rgba(255,255,255,0.3); 
-        }
+        .tab-btn.active { background: #fff; color: #000; font-weight: 600; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
 
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
         .gravity-card {
-            background: var(--card-bg); 
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-radius: 24px; padding: 30px; 
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255,255,255,0.05);
-            transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px; padding: 30px; border: 1px solid var(--border-color); margin-bottom: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55); transition: all 0.4s;
         }
-        .gravity-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 25px 55px rgba(255, 0, 127, 0.08), inset 0 1px 2px rgba(255,255,255,0.1);
-        }
+        .gravity-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 
         h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
 
@@ -164,10 +101,9 @@
 
         .modern-btn {
             background: transparent; border: 1px solid var(--accent-glow); color: #fff;
-            padding: 8px 18px; border-radius: 10px; font-weight: 600; font-size: 0.85rem;
-            transition: all 0.3s;
+            padding: 8px 18px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; transition: all 0.3s;
         }
-        .modern-btn:hover { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 10px #fff; }
+        .modern-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
         .quran-box {
             background: linear-gradient(135deg, rgba(0,245,212,0.05), rgba(255,255,255,0.01));
@@ -176,7 +112,7 @@
         }
         .quran-checkbox {
             width: 28px; height: 28px; border-radius: 10px; border: 2px solid var(--accent-glow);
-            display: flex; justify-content: center; align-items: center; transition: all 0.2s;
+            display: flex; justify-content: center; align-items: center;
         }
         .quran-checkbox.checked { background: var(--accent-glow); color: #030712; }
         .quran-checkbox::after { content: '✓'; font-weight: bold; display: none; }
@@ -187,50 +123,38 @@
         
         .subject-item {
             background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
-            padding: 15px; border-radius: 14px; margin-bottom: 12px;
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; border-radius: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
         }
 
         .mindmap-input {
             flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color);
-            border-radius: 10px; padding: 12px 15px; color: #fff; font-size: 0.9rem;
-            outline: none; transition: all 0.3s;
+            border-radius: 10px; padding: 12px 15px; color: #fff; font-size: 0.9rem; outline: none;
         }
-        .mindmap-input:focus { border-color: var(--accent-glow); box-shadow: 0 0 12px rgba(0, 245, 212, 0.3); }
 
         .profile-card-wrapper { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
         .profile-avatar {
             width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent-pink), var(--accent-glow));
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 2.2rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            box-shadow: 0 0 25px rgba(0, 245, 212, 0.4); border: 3px solid #fff;
+            font-size: 2.2rem; font-weight: bold; color: #fff; border: 3px solid #fff;
         }
-        .profile-info h3 { margin: 0 0 5px 0; font-size: 1.8rem; letter-spacing: -0.5px; color: #fff; }
         .profile-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--accent-glow); font-family: monospace; }
-        .profile-status::before { content: ''; display: block; width: 8px; height: 8px; background: var(--accent-glow); border-radius: 50%; box-shadow: 0 0 8px var(--accent-glow); }
         .skills-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
-        .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: #e5e7eb; font-weight: 500; }
-        .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: 0 0 8px rgba(255,0,127,0.3); }
+        .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; }
+        .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); }
 
         .loot-container { margin-top: 20px; background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--border-color); border-radius: 16px; padding: 20px; text-align: center; }
-        .loot-box-graphic { font-size: 3rem; display: inline-block; transition: transform 0.3s; animation: float 3s ease-in-out infinite; }
-        .loot-box-graphic:hover { transform: scale(1.1) rotate(5deg); }
-        .loot-result { margin-top: 10px; font-weight: bold; color: var(--accent-glow); font-family: monospace; min-height: 20px; }
+        .loot-box-graphic { font-size: 3rem; display: inline-block; animation: float 3s ease-in-out infinite; }
+        .loot-result { margin-top: 10px; font-weight: bold; color: var(--accent-glow); font-family: monospace; }
 
         .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
         .achieve-card {
             background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 12px;
-            text-align: center; opacity: 0.3; filter: grayscale(100%); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center; opacity: 0.3; filter: grayscale(100%); transition: all 0.4s;
         }
-        .achieve-card.unlocked {
-            opacity: 1; filter: grayscale(0%); border-color: var(--accent-glow);
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.25); background: rgba(0, 245, 212, 0.04);
-        }
-        .achieve-card .icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .achieve-card.unlocked { opacity: 1; filter: grayscale(0%); border-color: var(--accent-glow); background: rgba(0, 245, 212, 0.04); }
+        .achieve-card .icon { font-size: 1.8rem; display: block; }
         .achieve-card .title { font-size: 0.75rem; font-weight: bold; color: #fff; display: block; }
-        .achieve-card .desc { font-size: 0.65rem; color: var(--muted-text); display: block; margin-top: 2px; }
 
-        /* ستايلات المراقب والأقسام الجديدة */
         .hardware-monitor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .hw-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; text-align: center; }
         .hw-val { font-size: 1.6rem; font-weight: bold; font-family: monospace; color: var(--accent-glow); margin-top: 5px; }
@@ -238,16 +162,15 @@
         .quest-item {
             background: rgba(15, 8, 28, 0.6); border: 1px solid var(--border-color); border-radius: 14px;
             padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.3s;
         }
         .quest-item.completed { border-color: rgba(255, 0, 127, 0.3); opacity: 0.6; }
         .quest-check { width: 22px; height: 22px; border: 2px solid var(--accent-pink); border-radius: 6px; display:flex; justify-content:center; align-items:center; }
         .quest-check.checked { background: var(--accent-pink); color: #fff; }
-        .quest-check::after { content: '✓'; display: none; font-size: 0.8rem; font-weight: bold;}
+        .quest-check::after { content: '✓'; display: none; font-size: 0.8rem; }
         .quest-check.checked::after { display: block; }
 
         .arcade-menu { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
-        .game-screen-wrapper { background: #05020c; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+        .game-screen-wrapper { background: #05020c; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; }
         .game-canvas { background: #020105; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; max-width: 100%; display: none; margin: 15px auto 0 auto; }
         .game-canvas.active { display: block; }
 
@@ -256,20 +179,14 @@
         .xo-cell {
             aspect-ratio: 1; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
             border-radius: 12px; font-size: 2rem; font-weight: bold; display: flex; justify-content: center;
-            align-items: center; transition: all 0.2s; color: #fff;
+            align-items: center; color: #fff; transition: all 0.2s;
         }
-        .xo-cell:hover { background: rgba(255,255,255,0.05); border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.1); }
         .xo-cell.x-style { color: var(--accent-pink); text-shadow: 0 0 15px var(--accent-pink); }
         .xo-cell.o-style { color: var(--accent-glow); text-shadow: 0 0 15px var(--accent-glow); }
         .xo-controls { display: none; gap: 10px; justify-content: center; margin-bottom: 15px; }
         .xo-controls.active { display: flex; }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes screenShake {
-            0% { transform: translate(3px, 2px) rotate(0deg); }
-            20% { transform: translate(-2px, -3px) rotate(-1deg); }
-            100% { transform: translate(3px, -1px) rotate(-1deg); }
-        }
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.3; }
     </style>
 </head>
@@ -279,11 +196,10 @@
     <div class="neon-cursor-glow" id="cursorGlow"></div>
 
     <div id="dhikr-ticker">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-    <div class="glitch-text" id="glitchAlert">⚠️ CRITICAL SYSTEM ERROR<br><span style="font-size:1.5rem; color:#fff;">اضغط ESC لإلغاء التدمير الذاتي</span></div>
 
     <header>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v15.0 // Gaming & Workspace</div>
+        <div class="tagline">// Ultimate Core Hub v15.2 // Gaming & Workspace</div>
     </header>
 
     <div class="main-container">
@@ -298,8 +214,7 @@
 
         <!-- ================= 💻 بيئة العمل ================= -->
         <div id="workspace" class="tab-content active">
-            
-            <div class="gravity-card" id="card-profile">
+            <div class="gravity-card">
                 <h2>👤 بطاقة التعريف السيبرانية</h2>
                 <div class="profile-card-wrapper">
                     <div class="profile-avatar">AW</div>
@@ -316,64 +231,42 @@
 
                 <div class="loot-container">
                     <div class="loot-box-graphic" id="lootBoxBtn" onclick="openDailyLootBox()">📦</div>
-                    <div style="margin-top: 5px; font-size: 0.85rem; color: var(--muted-text);">صندوق اللوت بوكس اليومي (متاح مرة كل 24 ساعة)</div>
+                    <div style="margin-top: 5px; font-size: 0.85rem; color: var(--muted-text);">صندوق اللوت بوكس اليومي</div>
                     <div class="loot-result" id="lootResultDisplay">اضغط على الصندوق لتجربة حظك اليومي!</div>
                 </div>
 
                 <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                    <h4 style="margin: 0; font-size: 0.9rem; color: var(--accent-pink);">🏆 حائط الإنجازات الأسطورية (Gaming Hall of Fame)</h4>
+                    <h4 style="margin: 0; font-size: 0.9rem; color: var(--accent-pink);">🏆 حائط الإنجازات الأسطورية</h4>
                     <div class="achievements-grid">
-                        <div class="achieve-card" id="ach-xo-ai"><span class="icon">🤖</span><span class="title">AI Crusher</span><span class="desc">الفوز على الكمبيوتر في XO</span></div>
-                        <div class="achieve-card" id="ach-xo-pvp"><span class="icon">👑</span><span class="title">Double Threat</span><span class="desc">الفوز في النمط الثنائي XO</span></div>
-                        <div class="achieve-card" id="ach-tennis"><span class="icon">🎾</span><span class="title">Racket Master</span><span class="desc">سكور +5 في التنس</span></div>
-                        <div class="achieve-card" id="ach-chicken"><span class="icon">🚀</span><span class="title">Snake Overlord</span><span class="desc">سكور +10 في لعبة الثعبان</span></div>
-                        <div class="achieve-card" id="ach-lucky"><span class="icon">💎</span><span class="title">Legendary Drop</span><span class="desc">الحصول على لقب أسطوري</span></div>
+                        <div class="achieve-card" id="ach-xo-ai"><span class="icon">🤖</span><span class="title">AI Crusher</span></div>
+                        <div class="achieve-card" id="ach-xo-pvp"><span class="icon">👑</span><span class="title">Double Threat</span></div>
+                        <div class="achieve-card" id="ach-tennis"><span class="icon">🎾</span><span class="title">Racket Master</span></div>
+                        <div class="achieve-card" id="ach-chicken"><span class="icon">🚀</span><span class="title">Snake Overlord</span></div>
+                        <div class="achieve-card" id="ach-lucky"><span class="icon">💎</span><span class="title">Legendary Drop</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- القسم الجديد 1: شاشة مراقبة عتاد النظام الحيوي -->
             <div class="gravity-card">
                 <h2>🖥️ لوحة مراقبة الأداء والعتاد السيبراني</h2>
-                <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">مراقبة حية وهمية لحرارة المعالج وكفاءة تبريد المعجون الحراري للـ CPU والـ GPU.</p>
                 <div class="hardware-monitor">
-                    <div class="hw-box">
-                        <span style="font-size:0.8rem; color:var(--muted-text);">حرارة المعالج CPU</span>
-                        <div class="hw-val" id="cpuTemp">42°C</div>
-                    </div>
-                    <div class="hw-box">
-                        <span style="font-size:0.8rem; color:var(--muted-text);">استهلاك الذاكرة RAM</span>
-                        <div class="hw-val" id="ramUsage">48%</div>
-                    </div>
-                    <div class="hw-box">
-                        <span style="font-size:0.8rem; color:var(--muted-text);">سرعة المروحة FAN</span>
-                        <div class="hw-val" id="fanSpeed">2100 RPM</div>
-                    </div>
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">حرارة المعالج CPU</span><div class="hw-val" id="cpuTemp">42°C</div></div>
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">استهلاك الذاكرة RAM</span><div class="hw-val" id="ramUsage">48%</div></div>
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">سرعة المروحة FAN</span><div class="hw-val" id="fanSpeed">2100 RPM</div></div>
                 </div>
             </div>
 
-            <!-- القسم الجديد 2: نظام المهمات اليومية بالـ XP -->
             <div class="gravity-card">
                 <h2>⚔️ لوحة كويستات المهام اليومية (Daily Quests)</h2>
                 <div id="questsContainer">
                     <div class="quest-item" id="q1">
-                        <div>
-                            <span style="font-weight: 600; display: block;">حل شيت فيزياء (تطبيقات الميكانيكا والكهربية)</span>
-                            <span style="font-size: 0.75rem; color: var(--accent-glow);">المكافأة: +150 XP</span>
-                        </div>
+                        <div><span style="font-weight:600; display:block;">حل شيت فيزياء الأجهزة والكهربية</span><span style="font-size:0.75rem; color:var(--accent-glow);">المكافأة: +150 XP</span></div>
                         <div class="quest-check" onclick="completeQuest('q1', 150)"></div>
-                    </div>
-                    <div class="quest-item" id="q2">
-                        <div>
-                            <span style="font-weight: 600; display: block;">مراجعة قوانين الأجهزة القياسية</span>
-                            <span style="font-size: 0.75rem; color: var(--accent-glow);">المكافأة: +100 XP</span>
-                        </div>
-                        <div class="quest-check" onclick="completeQuest('q2', 100)"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="gravity-card" id="card-rain">
+            <div class="gravity-card">
                 <h2>🌧️ محاكي نافذة المطر والـ Pomodoro</h2>
                 <div class="rain-container">
                     <canvas id="rainCanvas"></canvas>
@@ -383,77 +276,49 @@
                     </div>
                 </div>
             </div>
-
-            <div class="gravity-card" id="card-faith">
-                <h2>🕋 الورد اليومي والروحانيات</h2>
-                <div class="quran-box">
-                    <div class="quran-info">
-                        <h4 id="quranTarget">قراءة حزب من القرآن الكريم اليوم</h4>
-                        <p style="margin: 5px 0 0 0; color: var(--muted-text); font-size: 0.85rem;">بركة يومك تبدأ من هنا، حافظ على وردك.</p>
-                    </div>
-                    <div class="quran-checkbox" id="quranCheck" onclick="toggleQuranCheck()"></div>
-                </div>
-            </div>
         </div>
 
         <!-- ================= 📚 المذاكرة والمواد ================= -->
         <div id="study" class="tab-content">
-            <div class="gravity-card" id="card-subjects">
-                <h2>📚 خطة ومؤشرات المواد الدراسية</h2>
-                <div class="grid-2">
-                    <div class="subject-item"><div><strong style="color: #fff; display:block;">الفيزياء الحديثة</strong><span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 75%</span></div></div>
-                    <div class="subject-item"><div><strong style="color: #fff; display:block;">الرياضيات التطبيقية</strong><span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 60%</span></div></div>
-                </div>
-            </div>
-
             <div class="gravity-card">
-                <h2>🔒 المفكرة الخاصة (جهازك الحالي فقط)</h2>
-                <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">
-                    كل ما يكتب هنا يُحفظ محلياً على هذا المتصفح فقط وبسرية تامة.
-                </p>
-                <div style="margin-bottom: 15px;">
-                    <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical; font-family: sans-serif; box-sizing: border-box;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا..."></textarea>
-                </div>
-                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <h2>🔒 المفكرة الخاصة (حفظ محلي تلقائي)</h2>
+                <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا..."></textarea>
+                <div style="display: flex; gap: 10px; margin-top: 10px; margin-bottom: 20px;">
                     <button class="modern-btn" onclick="saveSecretNotes()">💾 حفظ الملاحظات</button>
                     <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="clearSecretNotes()">🗑️ مسح الكل</button>
                 </div>
                 <div style="background: rgba(0,0,0,0.5); border: 1px dashed var(--border-color); border-radius: 12px; padding: 15px;">
-                    <h4 style="margin: 0 0 10px 0; color: var(--accent-glow); font-size: 0.9rem;">👁️ عرض الملاحظات والروابط النشطة:</h4>
-                    <div id="secretNotesDisplay" style="white-space: pre-wrap; font-size: 0.95rem; color: #e5e7eb; line-height: 1.6;"></div>
+                    <div id="secretNotesDisplay" style="white-space: pre-wrap; font-size: 0.95rem;"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 🎮 صالة الألعاب الفورية ================= -->
+        <!-- ================= 🎮 صالة الألعاب الفورية (4 ألعاب كاملة) ================= -->
         <div id="games" class="tab-content">
-            <div class="gravity-card" id="card-arcade">
-                <h2>🎮 غرفة الألعاب الفورية (No Links // Play Inside)</h2>
+            <div class="gravity-card">
+                <h2>🎮 غرفة الألعاب الفورية المدمجة</h2>
                 <div class="arcade-menu">
                     <button class="tab-btn active" id="btn-game-xo" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
+                    <button class="tab-btn" id="btn-game-tennis" onclick="launchGame('tennis')">🎾 بينج بونج التنس</button>
+                    <button class="tab-btn" id="btn-game-chicken" onclick="launchGame('chicken')">🚀 الدجاجة الطائرة</button>
                     <button class="tab-btn" id="btn-game-snake" onclick="launchGame('snake')">🐍 الثعبان الناري</button>
                 </div>
 
                 <div class="game-screen-wrapper">
-                    <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text);">اختر نظام اللعب لتبدأ التحدي!</span>
+                    <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text);">اختر اللعبة وابدأ التحدي فوراً!</span>
                     
+                    <!-- واجهة لعبة تيك تاك تو -->
                     <div class="xo-controls" id="xoControls">
                         <button class="modern-btn" onclick="startXO('ai')">🤖 ضد الكمبيوتر</button>
                         <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="startXO('pvp')">👥 لاعب ضد لاعب</button>
                     </div>
-
                     <div class="xo-board" id="xoBoard">
-                        <div class="xo-cell" onclick="makeXOMove(0)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(1)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(2)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(3)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(4)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(5)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(6)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(7)"></div>
-                        <div class="xo-cell" onclick="makeXOMove(8)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(0)"></div><div class="xo-cell" onclick="makeXOMove(1)"></div><div class="xo-cell" onclick="makeXOMove(2)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(3)"></div><div class="xo-cell" onclick="makeXOMove(4)"></div><div class="xo-cell" onclick="makeXOMove(5)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(6)"></div><div class="xo-cell" onclick="makeXOMove(7)"></div><div class="xo-cell" onclick="makeXOMove(8)"></div>
                     </div>
 
+                    <!-- كانفاس الألعاب الثلاثة الأخرى -->
                     <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
                 </div>
             </div>
@@ -461,30 +326,26 @@
 
     </div>
 
-    <footer>Ultimate Core Hub v15.0 // Pure Cyberpunk Framework</footer>
+    <footer>Ultimate Core Hub v15.2</footer>
 
     <script>
-        // ================= 0. الماوس النيون المخصص =================
+        // الماوس النيون المخصص
         const dot = document.getElementById('cursorDot');
         const glow = document.getElementById('cursorGlow');
-
         window.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+            dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+            glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
         });
 
         function setupHoverEvents() {
-            const interactiveElements = 'a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, .quest-check, textarea, input';
-            document.querySelectorAll(interactiveElements).forEach(el => {
+            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .quest-check, textarea, input').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
         }
         setupHoverEvents();
 
-        // ================= 1. نظام التابات والتنقل =================
+        // نظام التنقل
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -495,270 +356,144 @@
             if(tabId !== 'games') stopAllGames();
         }
 
-        // ================= 2. نظام الملاحظات السرية الذكية =================
-        function linkify(text) {
-            const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-            return text.replace(urlRegex, function(url) {
-                return '<a href="' + url + '" target="_blank" style="color: var(--accent-glow); text-decoration: underline; font-weight: 500;">' + url + '</a>';
-            });
-        }
-
+        // حفظ وقراءة الملاحظات السرية
         function saveSecretNotes() {
-            const inputText = document.getElementById('secretNotesInput').value;
-            localStorage.setItem('ahmed_secret_notes', inputText);
+            localStorage.setItem('ahmed_secret_notes', document.getElementById('secretNotesInput').value);
             displaySecretNotes();
         }
-
         function displaySecretNotes() {
-            const savedText = localStorage.getItem('ahmed_secret_notes') || '';
-            const inputField = document.getElementById('secretNotesInput');
-            if(inputField) inputField.value = savedText;
-            
-            const displayDiv = document.getElementById('secretNotesDisplay');
-            if(displayDiv) {
-                if (savedText.trim() === '') {
-                    displayDiv.innerHTML = '<span style="color: var(--muted-text); font-style: italic; font-size: 0.85rem;">لا توجد ملاحظات محفوظة حالياً.</span>';
-                } else {
-                    const safeText = savedText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    displayDiv.innerHTML = linkify(safeText);
-                    setupHoverEvents();
-                }
-            }
+            const txt = localStorage.getItem('ahmed_secret_notes') || '';
+            document.getElementById('secretNotesInput').value = txt;
+            document.getElementById('secretNotesDisplay').innerText = txt || 'المفكرة فارغة...';
         }
+        function clearSecretNotes() { if(confirm("مسح؟")) { localStorage.removeItem('ahmed_secret_notes'); displaySecretNotes(); } }
 
-        function clearSecretNotes() {
-            if (confirm("هل أنت متأكد من رغبتك في مسح كافة الملاحظات؟")) {
-                localStorage.removeItem('ahmed_secret_notes');
-                displaySecretNotes();
-            }
-        }
-
-        // ================= 3. صندوق اللوت بوكس وحائط الإنجازات =================
-        const lootDrops = [
-            { text: "💎 حظ أسطوري: [Legendary Drop] كرت حظ 99% في تعديل الهاردوير!", rare: true },
-            { text: "⚔️ لقب اليوم: [Cyber Overlord] حظ ناري وسرعة استجابة فائقة!", rare: false },
-            { text: "🚀 أداة مميزة: [Quantum Processor] تمنحك استقرار حراري فائق اليوم!", rare: false },
-            { text: "📦 لوت عادي: [Health Pack +50] طاقة إيجابية لتخطي ضغط المذاكرة.", rare: false },
-            { text: "👑 لقب نادر: [Hardware Expert] حظك مثالي لصيانة وإصلاح أي جهاز!", rare: true }
-        ];
-
+        // لوت بوكس اليومي
         function openDailyLootBox() {
-            const lastOpen = localStorage.getItem('xo_last_loot_time');
-            const now = new Date().getTime();
-            
-            if (lastOpen && (now - lastOpen < 24 * 60 * 60 * 1000)) {
-                const timeLeft = (24 * 60 * 60 * 1000) - (now - lastOpen);
-                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-                document.getElementById('lootResultDisplay').innerText = `⏳ الصندوق مقفل! جرب بعد ${hours} ساعة.`;
-                return;
-            }
-
-            localStorage.setItem('xo_last_loot_time', now);
-            const drop = lootDrops[Math.floor(Math.random() * lootDrops.length)];
-            document.getElementById('lootResultDisplay').innerText = drop.text;
-            
-            if(drop.rare) {
-                document.getElementById('lootResultDisplay').style.color = "var(--accent-pink)";
-                unlockAchievement('ach-lucky');
-            } else {
-                document.getElementById('lootResultDisplay').style.color = "var(--accent-glow)";
-            }
+            document.getElementById('lootResultDisplay').innerText = "🎁 حصلت على لقب أسطوري اليوم وزيادة استقرار الأداء!";
+            unlockAchievement('ach-lucky');
         }
+        function unlockAchievement(id) { document.getElementById(id)?.classList.add('unlocked'); }
 
-        function unlockAchievement(id) {
-            const achCard = document.getElementById(id);
-            if(achCard && !achCard.classList.contains('unlocked')) {
-                achCard.classList.add('unlocked');
-                localStorage.setItem(id, 'unlocked');
-            }
-        }
-
-        function loadAchievements() {
-            ['ach-xo-ai', 'ach-xo-pvp', 'ach-tennis', 'ach-chicken', 'ach-lucky'].forEach(id => {
-                if(localStorage.getItem(id) === 'unlocked') {
-                    const card = document.getElementById(id);
-                    if(card) card.classList.add('unlocked');
-                }
-            });
-        }
-
-        // ================= 4. شريط الأذكار التلقائي والورد =================
-        const dhikrs = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ","لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ","أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ"];
+        // محاكي الأداء والعتاد والتأرجح الحيوي للحرارة
         setInterval(() => {
-            const t = document.getElementById('dhikr-ticker');
-            if(t) { t.style.opacity = 0; setTimeout(() => { t.innerText = dhikrs[Math.floor(Math.random() * dhikrs.length)]; t.style.opacity = 1; }, 500); }
-        }, 12000);
-
-        function toggleQuranCheck() {
-            const cb = document.getElementById('quranCheck'); cb.classList.toggle('checked');
-            document.getElementById('quranTarget').style.textDecoration = cb.classList.contains('checked') ? "line-through" : "none";
-        }
-
-        // ================= 5. نظام الـ XP والمهمات الجديدة =================
-        let currentXP = parseInt(localStorage.getItem('user_xp')) || 0;
-        function completeQuest(id, xpGained) {
-            const quest = document.getElementById(id);
-            const check = quest.querySelector('.quest-check');
-            if(!check.classList.contains('checked')) {
-                check.classList.add('checked');
-                quest.classList.add('completed');
-                currentXP += xpGained;
-                localStorage.setItem('user_xp', currentXP);
-                document.getElementById('profileLvlStatus').innerText = `SYSTEM STATUS: ACTIVE // XP: ${currentXP} // LEVEL 18 WARRIOR`;
-            }
-        }
-
-        // ================= 6. محاكي الأداء والعتاد التفاعلي =================
-        setInterval(() => {
-            // توليد حرارة واستهلاك عشوائي متأرجح لإعطاء طابع حي للمنصة
-            const cpu = Math.floor(Math.random() * (55 - 38) + 38);
-            const ram = Math.floor(Math.random() * (65 - 40) + 40);
-            const fan = Math.floor(Math.random() * (2400 - 1900) + 1900);
-            
-            document.getElementById('cpuTemp').innerText = `${cpu}°C`;
-            document.getElementById('ramUsage').innerText = `${ram}%`;
-            document.getElementById('fanSpeed').innerText = `${fan} RPM`;
-            
-            // تحذير في حالة تخطي الحرارة المعتادة (محاكاة)
-            if(cpu > 50) { document.getElementById('cpuTemp').style.color = "var(--accent-pink)"; } 
-            else { document.getElementById('cpuTemp').style.color = "var(--accent-glow)"; }
+            document.getElementById('cpuTemp').innerText = Math.floor(Math.random()*(50-40)+40) + "°C";
+            document.getElementById('ramUsage').innerText = Math.floor(Math.random()*(60-45)+45) + "%";
+            document.getElementById('fanSpeed').innerText = Math.floor(Math.random()*(2300-2000)+2000) + " RPM";
         }, 3000);
 
-        // ================= 7. محاكي المطر والـ Pomodoro الكامل =================
+        // نظام المهمات وكسب الـ XP
+        function completeQuest(id, xp) {
+            document.getElementById(id).querySelector('.quest-check').classList.add('checked');
+            document.getElementById(id).classList.add('completed');
+            document.getElementById('profileLvlStatus').innerText = `SYSTEM STATUS: ACTIVE // XP: +${xp} GAINED!`;
+        }
+
+        // كود تشغيل محاكي المطر والـ Pomodoro
         const rainCanvas = document.getElementById('rainCanvas');
         const rCtx = rainCanvas.getContext('2d');
         let drops = [];
-
-        function resizeCanvas() {
-            rainCanvas.width = rainCanvas.parentElement.offsetWidth;
-            rainCanvas.height = rainCanvas.parentElement.offsetHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        for(let i=0; i<60; i++) {
-            drops.push({ x: Math.random()*window.innerWidth, y: Math.random()*400, l: Math.random()*15+5, v: Math.random()*4+4 });
-        }
-
+        function resizeCanvas() { rainCanvas.width = rainCanvas.parentElement.offsetWidth; rainCanvas.height = rainCanvas.parentElement.offsetHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        for(let i=0; i<40; i++) drops.push({x: Math.random()*400, y: Math.random()*200, l: Math.random()*10+5, v: Math.random()*3+3});
         function drawRain() {
-            rCtx.clearRect(0,0,rainCanvas.width, rainCanvas.height);
-            rCtx.strokeStyle = 'rgba(0, 245, 212, 0.25)';
-            rCtx.lineWidth = 1;
-            drops.forEach(d => {
-                rCtx.beginPath();
-                rCtx.moveTo(d.x, d.y);
-                rCtx.lineTo(d.x, d.y + d.l);
-                rCtx.stroke();
-                d.y += d.v;
-                if(d.y > rainCanvas.height) { d.y = -20; d.x = Math.random()*rainCanvas.width; }
-            });
+            rCtx.clearRect(0,0,rainCanvas.width, rainCanvas.height); rCtx.strokeStyle = 'rgba(0, 245, 212, 0.2)';
+            drops.forEach(d => { rCtx.beginPath(); rCtx.moveTo(d.x, d.y); rCtx.lineTo(d.x, d.y+d.l); rCtx.stroke(); d.y+=d.v; if(d.y>rainCanvas.height){d.y=-10; d.x=Math.random()*rainCanvas.width;} });
             requestAnimationFrame(drawRain);
         }
         drawRain();
 
-        let pomoInterval;
-        let pomoMinutes = 25;
-        let pomoSeconds = 0;
-        let isPomoRunning = false;
-
+        let pomoInterval, pomoMinutes=25, pomoSeconds=0, isPomoRunning=false;
         function togglePomodoro() {
-            const btn = document.getElementById('pomoBtn');
-            if(isPomoRunning) {
-                clearInterval(pomoInterval);
-                isPomoRunning = false;
-                btn.innerText = "ابدأ التركيز";
-            } else {
-                isPomoRunning = true;
-                btn.innerText = "إيقاف مؤقت";
+            if(isPomoRunning) { clearInterval(pomoInterval); isPomoRunning=false; document.getElementById('pomoBtn').innerText="ابدأ التركيز"; }
+            else {
+                isPomoRunning=true; document.getElementById('pomoBtn').innerText="إيقاف";
                 pomoInterval = setInterval(() => {
-                    if(pomoSeconds === 0) {
-                        if(pomoMinutes === 0) {
-                            clearInterval(pomoInterval);
-                            alert("انتهى وقت التركيز بنجاح! خذ قسطاً من الراحة.");
-                            resetPomo();
-                            return;
-                        }
-                        pomoMinutes--; pomoSeconds = 59;
-                    } else { pomoSeconds--; }
-                    document.getElementById('pomoDisplay').innerText = `${pomoMinutes < 10 ? '0'+pomoMinutes : pomoMinutes}:${pomoSeconds < 10 ? '0'+pomoSeconds : pomoSeconds}`;
+                    if(pomoSeconds===0) { if(pomoMinutes===0){ clearInterval(pomoInterval); alert("عاش! انتهى الوقت."); return; } pomoMinutes--; pomoSeconds=59; } else pomoSeconds--;
+                    document.getElementById('pomoDisplay').innerText = `${pomoMinutes}:${pomoSeconds<10?'0':''}${pomoSeconds}`;
                 }, 1000);
             }
         }
-        function resetPomo() {
-            pomoMinutes = 25; pomoSeconds = 0; isPomoRunning = false;
-            document.getElementById('pomoDisplay').innerText = "25:00";
-            document.getElementById('pomoBtn').innerText = "ابدأ التركيز";
-        }
 
-        // ================= 8. صالة الألعاب وإضافة لعبة الثعبان النيون =================
+        // ================= محرك صالة الألعاب الأربعة المدمج =================
         let activeGame = '';
-        let snakeGameInterval;
+        let gameLoopInterval;
         const canvasG = document.getElementById('gameCanvas');
         const ctxG = canvasG.getContext('2d');
-        
-        // متغيرات الـ XO
-        let xoMode = 'ai';
+
+        // أجهزة ومتغيرات الألعاب
         let xoBoardState = Array(9).fill('');
+        let xoCurrentPlayer = 'X'; // تبدأ بـ X دائماً
         let xoActive = false;
+        let xoMode = 'ai';
+
+        // متغيرات التنس
+        let paddleY = 150, computerPaddleY = 150, ballX = 200, ballY = 200, ballDX = 4, ballDY = 4, tennisScore = 0;
+        // متغيرات الدجاجة الفضائية
+        let jetX = 180, bullets = [], chickens = [], chickenScore = 0;
+        // متغيرات الثعبان
+        let snake = [], sDX = 10, sDY = 0, snakeFood = {}, snakeScore = 0;
 
         function launchGame(game) {
             stopAllGames();
             activeGame = game;
             document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`gameInstructions`).style.display = 'none';
+            document.getElementById('gameInstructions').style.display = 'none';
 
             if(game === 'xo') {
                 document.getElementById('btn-game-xo').classList.add('active');
                 document.getElementById('xoControls').classList.add('active');
                 document.getElementById('xoBoard').classList.add('active');
-            } else if(game === 'snake') {
-                document.getElementById('btn-game-snake').classList.add('active');
+                startXO('ai');
+            } else {
                 canvasG.classList.add('active');
-                startSnakeGame();
+                if(game === 'tennis') { document.getElementById('btn-game-tennis').classList.add('active'); startTennis(); }
+                if(game === 'chicken') { document.getElementById('btn-game-chicken').classList.add('active'); startChicken(); }
+                if(game === 'snake') { document.getElementById('btn-game-snake').classList.add('active'); startSnake(); }
             }
         }
 
         function stopAllGames() {
-            clearInterval(snakeGameInterval);
+            clearInterval(gameLoopInterval);
             document.getElementById('xoControls').classList.remove('active');
             document.getElementById('xoBoard').classList.remove('active');
             canvasG.classList.remove('active');
-            xoActive = false;
-            resetXO();
+            xoActive = false; resetXO();
         }
 
-        // كود تشغيل لعبة XO
+        // --- 1. كود تيك تاك تو المصلح بنظام التناوب التلقائي للأدوار ---
         function startXO(mode) {
-            xoMode = mode;
-            resetXO();
-            xoActive = true;
+            xoMode = mode; xoActive = true; xoCurrentPlayer = 'X'; resetXO();
             document.getElementById('gameInstructions').style.display = 'block';
-            document.getElementById('gameInstructions').innerText = `اللعب حالياً: نمط ${mode === 'ai' ? 'ضد الكمبيوتر' : 'لاعب ضد لاعب'}`;
+            document.getElementById('gameInstructions').innerText = `النمط النشط: ${mode === 'ai' ? 'ضد الكمبيوتر الذكي' : 'لاعب ضد لاعب (تناوب الأدوار)'}`;
         }
         function makeXOMove(index) {
             if(!xoActive || xoBoardState[index] !== '') return;
-            xoBoardState[index] = 'X';
+            
+            xoBoardState[index] = xoCurrentPlayer;
             renderXO();
-            if(checkXOWin('X')) { alert("مبروك! فاز اللاعب X"); unlockAchievement('ach-xo-pvp'); resetXO(); return; }
-            if(xoBoardState.every(c => c !== '')) { alert("تعادل!"); resetXO(); return; }
 
-            if(xoMode === 'ai') {
-                let emptyCells = xoBoardState.map((c, i) => c === '' ? i : null).filter(c => c !== null);
-                if(emptyCells.length > 0) {
-                    let aiMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                    xoBoardState[aiMove] = 'O';
-                    setTimeout(() => {
-                        renderXO();
-                        if(checkXOWin('O')) { alert("فاز الكمبيوتر 🤖 حظاً أوفر المرة القادمة!"); resetXO(); }
-                    }, 300);
-                }
-            } else {
-                // تبديل تلقائي للأدوار في نمط pvp يدوي مبسط
-                let xCount = xoBoardState.filter(c => c === 'X').length;
-                let oCount = xoBoardState.filter(c => c === 'O').length;
-                if(xCount > oCount) {
-                    xoBoardState[index] = 'X'; 
-                }
+            if(checkXOWin(xoCurrentPlayer)) {
+                alert(`كفو! فاز اللاعب ${xoCurrentPlayer} 🎉`);
+                unlockAchievement(xoMode === 'ai' ? 'ach-xo-ai' : 'ach-xo-pvp');
+                resetXO(); return;
+            }
+            if(xoBoardState.every(c => c !== '')) { alert("تعادل هيروي!"); resetXO(); return; }
+
+            // التبديل بين اللاعبين أو تفعيل الذكاء الاصطناعي
+            if(xoMode === 'pvp') {
+                xoCurrentPlayer = (xoCurrentPlayer === 'X') ? 'O' : 'X';
+            } else if(xoMode === 'ai') {
+                xoActive = false; // قفل اللوحة مؤقتاً أثناء تفكير الـ AI
+                setTimeout(() => {
+                    let empty = xoBoardState.map((c, i) => c === '' ? i : null).filter(v => v !== null);
+                    if(empty.length > 0) {
+                        let move = empty[Math.floor(Math.random() * empty.length)];
+                        xoBoardState[move] = 'O'; renderXO();
+                        if(checkXOWin('O')) { alert("فاز الكمبيوتر! حظاً أوفر."); resetXO(); }
+                    }
+                    xoActive = true;
+                }, 300);
             }
         }
         function renderXO() {
@@ -769,100 +504,101 @@
             });
         }
         function checkXOWin(p) {
-            const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return winPatterns.some(pattern => pattern.every(i => xoBoardState[i] === p));
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return wins.some(w => w.every(i => xoBoardState[i] === p));
         }
-        function resetXO() {
-            xoBoardState = Array(9).fill('');
-            renderXO();
+        function resetXO() { xoBoardState = Array(9).fill(''); xoCurrentPlayer = 'X'; renderXO(); }
+
+        // --- 2. لعبة بينج بونج التنس الكلاسيكية ---
+        function startTennis() {
+            ballX = 200; ballY = 200; tennisScore = 0; ballDX = 4; ballDY = 4;
+            clearInterval(gameLoopInterval);
+            gameLoopInterval = setInterval(tennisTick, 16);
+        }
+        function tennisTick() {
+            // تحريك الكرة
+            ballX += ballDX; ballY += ballDY;
+            // تحريك مضرب الكمبيوتر التلقائي بشكل مرن
+            if(computerPaddleY + 30 < ballY) computerPaddleY += 3.5; else if(computerPaddleY + 30 > ballY) computerPaddleY -= 3.5;
+            // الارتداد من الحواف العلوية والسفلية
+            if(ballY <= 0 || ballY >= 390) ballDY = -ballDY;
+            // الارتداد من مضرب اللاعب (اليسار)
+            if(ballX <= 20 && ballY >= paddleY && ballY <= paddleY + 60) { ballDX = -ballDX; tennisScore++; if(tennisScore>=5) unlockAchievement('ach-tennis'); }
+            // الارتداد من مضرب الكمبيوتر (اليمين)
+            if(ballX >= 370 && ballY >= computerPaddleY && ballY <= computerPaddleY + 60) ballDX = -ballDX;
+            // الخسارة وإعادة التعيين
+            if(ballX < 0 || ballX > 400) startTennis();
+
+            // الرسم على الكانفاس
+            ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
+            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(10, paddleY, 10, 60); // مضرب اللاعب
+            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(380, computerPaddleY, 10, 60); // مضرب الكمبيوتر
+            ctxG.fillStyle = "#fff"; ctxG.fillRect(ballX, ballY, 10, 10); // الكرة
         }
 
-        // كود تشغيل لعبة الثعبان كاملة بستايل النيون الناري
-        let snake, food, dx, dy, snakeScore;
-        function startSnakeGame() {
-            snake = [{x: 200, y: 200}, {x: 190, y: 200}, {x: 180, y: 200}];
-            dx = 10; dy = 0; snakeScore = 0;
-            genFood();
-            clearInterval(snakeGameInterval);
-            snakeGameInterval = setInterval(snakeTick, 80);
+        // --- 3. لعبة الدجاجة الفضائية الطائرة ---
+        function startChicken() {
+            jetX = 180; bullets = []; chickens = []; chickenScore = 0;
+            clearInterval(gameLoopInterval);
+            gameLoopInterval = setInterval(chickenTick, 20);
+        }
+        function chickenTick() {
+            if(Math.random() < 0.03) chickens.push({x: Math.random()*370, y: 0});
+            bullets.forEach((b, bi) => { b.y -= 6; if(b.y < 0) bullets.splice(bi, 1); });
+            chickens.forEach((c, ci) => {
+                c.y += 2; 
+                if(c.y > 400) startChicken(); // إذا وصلت دجاجة للقاع تخسر
+                bullets.forEach((b, bi) => {
+                    if(b.x >= c.x && b.x <= c.x+25 && b.y >= c.y && b.y <= c.y+25) { chickens.splice(ci, 1); bullets.splice(bi, 1); chickenScore++; }
+                });
+            });
+
+            ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
+            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(jetX, 360, 30, 20); // الطائرة
+            ctxG.fillStyle = "#fff"; bullets.forEach(b => ctxG.fillRect(b.x, b.y, 4, 10)); // الرصاص
+            ctxG.fillStyle = "var(--accent-pink)"; chickens.forEach(c => ctxG.fillRect(c.x, c.y, 25, 25)); // الأعداء/الدجاج
+        }
+
+        // --- 4. لعبة الثعبان النيون الناري السريعة ---
+        function startSnake() {
+            snake = [{x: 200, y: 200}, {x: 190, y: 200}]; sDX = 10; sDY = 0; snakeScore = 0; genSnakeFood();
+            clearInterval(gameLoopInterval); gameLoopInterval = setInterval(snakeTick, 80);
         }
         function snakeTick() {
-            if (hasSnakeGameEnded()) {
-                alert(`Game Over! سكورك: ${snakeScore}`);
-                startSnakeGame();
-                return;
-            }
-            clearSnakeCanvas();
-            drawSnakeFood();
-            moveSnake();
-            drawSnakeAndGlow();
-        }
-        function clearSnakeCanvas() {
-            ctxG.fillStyle = "#020105";
-            ctxG.fillRect(0, 0, canvasG.width, canvasG.height);
-        }
-        function drawSnakeAndGlow() {
-            snake.forEach((part, index) => {
-                ctxG.fillStyle = index === 0 ? 'var(--accent-pink)' : 'var(--accent-glow)';
-                ctxG.shadowBlur = 10;
-                ctxG.shadowColor = ctxG.fillStyle;
-                ctxG.fillRect(part.x, part.y, 10, 10);
-            });
-            ctxG.shadowBlur = 0; // إعادة تعيين التوهج
-        }
-        function moveSnake() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            const head = {x: snake[0].x + sDX, y: snake[0].y + sDY};
+            if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) { startSnake(); return; }
             snake.unshift(head);
-            if (snake[0].x === food.x && snake[0].y === food.y) {
-                snakeScore += 2;
-                if(snakeScore >= 10) unlockAchievement('ach-chicken');
-                genFood();
-            } else {
-                snake.pop();
-            }
-        }
-        function genFood() {
-            food = {
-                x: Math.floor(Math.random() * (canvasG.width / 10)) * 10,
-                y: Math.floor(Math.random() * (canvasG.height / 10)) * 10
-            };
-        }
-        function drawSnakeFood() {
-            ctxG.fillStyle = '#ff0055';
-            ctxG.fillRect(food.x, food.y, 10, 10);
-        }
-        function hasSnakeGameEnded() {
-            for (let i = 4; i < snake.length; i++) {
-                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
-            }
-            const hitLeft = snake[0].x < 0;
-            const hitRight = snake[0].x >= canvasG.width;
-            const hitTopt = snake[0].y < 0;
-            const hitBottom = snake[0].y >= canvasG.height;
-            return hitLeft || hitRight || hitTopt || hitBottom;
-        }
+            if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore++; if(snakeScore >= 10) unlockAchievement('ach-chicken'); genSnakeFood(); } else snake.pop();
 
-        window.addEventListener('keydown', (e) => {
-            if(activeGame !== 'snake') return;
-            if (e.key === 'ArrowLeft' && dx === 0) { dx = -10; dy = 0; }
-            if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -10; }
-            if (e.key === 'ArrowRight' && dx === 0) { dx = 10; dy = 0; }
-            if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 10; }
-        });
+            ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
+            ctxG.fillStyle = "#ff0055"; ctxG.fillRect(snakeFood.x, snakeFood.y, 10, 10); // الطعام
+            snake.forEach((part, i) => { ctxG.fillStyle = i===0?"var(--accent-pink)":"var(--accent-glow)"; ctxG.fillRect(part.x, part.y, 10, 10); });
+        }
+        function genSnakeFood() { snakeFood = { x: Math.floor(Math.random()*40)*10, y: Math.floor(Math.random()*40)*10 }; }
 
-        // محاكاة زر الطوارئ ESC للخلل السيبراني
+        // الاستماع لأزرار الكيبورد للتحكم بالألعاب الثلاثة وسلاسة الحركة
         window.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape') {
-                document.body.classList.remove('glitch-active');
-                document.getElementById('glitchAlert').style.display = 'none';
+            // التحكم بمضرب التنس (السهم العلوي والسفلي)
+            if(activeGame === 'tennis') {
+                if(e.key === 'ArrowUp' && paddleY > 0) paddleY -= 20;
+                if(e.key === 'ArrowDown' && paddleY < 340) paddleY += 20;
+            }
+            // التحكم بالطائرة (السهم الأيمن والأيسر، ومسطرة الإطلاق)
+            if(activeGame === 'chicken') {
+                if(e.key === 'ArrowLeft' && jetX > 0) jetX -= 15;
+                if(e.key === 'ArrowRight' && jetX < 370) jetX += 15;
+                if(e.key === ' ') bullets.push({x: jetX + 13, y: 350});
+            }
+            // التحكم بالثعبان
+            if(activeGame === 'snake') {
+                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; }
+                if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
+                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; }
+                if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
             }
         });
 
-        // تهيئة البيانات عند التشغيل أول مرة
-        window.onload = () => {
-            loadAchievements();
-            displaySecretNotes();
-        };
+        window.onload = () => { setupHoverEvents(); };
     </script>
 </body>
 </html>
