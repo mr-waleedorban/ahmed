@@ -32,7 +32,7 @@
             cursor: none;
         }
 
-        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .custom-file-upload {
+        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .custom-file-upload, .ai-toggle-btn, .ai-mode-btn, .ai-send-btn {
             cursor: none !important;
         }
 
@@ -104,13 +104,12 @@
 
         h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
 
-        /* نظام إثبات القرآن المطور من قبلك يا بطل */
         .quran-container {
             background: rgba(0, 245, 212, 0.04); border: 1px dashed rgba(0, 245, 212, 0.25);
             border-radius: 16px; padding: 20px; margin-top: 20px; display: flex; flex-direction: column; gap: 15px;
         }
         .quran-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .quran-proof-zone { display: flex; items-items: center; gap: 15px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .quran-proof-zone { display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
         .custom-file-upload {
             background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--accent-glow); color: #fff;
             padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; display: inline-block; transition: all 0.3s;
@@ -217,6 +216,72 @@
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         footer { text-align: center; padding: 40px; font-size: 0.9rem; color: var(--muted-text); border-top: 1px solid rgba(255,255,255,0.03); letter-spacing: 0.5px; }
+
+        /* ================= 🤖 ستايل المساعد الذكي العائم والمودات ================= */
+        .ai-floating-widget {
+            position: fixed; bottom: 25px; right: 25px; z-index: 9998;
+            font-family: inherit; direction: rtl;
+        }
+        .ai-toggle-btn {
+            width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-glow), #8b5cf6);
+            border: 2px solid #fff; box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+            display: flex; justify-content: center; align-items: center; font-size: 1.8rem; transition: all 0.3s ease;
+        }
+        .ai-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: var(--accent-pink); }
+        
+        .ai-chat-window {
+            position: absolute; bottom: 75px; right: 0; width: 350px; height: 480px;
+            background: rgba(10, 5, 22, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; overflow: hidden;
+            transform: scale(0.9) translateY(20px); opacity: 0; pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .ai-chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; border-color: var(--accent-pink); }
+        
+        .ai-chat-header {
+            background: rgba(255, 255, 255, 0.03); padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .ai-chat-header h3 { margin: 0; font-size: 1rem; color: #fff; display: flex; align-items: center; gap: 8px; }
+        
+        .ai-modes-bar {
+            display: flex; gap: 5px; background: rgba(0,0,0,0.3); padding: 5px; border-bottom: 1px solid rgba(255,255,255,0.04);
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .ai-mode-btn {
+            background: transparent; border: 1px solid transparent; color: var(--muted-text);
+            padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; transition: all 0.2s;
+        }
+        .ai-mode-btn.active {
+            background: rgba(0, 245, 212, 0.1); border-color: var(--accent-glow); color: var(--accent-glow);
+        }
+        .ai-mode-btn.active.mode-study { border-color: var(--accent-gold); color: var(--accent-gold); background: rgba(255,215,0,0.05); }
+        .ai-mode-btn.active.mode-gaming { border-color: var(--accent-pink); color: var(--accent-pink); background: rgba(255,0,127,0.05); }
+
+        .ai-messages-zone {
+            flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+        }
+        .ai-msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; line-height: 1.4; white-space: pre-wrap; }
+        .ai-msg.system { background: rgba(255,255,255,0.04); color: #fff; align-self: flex-start; border-top-right-radius: 2px; border: 1px solid rgba(255,255,255,0.05); }
+        .ai-msg.user { background: linear-gradient(135deg, rgba(255,0,127,0.2), rgba(139,92,246,0.2)); color: #fff; align-self: flex-end; border-top-left-radius: 2px; border: 1px solid rgba(255, 0, 127, 0.15); }
+        
+        .ai-input-bar {
+            padding: 12px; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex; gap: 8px;
+        }
+        .ai-chat-input {
+            flex: 1; background: rgba(20, 12, 36, 0.6); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.85rem; outline: none;
+        }
+        .ai-chat-input:focus { border-color: var(--accent-glow); }
+        .ai-send-btn {
+            background: var(--accent-glow); border: none; color: #000; font-weight: bold;
+            padding: 0 15px; border-radius: 10px; font-size: 0.85rem; transition: all 0.2s;
+        }
+        .ai-send-btn:hover { background: #fff; box-shadow: 0 0 10px #fff; }
     </style>
 </head>
 <body>
@@ -256,7 +321,6 @@
                     </div>
                 </div>
 
-                <!-- تحديث نظام الورد اليومي بالرسالة الخاصة الجديدة -->
                 <div class="quran-container" id="quranModuleBox">
                     <div class="quran-header-row">
                         <div>
@@ -403,9 +467,33 @@
 
     </div>
 
+    <!-- ================= 🤖 المساعد الذكي العائم بالمودات ================= -->
+    <div class="ai-floating-widget">
+        <button class="ai-toggle-btn" onclick="toggleAiChat()">🤖</button>
+        <div class="ai-chat-window" id="aiChatWindow">
+            <div class="ai-chat-header">
+                <h3>⚡ مساعد AW الذكي</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-glow); font-family: monospace;">Online</span>
+            </div>
+            <div class="ai-modes-bar">
+                <button class="ai-mode-btn active" onclick="setAiMode('general', this)">💬 عام</button>
+                <button class="ai-mode-btn mode-study" onclick="setAiMode('study', this)">📚 فيزياء ومذاكرة</button>
+                <button class="ai-mode-btn mode-gaming" onclick="setAiMode('gaming', this)">🎮 حظ وجيمنج</button>
+            </div>
+            <div class="ai-messages-zone" id="aiMessagesZone">
+                <div class="ai-msg system">يا هلا يا أحمد! أنا المساعد الخاص بيك. اختار المود اللي تحبه من فوق وكلمني في أي حاجة! 🔥</div>
+            </div>
+            <div class="ai-input-bar">
+                <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="اسألني أي حاجة يا بطل..." onkeydown="if(event.key === 'Enter') sendAiMessage()">
+                <button class="ai-send-btn" onclick="sendAiMessage()">إرسال</button>
+            </div>
+        </div>
+    </div>
+
     <footer>Designed by Ahmed Waleed. All rights reserved.</footer>
 
     <script>
+        // ================= الأكواد الأساسية الحالية للموقع =================
         const dhikrDatabase = [
             "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
             "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
@@ -419,12 +507,14 @@
         
         setInterval(() => {
             const ticker = document.getElementById('dhikr-ticker');
-            ticker.style.opacity = 0;
-            setTimeout(() => {
-                dhikrIndex = (dhikrIndex + 1) % dhikrDatabase.length;
-                ticker.innerText = dhikrDatabase[dhikrIndex];
-                ticker.style.opacity = 1;
-            }, 500);
+            if (ticker) {
+                ticker.style.opacity = 0;
+                setTimeout(() => {
+                    dhikrIndex = (dhikrIndex + 1) % dhikrDatabase.length;
+                    ticker.innerText = dhikrDatabase[dhikrIndex];
+                    ticker.style.opacity = 1;
+                }, 500);
+            }
         }, 7000);
 
         const playerDatabase = {
@@ -463,7 +553,6 @@
             localStorage.setItem('ahmed_user_xp', userXp);
         }
 
-        // معالجة لقطة الشاشة وعرض المعاينة الفورية
         function handleProofImage(input) {
             const file = input.files[0];
             if (file) {
@@ -480,19 +569,14 @@
             }
         }
 
-        // إرسال الورد وعرض رسالتك المخصصة بالملي يا بطل
         function submitDailyQuranWithProof() {
             if (!loadedProofBase64) {
                 alert("🚨 للمصداقية يا غالي! لازم ترفع سكرين شوت أو تصوّر صفحة المصحف الأول قبل ما تدوس تأكيد عشان تاخد الـ XP.");
                 return;
             }
-            
             userXp += 100;
             localStorage.setItem('ahmed_quran_last_proof', loadedProofBase64);
-            
-            // الرسالة المخصصة بناء على طلبك
             alert("عاش عليك يا بطل اوعا تكون غشيت ومقراتش الصفحه ومتنساش تصل ع النبي يا صديقي 💜🔥");
-            
             updateXpDisplay();
             document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-glow); font-weight:bold;">✨ تم تسجيل ورد اليوم ورفع الإثبات بنجاح! رائع يا أحمد استمر وصلي على النبي.</div>';
         }
@@ -504,298 +588,115 @@
             document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-pink); font-weight:bold;">❌ تم تسجيل عدم القراءة اليوم وخصم الـ XP. في انتظارك غداً!</div>';
         }
 
-        function renderMyClub() {
-            const container = document.getElementById('myClubContainer');
-            container.innerHTML = '';
-            if(myClub.length === 0) { container.innerHTML = '<span style="font-size:0.85rem; color:var(--muted-text);">لم تفتح أي لاعبين بعد...</span>'; return; }
-            myClub.forEach(p => {
-                const card = document.createElement('div');
-                card.className = `mini-fut-card ${p.rat >= 90 ? 'high-tier' : ''}`;
-                card.innerHTML = `
-                    <div style="font-weight:bold; color:var(--accent-gold); font-size:1.1rem;">${p.rat}</div>
-                    <div style="font-size:0.65rem; color:var(--muted-text);">${p.pos}</div>
-                    <div style="font-weight:bold; margin-top:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</div>
-                    <div style="font-size:0.6rem; color:var(--accent-glow); margin-top:4px;">${p.club}</div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function buyFutPack(tier, cost) {
-            if(userXp < cost) { alert("عذراً! رصيد الـ XP غير كافٍ. اذهب لإنهاء بعض مهام الـ To-Do List لكسب الـ XP!"); return; }
-            userXp -= cost; updateXpDisplay();
-
-            const pool = playerDatabase[tier];
-            const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
-
-            myClub.unshift(luckyPlayer);
-            localStorage.setItem('ahmed_my_club', JSON.stringify(myClub));
-
-            const cardEl = document.getElementById('futCardDisplay');
-            cardEl.classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('cardRating').innerText = luckyPlayer.rat;
-                document.getElementById('cardPos').innerText = luckyPlayer.pos;
-                document.getElementById('cardName').innerText = luckyPlayer.name;
-                document.getElementById('cardClub').innerText = luckyPlayer.club;
-                
-                if(luckyPlayer.rat >= 90) cardEl.style.borderColor = 'var(--accent-gold)';
-                else if(luckyPlayer.rat >= 84) cardEl.style.borderColor = 'var(--accent-glow)';
-                else cardEl.style.borderColor = '#c0c0c0';
-
-                cardEl.classList.add('active');
-                renderMyClub(); setupHoverEvents();
-            }, 150);
-        }
-
-        const dot = document.getElementById('cursorDot');
-        const glow = document.getElementById('cursorGlow');
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
-        });
-
-        function setupHoverEvents() {
-            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, textarea, input, .todo-item, .custom-file-upload').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        }
-
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
-            if(tabId === 'workspace') { setTimeout(resizeCanvas, 50); renderMyClub(); }
-            if(tabId === 'study') displaySecretNotes();
-            if(tabId === 'todolist') renderTodos();
-            if(tabId !== 'games') stopAllGames();
         }
 
-        let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
-        function addTodoItem() {
-            const input = document.getElementById('todoInput');
-            if(input.value.trim() === '') return;
-            todos.push({ text: input.value.trim(), done: false, xpAwarded: false });
-            input.value = ''; localStorage.setItem('ahmed_todos', JSON.stringify(todos));
-            renderTodos(); setupHoverEvents();
-        }
-        function toggleTodo(index) {
-            if(!todos[index].done) {
-                todos[index].done = true;
-                if(!todos[index].xpAwarded) {
-                    userXp += 20;
-                    todos[index].xpAwarded = true;
-                    updateXpDisplay();
-                    alert("عاش يا بطل! تم إنهاء المهمة وكسب +20 عملة XP ⚽");
-                }
-            } else {
-                todos[index].done = false;
-            }
-            localStorage.setItem('ahmed_todos', JSON.stringify(todos)); renderTodos();
-        }
-        function deleteTodo(index) {
-            todos.splice(index, 1); localStorage.setItem('ahmed_todos', JSON.stringify(todos)); renderTodos();
-        }
-        function renderTodos() {
-            const container = document.getElementById('todoListContainer'); container.innerHTML = '';
-            todos.forEach((todo, i) => {
-                const item = document.createElement('div');
-                item.className = `todo-item ${todo.done ? 'done' : ''}`;
-                item.innerHTML = `
-                    <span class="todo-text" style="font-weight:500;">${todo.text} ${todo.done ? ' (مكتملة +20 XP)' : ''}</span>
-                    <div class="todo-actions">
-                        <button class="modern-btn" style="padding:4px 10px; font-size:0.75rem;" onclick="toggleTodo(${i})">${todo.done ? '🔄 تراجع' : '✓ تم'}</button>
-                        <button class="modern-btn" style="padding:4px 10px; font-size:0.75rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="deleteTodo(${i})">🗑️ حذف</button>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function saveSecretNotes() {
-            localStorage.setItem('ahmed_secret_notes', document.getElementById('secretNotesInput').value); displaySecretNotes();
-        }
-        function displaySecretNotes() {
-            const txt = localStorage.getItem('ahmed_secret_notes') || '';
-            document.getElementById('secretNotesInput').value = txt;
-            document.getElementById('secretNotesDisplay').innerText = txt || 'المفكرة فارغة...';
-        }
-        function clearSecretNotes() { if(confirm("مسح؟")) { localStorage.removeItem('ahmed_secret_notes'); displaySecretNotes(); } }
-
-        setInterval(() => {
-            document.getElementById('cpuTemp').innerText = Math.floor(Math.random()*(49-41)+41) + "°C";
-            document.getElementById('ramUsage').innerText = Math.floor(Math.random()*(58-47)+47) + "%";
-            document.getElementById('fanSpeed').innerText = Math.floor(Math.random()*(2200-1950)+1950) + " RPM";
-        }, 3000);
-
-        const rainCanvas = document.getElementById('rainCanvas'); const rCtx = rainCanvas.getContext('2d');
-        let drops = [];
-        function resizeCanvas() { rainCanvas.width = rainCanvas.parentElement.offsetWidth; rainCanvas.height = rainCanvas.parentElement.offsetHeight; }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
-        for(let i=0; i<40; i++) drops.push({x: Math.random()*400, y: Math.random()*200, l: Math.random()*10+5, v: Math.random()*3+3});
-        function drawRain() {
-            rCtx.clearRect(0,0,rainCanvas.width, rainCanvas.height); rCtx.strokeStyle = 'rgba(0, 245, 212, 0.2)';
-            drops.forEach(d => { rCtx.beginPath(); rCtx.moveTo(d.x, d.y); rCtx.lineTo(d.x, d.y+d.l); rCtx.stroke(); d.y+=d.v; if(d.y>rainCanvas.height){d.y=-10; d.x=Math.random()*rainCanvas.width;} });
-            requestAnimationFrame(drawRain);
-        }
-        drawRain();
-
-        let pomoInterval, pomoMinutes=25, pomoSeconds=0, isPomoRunning=false;
-        function togglePomodoro() {
-            if(isPomoRunning) { clearInterval(pomoInterval); isPomoRunning=false; document.getElementById('pomoBtn').innerText="ابدأ التركيز"; }
-            else {
-                isPomoRunning=true; document.getElementById('pomoBtn').innerText="إيقاف";
-                pomoInterval = setInterval(() => {
-                    if(pomoSeconds===0) { if(pomoMinutes===0){ clearInterval(pomoInterval); alert("عاش! انتهى الوقت."); return; } pomoMinutes--; pomoSeconds=59; } else pomoSeconds--;
-                    document.getElementById('pomoDisplay').innerText = `${pomoMinutes}:${pomoSeconds<10?'0':''}${pomoSeconds}`;
-                }, 1000);
-            }
-        }
-
-        // ================= الألعاب =================
-        let activeGame = ''; let gameLoopInterval;
-        const canvasG = document.getElementById('gameCanvas'); const ctxG = canvasG.getContext('2d');
-        let xoBoardState = Array(9).fill(''); let xoCurrentPlayer = 'X'; let xoActive = false; let xoMode = 'ai';
-        let snake = [], sDX = 10, sDY = 0, snakeFood = {}, snakeScore = 0;
-        let paddleY = 150, computerPaddleY = 150, ballX = 200, ballY = 200, ballDX = 4, ballDY = 2;
-        let playerX = 185, playerY = 320;
-        let footballX = 200, footballY = 300;
-        let fbDX = 0, fbDY = 0; 
-        let isBallKicked = false;
-        let keeperX = 160, keeperDX = 3, fbScore = 0;
-
-        function launchGame(game) {
-            stopAllGames(); activeGame = game;
-            document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
-            if(game === 'xo') {
-                document.getElementById('btn-game-xo').classList.add('active');
-                document.getElementById('xoControls').classList.add('active');
-                document.getElementById('xoBoard').classList.add('active'); startXO('ai');
-            } else {
-                canvasG.classList.add('active');
-                if(game === 'snake') { document.getElementById('btn-game-snake').classList.add('active'); startSnake(); }
-                if(game === 'tennis') { document.getElementById('btn-game-tennis').classList.add('active'); startTennis(); }
-                if(game === 'football') { document.getElementById('btn-game-football').classList.add('active'); startFootball(); }
-            }
-        }
-
-        function stopAllGames() {
-            clearInterval(gameLoopInterval);
-            document.getElementById('xoControls').classList.remove('active');
-            document.getElementById('xoBoard').classList.remove('active');
-            canvasG.classList.remove('active'); xoActive = false; resetXO();
-        }
-
-        function startXO(mode) {
-            xoMode = mode; xoActive = true; xoCurrentPlayer = 'X'; resetXO();
-            document.getElementById('gameInstructions').innerText = `النمط الحالي: ${mode === 'ai' ? 'ضد الكمبيوتر' : 'لاعب ضد لاعب (X ثم O)'}`;
-        }
-        function makeXOMove(index) {
-            if(!xoActive || xoBoardState[index] !== '') return;
-            xoBoardState[index] = xoCurrentPlayer; renderXO();
-            if(checkXOWin(xoCurrentPlayer)) { alert(`مبروك! فاز اللاعب ${xoCurrentPlayer} 🏆`); resetXO(); return; }
-            if(xoBoardState.every(c => c !== '')) { alert("تعادل حماسي!"); resetXO(); return; }
-            if(xoMode === 'pvp') {
-                xoCurrentPlayer = (xoCurrentPlayer === 'X') ? 'O' : 'X';
-            } else if(xoMode === 'ai') {
-                xoActive = false;
-                setTimeout(() => {
-                    let empty = xoBoardState.map((c, i) => c === '' ? i : null).filter(v => v !== null);
-                    if(empty.length > 0) {
-                        let move = empty[Math.floor(Math.random() * empty.length)];
-                        xoBoardState[move] = 'O'; renderXO();
-                        if(checkXOWin('O')) { alert("فاز الكمبيوتر! جرب تاني."); resetXO(); }
-                    }
-                    xoActive = true;
-                }, 300);
-            }
-        }
-        function renderXO() {
-            const cells = document.querySelectorAll('.xo-cell');
-            xoBoardState.forEach((val, i) => { cells[i].innerText = val; cells[i].className = 'xo-cell' + (val === 'X' ? ' x-style' : val === 'O' ? ' o-style' : ''); });
-        }
-        function checkXOWin(p) { const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return wins.some(w => w.every(i => xoBoardState[i] === p)); }
-        function resetXO() { xoBoardState = Array(9).fill(''); xoCurrentPlayer = 'X'; renderXO(); }
-
-        function startSnake() {
-            snake = [{x: 200, y: 200}, {x: 190, y: 200}]; sDX = 10; sDY = 0; snakeScore = 0; genSnakeFood();
-            clearInterval(gameLoopInterval); gameLoopInterval = setInterval(snakeTick, 80);
-            document.getElementById('gameInstructions').innerText = `النقاط الحالية: ${snakeScore} // تحرك بالأسهم`;
-        }
-        function snakeTick() {
-            const head = {x: snake[0].x + sDX, y: snake[0].y + sDY};
-            if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) { startSnake(); return; }
-            snake.unshift(head);
-            if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore++; document.getElementById('gameInstructions').innerText = `النقاط الحالية: ${snakeScore} // تحرك بالأسهم`; genSnakeFood(); } else snake.pop();
-            ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
-            ctxG.fillStyle = "#ff0055"; ctxG.fillRect(snakeFood.x, snakeFood.y, 10, 10);
-            snake.forEach((part, i) => { ctxG.fillStyle = i===0?"var(--accent-pink)":"var(--accent-glow)"; ctxG.fillRect(part.x, part.y, 10, 10); });
-        }
-        function genSnakeFood() { snakeFood = { x: Math.floor(Math.random()*40)*10, y: Math.floor(Math.random()*40)*10 }; }
-
-        function startTennis() {
-            ballX = 200; ballY = 200; ballDX = 4; ballDY = 2; paddleY = 160; computerPaddleY = 160;
-            clearInterval(gameLoopInterval); gameLoopInterval = setInterval(tennisTick, 16);
-            document.getElementById('gameInstructions').innerText = "🎾 استخدم السهم العلوي والسفلي لتحريك مضربك!";
-        }
-        function tennisTick() {
-            ballX += ballDX; ballY += ballDY;
-            if(computerPaddleY + 35 < ballY) computerPaddleY += 3.2; 
-            else if(computerPaddleY + 35 > ballY) computerPaddleY -= 3.2;
-            if(ballY <= 0 || ballY >= 390) ballDY = -ballDY;
-            if(ballX <= 25 && ballY >= paddleY && ballY <= paddleY + 70) { ballDX = -ballDX; ballX = 26; }
-            if(ballX >= 365 && ballY >= computerPaddleY && ballY <= computerPaddleY + 70) { ballDX = -ballDX; ballX = 364; }
-            if(ballX < 0 || ballX > 400) startTennis();
-            ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
-            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(10, paddleY, 15, 70);
-            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(375, computerPaddleY, 15, 70);
-            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(ballX, ballY, 7, 0, Math.PI*2); ctxG.fill();
-        }
-
-        function startFootball() {
-            playerX = 185; playerY = 320; footballX = 200; footballY = 300; fbDX = 0; fbDY = 0; isBallKicked = false; keeperX = 160; keeperDX = 3; 
-            clearInterval(gameLoopInterval); gameLoopInterval = setInterval(footballTick, 16);
-            document.getElementById('gameInstructions').innerText = `⚽ الأهداف: ${fbScore} // تحرك بالأسهم واضغط [مسطرة Spacebar] عشان تشوط!`;
-        }
-        function footballTick() {
-            keeperX += keeperDX; if(keeperX <= 60 || keeperX >= 260) keeperDX = -keeperDX;
-            if(!isBallKicked) { footballX = playerX + 15; footballY = playerY - 10; } 
-            else {
-                footballX += fbDX; footballY += fbDY;
-                if(footballY <= 55 && footballY >= 35 && footballX >= keeperX && footballX <= keeperX + 80) { 
-                    fbDY = 4; isBallKicked = false; alert("صدها الحارس!"); startFootball(); return;
-                }
-                if(footballY <= 20) {
-                    if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة ⚽🔥"); startFootball(); return; }
-                    else { fbDY = 3; isBallKicked = false; startFootball(); return; }
-                }
-                if(footballX <= 5 || footballX >= 395) fbDX = -fbDX;
-                if(footballY >= 400 || footballY < 0) { isBallKicked = false; startFootball(); return; }
-            }
-            ctxG.fillStyle = "#031c09"; ctxG.fillRect(0,0,400,400); 
-            ctxG.strokeStyle = "rgba(255,255,255,0.2)"; ctxG.lineWidth = 4;
-            ctxG.strokeRect(100, 0, 200, 35);
-            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(keeperX, 35, 80, 15);
-            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(playerX, playerY, 30, 30);
-            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(footballX, footballY, 8, 0, Math.PI*2); ctxG.fill();
-        }
-
-        window.addEventListener('keydown', (e) => {
-            if(activeGame === 'tennis') { if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 20; if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 20; }
-            if(activeGame === 'snake') {
-                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sdy = 0; } if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
-                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
-            }
-            if(activeGame === 'football') {
-                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 15; if(e.key === 'ArrowRight' && playerX < 360) playerX += 15;
-                if(e.key === 'ArrowUp' && playerY > 80) playerY -= 15; if(e.key === 'ArrowDown' && playerY < 360) playerY += 15;
-                if(e.key === ' ' || e.code === 'Space') { e.preventDefault(); if(!isBallKicked) { isBallKicked = true; fbDY = -8; fbDX = Math.random() * 4 - 2; } }
-            }
+        // تحسين حركة الكورسر النيون المخصص المتواجد في كودك
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            }, 50);
         });
 
-        window.onload = () => { setupHoverEvents(); renderTodos(); updateXpDisplay(); renderMyClub(); };
+        // تشغيل أولي لعرض الـ XP
+        document.addEventListener('DOMContentLoaded', () => {
+            updateXpDisplay();
+        });
+
+        // ================= 🤖 محاكي ردود المساعد الذكي بالمودات (AI Client Logic) =================
+        let currentAiMode = 'general';
+
+        function toggleAiChat() {
+            document.getElementById('aiChatWindow').classList.toggle('open');
+        }
+
+        function setAiMode(mode, btn) {
+            currentAiMode = mode;
+            document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            let zone = document.getElementById('aiMessagesZone');
+            let systemMsg = "";
+            
+            if(mode === 'general') {
+                systemMsg = "تم تفعيل [المود العام] 💬. أنا هنا لدردشتك العادية، تعديل أكواد موقعك، أو أي فكرة تانية في دماغك!";
+            } else if(mode === 'study') {
+                systemMsg = "تم تفعيل [مود الفيزياء والمذاكرة] 📚. جاهز لتبسيط قوانين أجهزة القياس، والـ Electromagnetic Induction، وعمل أحسن خرائط ذهنية تلم المنهج!";
+            } else if(mode === 'gaming') {
+                systemMsg = "تم تفعيل [مود الحظ والجيمنج] 🎮. هنا بنحلل باكس، ونحسب احتمالات ونسب مكسب صناديق الألعاب، ونظبط الـ Hardware وتبريد الـ CPU!";
+            }
+            
+            let msgEl = document.createElement('div');
+            msgEl.className = 'ai-msg system';
+            msgEl.style.borderColor = 'var(--accent-gold)';
+            msgEl.innerText = systemMsg;
+            zone.appendChild(msgEl);
+            zone.scrollTop = zone.scrollHeight;
+        }
+
+        function sendAiMessage() {
+            let input = document.getElementById('aiChatInput');
+            let text = input.value.trim();
+            if(!text) return;
+
+            // عرض رسالة المستخدم
+            let zone = document.getElementById('aiMessagesZone');
+            let userMsg = document.createElement('div');
+            userMsg.className = 'ai-msg user';
+            userMsg.innerText = text;
+            zone.appendChild(userMsg);
+            
+            input.value = '';
+            zone.scrollTop = zone.scrollHeight;
+
+            // توليد رد ذكي محلي بناءً على المود والكلمات المفتاحية
+            setTimeout(() => {
+                let replyText = generateAiReply(text, currentAiMode);
+                let aiMsg = document.createElement('div');
+                aiMsg.className = 'ai-msg system';
+                aiMsg.innerText = replyText;
+                zone.appendChild(aiMsg);
+                zone.scrollTop = zone.scrollHeight;
+            }, 800);
+        }
+
+        function generateAiReply(text, mode) {
+            let lower = text.toLowerCase();
+            
+            if (mode === 'study') {
+                if(lower.includes('فيزيا') || lower.includes('قانون') || lower.includes('جهاز') || lower.includes('induction')) {
+                    return "بص يا أحمد، في الحث الكهرومغناطيسي (Electromagnetic Induction)، دايماً افتكر إن قانون فاراداي بيقول إن القوة الدافعة الكهربية المستحثة ($E_m$ أو $\\mathcal{E}$) بتتناسب طردياً مع المعدل الزمني للتغير في الفيض المغناطيسي:\n\n$$\\mathcal{E} = -N \\frac{\\Delta \\Phi_B}{\\Delta t}$$\n\nوالإشارة السالبة دي هي قانون لينز (عشان تعاكس التغير المسبب ليها)! تحب نعمل خريطة ذهنية سريعة نربط بيها أجهزة القياس مع القوانين دي؟ 🧠⚡";
+                }
+                return "مستعد أخص لَك أي درس فيزياء أو نعمل خريطة ذهنية ممتازة لأجهزة القياس. اكتبلي اسم القانون أو الفكرة وسيب الباقي عليا! 🔒";
+            } 
+            
+            else if (mode === 'gaming') {
+                if(lower.includes('صندوق') || lower.includes('باك') || lower.includes('كسبت') || lower.includes('خسرت')) {
+                    return "الحسبة دي لعبتي يا صديقي! عشان نعرف فتح الصناديق كسبان ولا خسران، بنجمع تمن العناصر اللي طلعتلك الفردية في السوق، ونقارنها بسعر بيع الصناديق مقفولة. في أغلب الألعاب، بيع الصناديق المضمونة بيجيب عملة ثابتة أحسن، بس متعة تفتيح الباكس ملهاش مثيل! ⚽🔥";
+                }
+                if(lower.includes('حرارة') || lower.includes('معالج') || lower.includes('cpu') || lower.includes('معجون')) {
+                    return "لو لقيت حرارة الـ CPU بتعدي الـ 80°C في الضغط أو المروحة صوتها عالي جداً، يبقا غالباً المعجون الحراري (Thermal Paste) بدأ ينشف ومحتاج يتغير، أو محتاج تبص على الـ Thermal Pads بتاعة كارت الشاشة عشان الأداء يرجع 100%! 🖥️";
+                }
+                return "مود الجيمنج شغال! كلمني عن تحليل الصناديق، تبريد المعالج، أو ألعاب المتصفح الـ 2-players اللي بتحبها! 🎮🔥";
+            } 
+            
+            else {
+                // المود العام
+                if(lower.includes('برمجة') || lower.includes('موقع') || lower.includes('تعديل')) {
+                    return "كود موقعك الحالي مبني بـ Clean Code ممتاز وأنيميشن النيون فيه رايق جداً! لو عايز نضيف أقسام جديدة أو تأثيرات CSS خرافية تانية، قولي عليها وهديك الكود جاهز فوراً. 💻✨";
+                }
+                return "معاك يا أحمد! المساعد الذكي شغال تمام وتقدر تسألني في البرمجة، أو تطلب مني أفكار تضيفها لتطوير الـ Hub بتاعك! 🚀";
+            }
+        }
     </script>
 </body>
 </html>
