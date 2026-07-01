@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v18.0 - Master Edition</title>
+    <title>Ultimate Core Hub v18.5 - Master Edition</title>
     <style>
         :root {
             --bg-color: #030008;
@@ -32,7 +32,7 @@
             cursor: none;
         }
 
-        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item {
+        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .custom-file-upload {
             cursor: none !important;
         }
 
@@ -67,7 +67,6 @@
         }
         .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
 
-        /* شعار Stay Positive المضيء والمتحرك */
         .stay-positive-badge {
             position: absolute; left: 40px; top: 50px; font-size: 1.2rem; font-weight: 900;
             font-family: 'Courier New', Courier, monospace; letter-spacing: 2px;
@@ -76,10 +75,7 @@
             animation: glowText 4s linear infinite;
             text-shadow: 0 0 12px rgba(0, 245, 212, 0.2);
         }
-        @keyframes glowText {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
+        @keyframes glowText { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         @media(max-width: 768px) { .stay-positive-badge { position: static; display: block; margin: 15px auto; text-align: center; } }
 
         .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; }
@@ -108,10 +104,20 @@
 
         h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
 
+        /* نظام إثبات القرآن المطور من قبلك يا بطل */
         .quran-container {
             background: rgba(0, 245, 212, 0.04); border: 1px dashed rgba(0, 245, 212, 0.25);
-            border-radius: 16px; padding: 15px 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;
+            border-radius: 16px; padding: 20px; margin-top: 20px; display: flex; flex-direction: column; gap: 15px;
         }
+        .quran-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .quran-proof-zone { display: flex; items-items: center; gap: 15px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .custom-file-upload {
+            background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--accent-glow); color: #fff;
+            padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; display: inline-block; transition: all 0.3s;
+        }
+        .custom-file-upload:hover { background: var(--accent-glow); color: #000; }
+        #quranProofInput { display: none; }
+        .proof-preview-img { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid var(--accent-glow); display: none; }
 
         .rain-container { position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden; margin-top: 15px; }
         #rainCanvas { position: absolute; top:0; left:0; width:100%; height:100%; background: #05020c; }
@@ -223,7 +229,7 @@
     <header>
         <div class="stay-positive-badge">STAY POSITIVE</div>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v18.0 // Master Dashboard</div>
+        <div class="tagline">// Ultimate Core Hub v18.5 // Master Dashboard</div>
     </header>
 
     <div class="main-container">
@@ -250,15 +256,24 @@
                     </div>
                 </div>
 
-                <!-- ميزة الورد اليومي الجديدة -->
-                <div class="quran-container">
-                    <div>
-                        <span style="font-weight: 600; font-size: 1.05rem; display: block; color: #fff;">📖 الورد اليومي الحاسم</span>
-                        <span style="font-size: 0.85rem; color: var(--accent-glow);">قراءة صفحة من القرآن الكريم</span>
+                <!-- تحديث نظام الورد اليومي بالرسالة الخاصة الجديدة -->
+                <div class="quran-container" id="quranModuleBox">
+                    <div class="quran-header-row">
+                        <div>
+                            <span style="font-weight: 600; font-size: 1.05rem; display: block; color: #fff;">📖 الورد اليومي الحاسم (نظام الإثبات الفوري)</span>
+                            <span style="font-size: 0.85rem; color: var(--accent-glow);">قراءة صفحة من القرآن الكريم (يجب رفع لقطة شاشة للمصداقية)</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="modern-btn" style="border-color: var(--accent-glow); color: var(--accent-glow);" onclick="submitDailyQuranWithProof()">✓ تأكيد الورد (+100 XP)</button>
+                            <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="failDailyQuran()">✗ لم أقرأ اليوم (-20 XP)</button>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 8px;" id="quranActionBox">
-                        <button class="modern-btn" style="border-color: var(--accent-glow); color: var(--accent-glow);" onclick="submitDailyQuran(true)">✓ تم (+100 XP)</button>
-                        <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="submitDailyQuran(false)">✗ لم أقرأ (-20 XP)</button>
+                    
+                    <div class="quran-proof-zone">
+                        <label for="quranProofInput" class="custom-file-upload">📸 اختر سكرين شوت أو صور الصفحة</label>
+                        <input type="file" id="quranProofInput" accept="image/*" onchange="handleProofImage(this)">
+                        <span id="proofStatusText" style="font-size: 0.85rem; color: var(--muted-text); align-self: center;">لم يتم رفع إثبات بعد...</span>
+                        <img id="proofPreview" class="proof-preview-img" alt="معاينة الإثبات">
                     </div>
                 </div>
             </div>
@@ -388,11 +403,9 @@
 
     </div>
 
-    <!-- الفوتر الجديد المعدل بالكامل حسب طلبك -->
     <footer>Designed by Ahmed Waleed. All rights reserved.</footer>
 
     <script>
-        // داتا الأذكار المتغيرة
         const dhikrDatabase = [
             "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
             "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
@@ -404,7 +417,6 @@
         ];
         let dhikrIndex = 0;
         
-        // نظام تدوير الأذكار التلقائي كل 7 ثوانٍ
         setInterval(() => {
             const ticker = document.getElementById('dhikr-ticker');
             ticker.style.opacity = 0;
@@ -415,7 +427,6 @@
             }, 500);
         }, 7000);
 
-        // داتا لاعبي فيفا
         const playerDatabase = {
             gold: [
                 { name: "Maguire", rat: 79, pos: "CB", club: "Man United" },
@@ -443,25 +454,54 @@
             ]
         };
 
-        let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 60;
+        let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 0;
         let myClub = JSON.parse(localStorage.getItem('ahmed_my_club')) || [];
+        let loadedProofBase64 = "";
 
         function updateXpDisplay() {
             document.getElementById('globalXpDisplay').innerText = `${userXp} XP`;
             localStorage.setItem('ahmed_user_xp', userXp);
         }
 
-        // معالجة الورد اليومي كسب أو خسارة
-        function submitDailyQuran(isSuccess) {
-            if(isSuccess) {
-                userXp += 100;
-                alert("تقبل الله منك يا أحمد! تم إضافة +100 XP بنجاح وعاش 👑📖");
-            } else {
-                userXp = Math.max(0, userXp - 20);
-                alert("تم خصم -20 XP! يلا مستنيين تعوضها وتقرأ الورد الجاي يا بطل ✨");
+        // معالجة لقطة الشاشة وعرض المعاينة الفورية
+        function handleProofImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    loadedProofBase64 = e.target.result;
+                    const preview = document.getElementById('proofPreview');
+                    preview.src = loadedProofBase64;
+                    preview.style.display = 'block';
+                    document.getElementById('proofStatusText').innerText = `✓ جاهز للإرسال: (${file.name})`;
+                    document.getElementById('proofStatusText').style.color = 'var(--accent-glow)';
+                };
+                reader.readAsDataURL(file);
             }
+        }
+
+        // إرسال الورد وعرض رسالتك المخصصة بالملي يا بطل
+        function submitDailyQuranWithProof() {
+            if (!loadedProofBase64) {
+                alert("🚨 للمصداقية يا غالي! لازم ترفع سكرين شوت أو تصوّر صفحة المصحف الأول قبل ما تدوس تأكيد عشان تاخد الـ XP.");
+                return;
+            }
+            
+            userXp += 100;
+            localStorage.setItem('ahmed_quran_last_proof', loadedProofBase64);
+            
+            // الرسالة المخصصة بناء على طلبك
+            alert("عاش عليك يا بطل اوعا تكون غشيت ومقراتش الصفحه ومتنساش تصل ع النبي يا صديقي 💜🔥");
+            
             updateXpDisplay();
-            document.getElementById('quranActionBox').innerHTML = '<span style="color:var(--muted-text); font-size:0.85rem; font-weight:bold;">تم تسجيل ورد اليوم بنجاح!</span>';
+            document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-glow); font-weight:bold;">✨ تم تسجيل ورد اليوم ورفع الإثبات بنجاح! رائع يا أحمد استمر وصلي على النبي.</div>';
+        }
+
+        function failDailyQuran() {
+            userXp = Math.max(0, userXp - 20);
+            alert("تم خصم -20 XP. يلا معلش تتعوض بكره ومستنيين لقطة الشاشة الجاية للالتزام الكامل! 💪");
+            updateXpDisplay();
+            document.getElementById('quranModuleBox').innerHTML = '<div style="text-align:center; padding:10px; color:var(--accent-pink); font-weight:bold;">❌ تم تسجيل عدم القراءة اليوم وخصم الـ XP. في انتظارك غداً!</div>';
         }
 
         function renderMyClub() {
@@ -482,7 +522,7 @@
         }
 
         function buyFutPack(tier, cost) {
-            if(userXp < cost) { alert("عذراً يا أحمد! رصيد الـ XP غير كافٍ. اذهب لإنهاء بعض مهام الـ To-Do List لكسب الـ XP!"); return; }
+            if(userXp < cost) { alert("عذراً! رصيد الـ XP غير كافٍ. اذهب لإنهاء بعض مهام الـ To-Do List لكسب الـ XP!"); return; }
             userXp -= cost; updateXpDisplay();
 
             const pool = playerDatabase[tier];
@@ -508,7 +548,6 @@
             }, 150);
         }
 
-        // الماوس النيون المخصص
         const dot = document.getElementById('cursorDot');
         const glow = document.getElementById('cursorGlow');
         window.addEventListener('mousemove', (e) => {
@@ -517,7 +556,7 @@
         });
 
         function setupHoverEvents() {
-            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, textarea, input, .todo-item').forEach(el => {
+            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, textarea, input, .todo-item, .custom-file-upload').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
@@ -534,7 +573,6 @@
             if(tabId !== 'games') stopAllGames();
         }
 
-        // --- نظام الـ TO-DO LIST ---
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function addTodoItem() {
             const input = document.getElementById('todoInput');
@@ -576,7 +614,6 @@
             });
         }
 
-        // حفظ وقراءة الملاحظات السرية
         function saveSecretNotes() {
             localStorage.setItem('ahmed_secret_notes', document.getElementById('secretNotesInput').value); displaySecretNotes();
         }
@@ -587,14 +624,12 @@
         }
         function clearSecretNotes() { if(confirm("مسح؟")) { localStorage.removeItem('ahmed_secret_notes'); displaySecretNotes(); } }
 
-        // محاكي الأداء الافتراضي للكمبيوتر
         setInterval(() => {
             document.getElementById('cpuTemp').innerText = Math.floor(Math.random()*(49-41)+41) + "°C";
             document.getElementById('ramUsage').innerText = Math.floor(Math.random()*(58-47)+47) + "%";
             document.getElementById('fanSpeed').innerText = Math.floor(Math.random()*(2200-1950)+1950) + " RPM";
         }, 3000);
 
-        // كود تشغيل محاكي المطر والـ Pomodoro
         const rainCanvas = document.getElementById('rainCanvas'); const rCtx = rainCanvas.getContext('2d');
         let drops = [];
         function resizeCanvas() { rainCanvas.width = rainCanvas.parentElement.offsetWidth; rainCanvas.height = rainCanvas.parentElement.offsetHeight; }
@@ -619,7 +654,7 @@
             }
         }
 
-        // ================= صالة الألعاب المصلحة =================
+        // ================= الألعاب =================
         let activeGame = ''; let gameLoopInterval;
         const canvasG = document.getElementById('gameCanvas'); const ctxG = canvasG.getContext('2d');
         let xoBoardState = Array(9).fill(''); let xoCurrentPlayer = 'X'; let xoActive = false; let xoMode = 'ai';
@@ -703,7 +738,7 @@
         function startTennis() {
             ballX = 200; ballY = 200; ballDX = 4; ballDY = 2; paddleY = 160; computerPaddleY = 160;
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(tennisTick, 16);
-            document.getElementById('gameInstructions').innerText = "🎾 استخدم السهم العلوي والسفلي لتحريك مضربك (الأخضر النيون) ضد الكمبيوتر!";
+            document.getElementById('gameInstructions').innerText = "🎾 استخدم السهم العلوي والسفلي لتحريك مضربك!";
         }
         function tennisTick() {
             ballX += ballDX; ballY += ballDY;
@@ -722,7 +757,7 @@
         function startFootball() {
             playerX = 185; playerY = 320; footballX = 200; footballY = 300; fbDX = 0; fbDY = 0; isBallKicked = false; keeperX = 160; keeperDX = 3; 
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(footballTick, 16);
-            document.getElementById('gameInstructions').innerText = `⚽ الأهداف: ${fbScore} // تحرك بالأسهم في كل الاتجاهات واضغط [مسطرة Spacebar] عشان تشوط جامد في الجون!`;
+            document.getElementById('gameInstructions').innerText = `⚽ الأهداف: ${fbScore} // تحرك بالأسهم واضغط [مسطرة Spacebar] عشان تشوط!`;
         }
         function footballTick() {
             keeperX += keeperDX; if(keeperX <= 60 || keeperX >= 260) keeperDX = -keeperDX;
@@ -730,10 +765,10 @@
             else {
                 footballX += fbDX; footballY += fbDY;
                 if(footballY <= 55 && footballY >= 35 && footballX >= keeperX && footballX <= keeperX + 80) { 
-                    fbDY = 4; isBallKicked = false; alert("صدها الحارس! جرب تشوط في زاوية تانية."); startFootball(); return;
+                    fbDY = 4; isBallKicked = false; alert("صدها الحارس!"); startFootball(); return;
                 }
                 if(footballY <= 20) {
-                    if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة وهداف يا أحمد ⚽🔥"); startFootball(); return; }
+                    if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة ⚽🔥"); startFootball(); return; }
                     else { fbDY = 3; isBallKicked = false; startFootball(); return; }
                 }
                 if(footballX <= 5 || footballX >= 395) fbDX = -fbDX;
@@ -748,25 +783,15 @@
         }
 
         window.addEventListener('keydown', (e) => {
-            if(activeGame === 'tennis') { 
-                if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 20; 
-                if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 20; 
-            }
+            if(activeGame === 'tennis') { if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 20; if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 20; }
             if(activeGame === 'snake') {
-                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; } 
-                if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
-                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } 
-                if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
+                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sdy = 0; } if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
+                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
             }
             if(activeGame === 'football') {
-                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 15; 
-                if(e.key === 'ArrowRight' && playerX < 360) playerX += 15;
-                if(e.key === 'ArrowUp' && playerY > 80) playerY -= 15; 
-                if(e.key === 'ArrowDown' && playerY < 360) playerY += 15;
-                if(e.key === ' ' || e.code === 'Space') {
-                    e.preventDefault();
-                    if(!isBallKicked) { isBallKicked = true; fbDY = -8; fbDX = Math.random() * 4 - 2; }
-                }
+                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 15; if(e.key === 'ArrowRight' && playerX < 360) playerX += 15;
+                if(e.key === 'ArrowUp' && playerY > 80) playerY -= 15; if(e.key === 'ArrowDown' && playerY < 360) playerY += 15;
+                if(e.key === ' ' || e.code === 'Space') { e.preventDefault(); if(!isBallKicked) { isBallKicked = true; fbDY = -8; fbDX = Math.random() * 4 - 2; } }
             }
         });
 
