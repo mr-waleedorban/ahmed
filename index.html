@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v14.1</title>
+    <title>Ultimate Core Hub v15.0</title>
     <style>
         :root {
             /* نظام ألوان البنفسجي المخملي العميق والنيون المشع */
@@ -30,12 +30,11 @@
             margin: 0; padding: 0;
             overflow-x: hidden;
             user-select: none;
-            /* إلغاء الماوس الافتراضي لتطبيق ماوس النيون */
             cursor: none;
         }
 
-        /* ستايل أزرار وعناصر تفاعلية لإلغاء الماوس فيها أيضاً */
-        a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox {
+        /* ستايل أزرار وعناصر تفاعلية لإلغاء الماوس فيها */
+        a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, .quest-check, textarea, input {
             cursor: none !important;
         }
 
@@ -66,7 +65,6 @@
             transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
         }
 
-        /* تأثير الماوس عند الضغط أو الإشارة لعنصر تفاعلي */
         body.hovering .neon-cursor-dot {
             background-color: var(--accent-pink);
             width: 6px;
@@ -110,11 +108,7 @@
             display: inline-block; transition: transform 0.2s;
             position: relative;
         }
-        .modern-logo:active::after {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100px; height: 100px; background: rgba(0, 245, 212, 0.4); border-radius: 50%;
-            animation: pulseWave 0.4s ease-out; pointer-events: none;
-        }
+        
         .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
 
         .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
@@ -140,7 +134,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* ستايل الكروت الزجاجية الشفافة العائمة المتوهجة (Glow Glassmorphism) */
         .gravity-card {
             background: var(--card-bg); 
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -183,7 +176,7 @@
         }
         .quran-checkbox {
             width: 28px; height: 28px; border-radius: 10px; border: 2px solid var(--accent-glow);
-            display: flex; justify-content: center; align-items: center;
+            display: flex; justify-content: center; align-items: center; transition: all 0.2s;
         }
         .quran-checkbox.checked { background: var(--accent-glow); color: #030712; }
         .quran-checkbox::after { content: '✓'; font-weight: bold; display: none; }
@@ -205,7 +198,6 @@
         }
         .mindmap-input:focus { border-color: var(--accent-glow); box-shadow: 0 0 12px rgba(0, 245, 212, 0.3); }
 
-        /* ستايل بروفايل أحمد السيبراني المتناسق مع الألوان المخملية */
         .profile-card-wrapper { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
         .profile-avatar {
             width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent-pink), var(--accent-glow));
@@ -220,13 +212,11 @@
         .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: #e5e7eb; font-weight: 500; }
         .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: 0 0 8px rgba(255,0,127,0.3); }
 
-        /* ستايل اللوت بوكس */
         .loot-container { margin-top: 20px; background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--border-color); border-radius: 16px; padding: 20px; text-align: center; }
         .loot-box-graphic { font-size: 3rem; display: inline-block; transition: transform 0.3s; animation: float 3s ease-in-out infinite; }
         .loot-box-graphic:hover { transform: scale(1.1) rotate(5deg); }
         .loot-result { margin-top: 10px; font-weight: bold; color: var(--accent-glow); font-family: monospace; min-height: 20px; }
 
-        /* ستايل حائط الإنجازات الأسطورية النيون */
         .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
         .achieve-card {
             background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 12px;
@@ -240,13 +230,27 @@
         .achieve-card .title { font-size: 0.75rem; font-weight: bold; color: #fff; display: block; }
         .achieve-card .desc { font-size: 0.65rem; color: var(--muted-text); display: block; margin-top: 2px; }
 
-        /* ستايل صالة الألعاب */
+        /* ستايلات المراقب والأقسام الجديدة */
+        .hardware-monitor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .hw-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; text-align: center; }
+        .hw-val { font-size: 1.6rem; font-weight: bold; font-family: monospace; color: var(--accent-glow); margin-top: 5px; }
+        
+        .quest-item {
+            background: rgba(15, 8, 28, 0.6); border: 1px solid var(--border-color); border-radius: 14px;
+            padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s;
+        }
+        .quest-item.completed { border-color: rgba(255, 0, 127, 0.3); opacity: 0.6; }
+        .quest-check { width: 22px; height: 22px; border: 2px solid var(--accent-pink); border-radius: 6px; display:flex; justify-content:center; align-items:center; }
+        .quest-check.checked { background: var(--accent-pink); color: #fff; }
+        .quest-check::after { content: '✓'; display: none; font-size: 0.8rem; font-weight: bold;}
+        .quest-check.checked::after { display: block; }
+
         .arcade-menu { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
         .game-screen-wrapper { background: #05020c; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
         .game-canvas { background: #020105; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; max-width: 100%; display: none; margin: 15px auto 0 auto; }
         .game-canvas.active { display: block; }
 
-        /* ستايل لعبة XO النيون المزدوجة والمطورة */
         .xo-board { display: none; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 20px auto; }
         .xo-board.active { display: grid; }
         .xo-cell {
@@ -261,18 +265,16 @@
         .xo-controls.active { display: flex; }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes pulseWave { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 140px; height: 140px; opacity: 0; } }
         @keyframes screenShake {
             0% { transform: translate(3px, 2px) rotate(0deg); }
             20% { transform: translate(-2px, -3px) rotate(-1deg); }
             100% { transform: translate(3px, -1px) rotate(-1deg); }
         }
-        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.2; }
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.3; }
     </style>
 </head>
 <body>
 
-    <!-- عناصر مؤشر نيون السيبربانك المخصص -->
     <div class="neon-cursor-dot" id="cursorDot"></div>
     <div class="neon-cursor-glow" id="cursorGlow"></div>
 
@@ -280,8 +282,8 @@
     <div class="glitch-text" id="glitchAlert">⚠️ CRITICAL SYSTEM ERROR<br><span style="font-size:1.5rem; color:#fff;">اضغط ESC لإلغاء التدمير الذاتي</span></div>
 
     <header>
-        <div class="modern-logo" onclick="registerClick()">AW</div>
-        <div class="tagline">// Ultimate Core Hub v14.1 // Gaming & Workspace</div>
+        <div class="modern-logo">AW</div>
+        <div class="tagline">// Ultimate Core Hub v15.0 // Gaming & Workspace</div>
     </header>
 
     <div class="main-container">
@@ -290,7 +292,7 @@
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
                 <button class="tab-btn" onclick="switchTab('study')">📚 المذاكرة والمواد</button>
-                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب (6 Games)</button>
+                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب</button>
             </div>
         </div>
 
@@ -303,7 +305,7 @@
                     <div class="profile-avatar">AW</div>
                     <div class="profile-info">
                         <h3>أحمد وليد</h3>
-                        <div class="profile-status">SYSTEM STATUS: ACTIVE // LEVEL 18 ACADEMIC WARRIOR</div>
+                        <div class="profile-status" id="profileLvlStatus">SYSTEM STATUS: ACTIVE // LEVEL 18 ACADEMIC WARRIOR</div>
                         <div class="skills-container">
                             <span class="skill-badge highlight">🎓 Senior 2027</span>
                             <span class="skill-badge">📐 Physics Enthusiast</span>
@@ -312,27 +314,65 @@
                     </div>
                 </div>
 
-                <!-- صندوق اللوت بوكس اليومي -->
                 <div class="loot-container">
                     <div class="loot-box-graphic" id="lootBoxBtn" onclick="openDailyLootBox()">📦</div>
                     <div style="margin-top: 5px; font-size: 0.85rem; color: var(--muted-text);">صندوق اللوت بوكس اليومي (متاح مرة كل 24 ساعة)</div>
                     <div class="loot-result" id="lootResultDisplay">اضغط على الصندوق لتجربة حظك اليومي!</div>
                 </div>
 
-                <!-- حائط الإنجازات الأسطورية -->
                 <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
                     <h4 style="margin: 0; font-size: 0.9rem; color: var(--accent-pink);">🏆 حائط الإنجازات الأسطورية (Gaming Hall of Fame)</h4>
                     <div class="achievements-grid">
                         <div class="achieve-card" id="ach-xo-ai"><span class="icon">🤖</span><span class="title">AI Crusher</span><span class="desc">الفوز على الكمبيوتر في XO</span></div>
                         <div class="achieve-card" id="ach-xo-pvp"><span class="icon">👑</span><span class="title">Double Threat</span><span class="desc">الفوز في النمط الثنائي XO</span></div>
                         <div class="achieve-card" id="ach-tennis"><span class="icon">🎾</span><span class="title">Racket Master</span><span class="desc">سكور +5 في التنس</span></div>
-                        <div class="achieve-card" id="ach-chicken"><span class="icon">🚀</span><span class="title">Galaxy Defender</span><span class="desc">سكور +50 في غزو الدجاج</span></div>
+                        <div class="achieve-card" id="ach-chicken"><span class="icon">🚀</span><span class="title">Snake Overlord</span><span class="desc">سكور +10 في لعبة الثعبان</span></div>
                         <div class="achieve-card" id="ach-lucky"><span class="icon">💎</span><span class="title">Legendary Drop</span><span class="desc">الحصول على لقب أسطوري</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- محاكي نافذة المطر والـ Pomodoro -->
+            <!-- القسم الجديد 1: شاشة مراقبة عتاد النظام الحيوي -->
+            <div class="gravity-card">
+                <h2>🖥️ لوحة مراقبة الأداء والعتاد السيبراني</h2>
+                <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">مراقبة حية وهمية لحرارة المعالج وكفاءة تبريد المعجون الحراري للـ CPU والـ GPU.</p>
+                <div class="hardware-monitor">
+                    <div class="hw-box">
+                        <span style="font-size:0.8rem; color:var(--muted-text);">حرارة المعالج CPU</span>
+                        <div class="hw-val" id="cpuTemp">42°C</div>
+                    </div>
+                    <div class="hw-box">
+                        <span style="font-size:0.8rem; color:var(--muted-text);">استهلاك الذاكرة RAM</span>
+                        <div class="hw-val" id="ramUsage">48%</div>
+                    </div>
+                    <div class="hw-box">
+                        <span style="font-size:0.8rem; color:var(--muted-text);">سرعة المروحة FAN</span>
+                        <div class="hw-val" id="fanSpeed">2100 RPM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- القسم الجديد 2: نظام المهمات اليومية بالـ XP -->
+            <div class="gravity-card">
+                <h2>⚔️ لوحة كويستات المهام اليومية (Daily Quests)</h2>
+                <div id="questsContainer">
+                    <div class="quest-item" id="q1">
+                        <div>
+                            <span style="font-weight: 600; display: block;">حل شيت فيزياء (تطبيقات الميكانيكا والكهربية)</span>
+                            <span style="font-size: 0.75rem; color: var(--accent-glow);">المكافأة: +150 XP</span>
+                        </div>
+                        <div class="quest-check" onclick="completeQuest('q1', 150)"></div>
+                    </div>
+                    <div class="quest-item" id="q2">
+                        <div>
+                            <span style="font-weight: 600; display: block;">مراجعة قوانين الأجهزة القياسية</span>
+                            <span style="font-size: 0.75rem; color: var(--accent-glow);">المكافأة: +100 XP</span>
+                        </div>
+                        <div class="quest-check" onclick="completeQuest('q2', 100)"></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="gravity-card" id="card-rain">
                 <h2>🌧️ محاكي نافذة المطر والـ Pomodoro</h2>
                 <div class="rain-container">
@@ -344,7 +384,6 @@
                 </div>
             </div>
 
-            <!-- الورد اليومي الروحاني -->
             <div class="gravity-card" id="card-faith">
                 <h2>🕋 الورد اليومي والروحانيات</h2>
                 <div class="quran-box">
@@ -370,17 +409,15 @@
             <div class="gravity-card">
                 <h2>🔒 المفكرة الخاصة (جهازك الحالي فقط)</h2>
                 <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">
-                    كل ما يكتب هنا يُحفظ محلياً على هذا المتصفح فقط وبسرية تامة. لن يتمكن أي شخص آخر من رؤيته عبر الإنترنت.
+                    كل ما يكتب هنا يُحفظ محلياً على هذا المتصفح فقط وبسرية تامة.
                 </p>
-                
                 <div style="margin-bottom: 15px;">
-                    <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical; font-family: sans-serif; box-sizing: border-box;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا... (مثال: https://google.com)"></textarea>
+                    <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical; font-family: sans-serif; box-sizing: border-box;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا..."></textarea>
                 </div>
                 <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                     <button class="modern-btn" onclick="saveSecretNotes()">💾 حفظ الملاحظات</button>
                     <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="clearSecretNotes()">🗑️ مسح الكل</button>
                 </div>
-
                 <div style="background: rgba(0,0,0,0.5); border: 1px dashed var(--border-color); border-radius: 12px; padding: 15px;">
                     <h4 style="margin: 0 0 10px 0; color: var(--accent-glow); font-size: 0.9rem;">👁️ عرض الملاحظات والروابط النشطة:</h4>
                     <div id="secretNotesDisplay" style="white-space: pre-wrap; font-size: 0.95rem; color: #e5e7eb; line-height: 1.6;"></div>
@@ -392,14 +429,9 @@
         <div id="games" class="tab-content">
             <div class="gravity-card" id="card-arcade">
                 <h2>🎮 غرفة الألعاب الفورية (No Links // Play Inside)</h2>
-                
                 <div class="arcade-menu">
-                    <button class="tab-btn active" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
-                    <button class="tab-btn" onclick="launchGame('tennis')">🎾 التنس</button>
-                    <button class="tab-btn" onclick="launchGame('football')">⚽ كورة القدم</button>
-                    <button class="tab-btn" onclick="launchGame('basket')">🏀 السلة</button>
-                    <button class="tab-btn" onclick="launchGame('chicken')">🚀 غزو الدجاج</button>
-                    <button class="tab-btn" onclick="launchGame('snake')">🐍 الثعبان</button>
+                    <button class="tab-btn active" id="btn-game-xo" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
+                    <button class="tab-btn" id="btn-game-snake" onclick="launchGame('snake')">🐍 الثعبان الناري</button>
                 </div>
 
                 <div class="game-screen-wrapper">
@@ -407,7 +439,7 @@
                     
                     <div class="xo-controls" id="xoControls">
                         <button class="modern-btn" onclick="startXO('ai')">🤖 ضد الكمبيوتر</button>
-                        <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="startXO('pvp')">👥 لاعب ضد لاعب (ثنائي)</button>
+                        <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="startXO('pvp')">👥 لاعب ضد لاعب</button>
                     </div>
 
                     <div class="xo-board" id="xoBoard">
@@ -422,39 +454,37 @@
                         <div class="xo-cell" onclick="makeXOMove(8)"></div>
                     </div>
 
-                    <canvas id="gameCanvas" width="600" height="350" class="game-canvas"></canvas>
+                    <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <footer>Ultimate Core Hub v14.1 // Pure Cyberpunk Framework</footer>
+    <footer>Ultimate Core Hub v15.0 // Pure Cyberpunk Framework</footer>
 
     <script>
-        // ================= 0. نظام تتبع حركة الماوس المتوهج (Neon Cursor Logic) =================
+        // ================= 0. الماوس النيون المخصص =================
         const dot = document.getElementById('cursorDot');
         const glow = document.getElementById('cursorGlow');
 
         window.addEventListener('mousemove', (e) => {
-            // تحديث فوري للنقطة المركزية الفوسفورية
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
-            
-            // تحديث الهالة الخارجية النيون التابعة بسلاسة
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
 
-        // رصد الإشارة فوق العناصر التفاعلية لتبديل الألوان والتكبير
-        const interactiveElements = 'a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, textarea, input';
-        
-        document.querySelectorAll(interactiveElements).forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
+        function setupHoverEvents() {
+            const interactiveElements = 'a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, .quest-check, textarea, input';
+            document.querySelectorAll(interactiveElements).forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+        setupHoverEvents();
 
-        // ================= 1. نظام التابات واكتشاف التنقل =================
+        // ================= 1. نظام التابات والتنقل =================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -465,7 +495,7 @@
             if(tabId !== 'games') stopAllGames();
         }
 
-        // ================= 2. نظام المفكرة الخاصة والروابط الذكية =================
+        // ================= 2. نظام الملاحظات السرية الذكية =================
         function linkify(text) {
             const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
             return text.replace(urlRegex, function(url) {
@@ -491,11 +521,7 @@
                 } else {
                     const safeText = savedText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     displayDiv.innerHTML = linkify(safeText);
-                    // إعادة ربط أحداث الماوس للروابط المضافة حديثاً
-                    displayDiv.querySelectorAll('a').forEach(el => {
-                        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-                    });
+                    setupHoverEvents();
                 }
             }
         }
@@ -507,13 +533,13 @@
             }
         }
 
-        // ================= 3. نظام رادار الحظ وصندوق اللوت بوكس =================
+        // ================= 3. صندوق اللوت بوكس وحائط الإنجازات =================
         const lootDrops = [
-            { text: "💎 حظ أسطوري: [Legendary Drop] كرت الحظ 99% Pro Gamer!", rare: true },
+            { text: "💎 حظ أسطوري: [Legendary Drop] كرت حظ 99% في تعديل الهاردوير!", rare: true },
             { text: "⚔️ لقب اليوم: [Cyber Overlord] حظ ناري وسرعة استجابة فائقة!", rare: false },
-            { text: "🚀 أداة مميزة: [Quantum Mouse] تمنحك دقة خارقة في الألعاب اليوم!", rare: false },
-            { text: "📦 لوت عادي: [Health Pack +50] طاقة إيجابية لتخطي الأيام الصعبة.", rare: false },
-            { text: "👑 لقب نادر: [AI tamer] حظك اليوم مثالي لسحق الخصوم!", rare: true }
+            { text: "🚀 أداة مميزة: [Quantum Processor] تمنحك استقرار حراري فائق اليوم!", rare: false },
+            { text: "📦 لوت عادي: [Health Pack +50] طاقة إيجابية لتخطي ضغط المذاكرة.", rare: false },
+            { text: "👑 لقب نادر: [Hardware Expert] حظك مثالي لصيانة وإصلاح أي جهاز!", rare: true }
         ];
 
         function openDailyLootBox() {
@@ -523,7 +549,7 @@
             if (lastOpen && (now - lastOpen < 24 * 60 * 60 * 1000)) {
                 const timeLeft = (24 * 60 * 60 * 1000) - (now - lastOpen);
                 const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-                document.getElementById('lootResultDisplay').innerText = `⏳ الصندوق مقفل! يمكنك فتحه مجدداً بعد ${hours} ساعة.`;
+                document.getElementById('lootResultDisplay').innerText = `⏳ الصندوق مقفل! جرب بعد ${hours} ساعة.`;
                 return;
             }
 
@@ -539,7 +565,6 @@
             }
         }
 
-        // ================= 4. نظام لوحة الإنجازات =================
         function unlockAchievement(id) {
             const achCard = document.getElementById(id);
             if(achCard && !achCard.classList.contains('unlocked')) {
@@ -549,8 +574,7 @@
         }
 
         function loadAchievements() {
-            const achs = ['ach-xo-ai', 'ach-xo-pvp', 'ach-tennis', 'ach-chicken', 'ach-lucky'];
-            achs.forEach(id => {
+            ['ach-xo-ai', 'ach-xo-pvp', 'ach-tennis', 'ach-chicken', 'ach-lucky'].forEach(id => {
                 if(localStorage.getItem(id) === 'unlocked') {
                     const card = document.getElementById(id);
                     if(card) card.classList.add('unlocked');
@@ -558,7 +582,7 @@
             });
         }
 
-        // ================= 5. شريط الأذكار والورد =================
+        // ================= 4. شريط الأذكار التلقائي والورد =================
         const dhikrs = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ","لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ","أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ"];
         setInterval(() => {
             const t = document.getElementById('dhikr-ticker');
@@ -570,42 +594,272 @@
             document.getElementById('quranTarget').style.textDecoration = cb.classList.contains('checked') ? "line-through" : "none";
         }
 
-        // ================= 6. محاكي المطر والـ Pomodoro =================
-        const canvas = document.getElementById('rainCanvas'), ctx = canvas.getContext('2d');
+        // ================= 5. نظام الـ XP والمهمات الجديدة =================
+        let currentXP = parseInt(localStorage.getItem('user_xp')) || 0;
+        function completeQuest(id, xpGained) {
+            const quest = document.getElementById(id);
+            const check = quest.querySelector('.quest-check');
+            if(!check.classList.contains('checked')) {
+                check.classList.add('checked');
+                quest.classList.add('completed');
+                currentXP += xpGained;
+                localStorage.setItem('user_xp', currentXP);
+                document.getElementById('profileLvlStatus').innerText = `SYSTEM STATUS: ACTIVE // XP: ${currentXP} // LEVEL 18 WARRIOR`;
+            }
+        }
+
+        // ================= 6. محاكي الأداء والعتاد التفاعلي =================
+        setInterval(() => {
+            // توليد حرارة واستهلاك عشوائي متأرجح لإعطاء طابع حي للمنصة
+            const cpu = Math.floor(Math.random() * (55 - 38) + 38);
+            const ram = Math.floor(Math.random() * (65 - 40) + 40);
+            const fan = Math.floor(Math.random() * (2400 - 1900) + 1900);
+            
+            document.getElementById('cpuTemp').innerText = `${cpu}°C`;
+            document.getElementById('ramUsage').innerText = `${ram}%`;
+            document.getElementById('fanSpeed').innerText = `${fan} RPM`;
+            
+            // تحذير في حالة تخطي الحرارة المعتادة (محاكاة)
+            if(cpu > 50) { document.getElementById('cpuTemp').style.color = "var(--accent-pink)"; } 
+            else { document.getElementById('cpuTemp').style.color = "var(--accent-glow)"; }
+        }, 3000);
+
+        // ================= 7. محاكي المطر والـ Pomodoro الكامل =================
+        const rainCanvas = document.getElementById('rainCanvas');
+        const rCtx = rainCanvas.getContext('2d');
         let drops = [];
-        function resizeCanvas() { if(canvas && canvas.parentElement) { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; } }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
-        for (let i = 0; i < 30; i++) drops.push({ x: Math.random() * 800, y: Math.random() * 250, len: Math.random() * 10 + 5, speed: Math.random() * 3 + 3 });
+
+        function resizeCanvas() {
+            rainCanvas.width = rainCanvas.parentElement.offsetWidth;
+            rainCanvas.height = rainCanvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for(let i=0; i<60; i++) {
+            drops.push({ x: Math.random()*window.innerWidth, y: Math.random()*400, l: Math.random()*15+5, v: Math.random()*4+4 });
+        }
+
         function drawRain() {
-            if (!canvas || !canvas.parentElement.offsetHeight) { requestAnimationFrame(drawRain); return; }
-            ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)'; ctx.lineWidth = 1.5;
-            drops.forEach(p => { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x, p.y + p.len); ctx.stroke(); p.y += p.speed; if (p.y > canvas.height) p.y = -p.len; });
+            rCtx.clearRect(0,0,rainCanvas.width, rainCanvas.height);
+            rCtx.strokeStyle = 'rgba(0, 245, 212, 0.25)';
+            rCtx.lineWidth = 1;
+            drops.forEach(d => {
+                rCtx.beginPath();
+                rCtx.moveTo(d.x, d.y);
+                rCtx.lineTo(d.x, d.y + d.l);
+                rCtx.stroke();
+                d.y += d.v;
+                if(d.y > rainCanvas.height) { d.y = -20; d.x = Math.random()*rainCanvas.width; }
+            });
             requestAnimationFrame(drawRain);
         }
         drawRain();
 
-        let pomoMinutes = 25, pomoSeconds = 0, pomoTimer = null, isRunning = false;
+        let pomoInterval;
+        let pomoMinutes = 25;
+        let pomoSeconds = 0;
+        let isPomoRunning = false;
+
         function togglePomodoro() {
             const btn = document.getElementById('pomoBtn');
-            if (isRunning) { clearInterval(pomoTimer); btn.innerText = "استئناف"; isRunning = false; }
-            else {
-                isRunning = true; btn.innerText = "إيقاف";
-                pomoTimer = setInterval(() => {
-                    if (pomoSeconds === 0) { if (pomoMinutes === 0) { clearInterval(pomoTimer); alert("انتهى وقت التركيز!"); resetPomo(); } else { pomoMinutes--; pomoSeconds = 59; } } else pomoSeconds--;
-                    document.getElementById('pomoDisplay').innerText = `${String(pomoMinutes).padStart(2, '0')}:${String(pomoSeconds).padStart(2, '0')}`;
+            if(isPomoRunning) {
+                clearInterval(pomoInterval);
+                isPomoRunning = false;
+                btn.innerText = "ابدأ التركيز";
+            } else {
+                isPomoRunning = true;
+                btn.innerText = "إيقاف مؤقت";
+                pomoInterval = setInterval(() => {
+                    if(pomoSeconds === 0) {
+                        if(pomoMinutes === 0) {
+                            clearInterval(pomoInterval);
+                            alert("انتهى وقت التركيز بنجاح! خذ قسطاً من الراحة.");
+                            resetPomo();
+                            return;
+                        }
+                        pomoMinutes--; pomoSeconds = 59;
+                    } else { pomoSeconds--; }
+                    document.getElementById('pomoDisplay').innerText = `${pomoMinutes < 10 ? '0'+pomoMinutes : pomoMinutes}:${pomoSeconds < 10 ? '0'+pomoSeconds : pomoSeconds}`;
                 }, 1000);
             }
         }
-        function resetPomo() { pomoMinutes = 25; pomoSeconds = 0; isRunning = false; document.getElementById('pomoBtn').innerText = "ابدأ التركيز"; }
-
-        // ================= 7. محرك وإعدادات صالة الألعاب المستقرة =================
-        function stopAllGames() {
-            if(pomoTimer) clearInterval(pomoTimer);
-            resetPomo();
+        function resetPomo() {
+            pomoMinutes = 25; pomoSeconds = 0; isPomoRunning = false;
             document.getElementById('pomoDisplay').innerText = "25:00";
+            document.getElementById('pomoBtn').innerText = "ابدأ التركيز";
         }
 
-        window.onload = function() {
+        // ================= 8. صالة الألعاب وإضافة لعبة الثعبان النيون =================
+        let activeGame = '';
+        let snakeGameInterval;
+        const canvasG = document.getElementById('gameCanvas');
+        const ctxG = canvasG.getContext('2d');
+        
+        // متغيرات الـ XO
+        let xoMode = 'ai';
+        let xoBoardState = Array(9).fill('');
+        let xoActive = false;
+
+        function launchGame(game) {
+            stopAllGames();
+            activeGame = game;
+            document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`gameInstructions`).style.display = 'none';
+
+            if(game === 'xo') {
+                document.getElementById('btn-game-xo').classList.add('active');
+                document.getElementById('xoControls').classList.add('active');
+                document.getElementById('xoBoard').classList.add('active');
+            } else if(game === 'snake') {
+                document.getElementById('btn-game-snake').classList.add('active');
+                canvasG.classList.add('active');
+                startSnakeGame();
+            }
+        }
+
+        function stopAllGames() {
+            clearInterval(snakeGameInterval);
+            document.getElementById('xoControls').classList.remove('active');
+            document.getElementById('xoBoard').classList.remove('active');
+            canvasG.classList.remove('active');
+            xoActive = false;
+            resetXO();
+        }
+
+        // كود تشغيل لعبة XO
+        function startXO(mode) {
+            xoMode = mode;
+            resetXO();
+            xoActive = true;
+            document.getElementById('gameInstructions').style.display = 'block';
+            document.getElementById('gameInstructions').innerText = `اللعب حالياً: نمط ${mode === 'ai' ? 'ضد الكمبيوتر' : 'لاعب ضد لاعب'}`;
+        }
+        function makeXOMove(index) {
+            if(!xoActive || xoBoardState[index] !== '') return;
+            xoBoardState[index] = 'X';
+            renderXO();
+            if(checkXOWin('X')) { alert("مبروك! فاز اللاعب X"); unlockAchievement('ach-xo-pvp'); resetXO(); return; }
+            if(xoBoardState.every(c => c !== '')) { alert("تعادل!"); resetXO(); return; }
+
+            if(xoMode === 'ai') {
+                let emptyCells = xoBoardState.map((c, i) => c === '' ? i : null).filter(c => c !== null);
+                if(emptyCells.length > 0) {
+                    let aiMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                    xoBoardState[aiMove] = 'O';
+                    setTimeout(() => {
+                        renderXO();
+                        if(checkXOWin('O')) { alert("فاز الكمبيوتر 🤖 حظاً أوفر المرة القادمة!"); resetXO(); }
+                    }, 300);
+                }
+            } else {
+                // تبديل تلقائي للأدوار في نمط pvp يدوي مبسط
+                let xCount = xoBoardState.filter(c => c === 'X').length;
+                let oCount = xoBoardState.filter(c => c === 'O').length;
+                if(xCount > oCount) {
+                    xoBoardState[index] = 'X'; 
+                }
+            }
+        }
+        function renderXO() {
+            const cells = document.querySelectorAll('.xo-cell');
+            xoBoardState.forEach((val, i) => {
+                cells[i].innerText = val;
+                cells[i].className = 'xo-cell' + (val === 'X' ? ' x-style' : val === 'O' ? ' o-style' : '');
+            });
+        }
+        function checkXOWin(p) {
+            const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return winPatterns.some(pattern => pattern.every(i => xoBoardState[i] === p));
+        }
+        function resetXO() {
+            xoBoardState = Array(9).fill('');
+            renderXO();
+        }
+
+        // كود تشغيل لعبة الثعبان كاملة بستايل النيون الناري
+        let snake, food, dx, dy, snakeScore;
+        function startSnakeGame() {
+            snake = [{x: 200, y: 200}, {x: 190, y: 200}, {x: 180, y: 200}];
+            dx = 10; dy = 0; snakeScore = 0;
+            genFood();
+            clearInterval(snakeGameInterval);
+            snakeGameInterval = setInterval(snakeTick, 80);
+        }
+        function snakeTick() {
+            if (hasSnakeGameEnded()) {
+                alert(`Game Over! سكورك: ${snakeScore}`);
+                startSnakeGame();
+                return;
+            }
+            clearSnakeCanvas();
+            drawSnakeFood();
+            moveSnake();
+            drawSnakeAndGlow();
+        }
+        function clearSnakeCanvas() {
+            ctxG.fillStyle = "#020105";
+            ctxG.fillRect(0, 0, canvasG.width, canvasG.height);
+        }
+        function drawSnakeAndGlow() {
+            snake.forEach((part, index) => {
+                ctxG.fillStyle = index === 0 ? 'var(--accent-pink)' : 'var(--accent-glow)';
+                ctxG.shadowBlur = 10;
+                ctxG.shadowColor = ctxG.fillStyle;
+                ctxG.fillRect(part.x, part.y, 10, 10);
+            });
+            ctxG.shadowBlur = 0; // إعادة تعيين التوهج
+        }
+        function moveSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+            if (snake[0].x === food.x && snake[0].y === food.y) {
+                snakeScore += 2;
+                if(snakeScore >= 10) unlockAchievement('ach-chicken');
+                genFood();
+            } else {
+                snake.pop();
+            }
+        }
+        function genFood() {
+            food = {
+                x: Math.floor(Math.random() * (canvasG.width / 10)) * 10,
+                y: Math.floor(Math.random() * (canvasG.height / 10)) * 10
+            };
+        }
+        function drawSnakeFood() {
+            ctxG.fillStyle = '#ff0055';
+            ctxG.fillRect(food.x, food.y, 10, 10);
+        }
+        function hasSnakeGameEnded() {
+            for (let i = 4; i < snake.length; i++) {
+                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+            }
+            const hitLeft = snake[0].x < 0;
+            const hitRight = snake[0].x >= canvasG.width;
+            const hitTopt = snake[0].y < 0;
+            const hitBottom = snake[0].y >= canvasG.height;
+            return hitLeft || hitRight || hitTopt || hitBottom;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if(activeGame !== 'snake') return;
+            if (e.key === 'ArrowLeft' && dx === 0) { dx = -10; dy = 0; }
+            if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -10; }
+            if (e.key === 'ArrowRight' && dx === 0) { dx = 10; dy = 0; }
+            if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 10; }
+        });
+
+        // محاكاة زر الطوارئ ESC للخلل السيبراني
+        window.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                document.body.classList.remove('glitch-active');
+                document.getElementById('glitchAlert').style.display = 'none';
+            }
+        });
+
+        // تهيئة البيانات عند التشغيل أول مرة
+        window.onload = () => {
             loadAchievements();
             displaySecretNotes();
         };
