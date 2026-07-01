@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v17.0 - FUT Edition</title>
+    <title>Ultimate Core Hub v17.1 - Gameplay Fix</title>
     <style>
         :root {
             --bg-color: #030008;
@@ -122,7 +122,6 @@
         .profile-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--accent-glow); font-family: monospace; }
         .xp-display-large { font-size: 1.5rem; color: var(--accent-gold); font-weight: bold; font-family: monospace; margin-top: 5px; text-shadow: 0 0 10px rgba(255,215,0,0.4); }
 
-        /* ستايل متجر الباكجات وفيفا كاردز */
         .packs-market { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
         @media(max-width: 600px) { .packs-market { grid-template-columns: 1fr; } }
         .pack-card {
@@ -136,7 +135,6 @@
         .pack-card:hover { transform: translateY(-5px); border-color: var(--accent-pink); }
         .pack-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 8px; background: rgba(255,255,255,0.1); font-weight: bold; display: inline-block; margin-bottom: 10px; }
 
-        /* كارت فيفا الأسطوري */
         .fut-card-opening { display: flex; justify-content: center; margin: 25px 0; min-height: 180px; }
         .fut-card {
             width: 140px; height: 210px; background: linear-gradient(135deg, #1e1145, #0a051c);
@@ -158,7 +156,6 @@
         }
         .mini-fut-card.high-tier { border-color: var(--accent-gold); box-shadow: 0 0 8px rgba(255,215,0,0.3); }
 
-        /* لوحة الـ To-Do */
         .todo-wrapper { display: flex; flex-direction: column; gap: 15px; }
         .todo-input-bar { display: flex; gap: 10px; }
         .todo-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
@@ -170,7 +167,6 @@
         .todo-item.done .todo-text { text-decoration: line-through; color: var(--muted-text); }
         .todo-actions { display: flex; gap: 10px; }
 
-        /* صالة الألعاب */
         .arcade-menu { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
         .game-screen-wrapper { background: #05020c; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; }
         .game-canvas { background: #020105; border: 1px solid rgba(0, 245, 212, 0.15); border-radius: 8px; max-width: 100%; display: none; margin: 15px auto 0 auto; }
@@ -205,7 +201,7 @@
 
     <header>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v17.0 // FUT Pack & Workspace Hub</div>
+        <div class="tagline">// Ultimate Core Hub v17.1 // FUT Pack & Fixed Gameplay Hub</div>
     </header>
 
     <div class="main-container">
@@ -219,6 +215,7 @@
             </div>
         </div>
 
+        <!-- ================= 💻 بيئة العمل والباكجات ================= -->
         <div id="workspace" class="tab-content active">
             <div class="gravity-card">
                 <h2>👤 بطاقة التقييم والـ XP الفعلي</h2>
@@ -275,8 +272,7 @@
 
                 <div style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:15px;">
                     <h4 style="margin:0 0 10px 0; color:var(--accent-glow);">🏃‍♂️ تشكيلة لاعبيك الحالية (My Club):</h4>
-                    <div class="my-club-grid" id="myClubContainer">
-                        </div>
+                    <div class="my-club-grid" id="myClubContainer"></div>
                 </div>
             </div>
 
@@ -297,6 +293,7 @@
             </div>
         </div>
 
+        <!-- ================= 📝 قائمة مهام TO-DO LIST ================= -->
         <div id="todolist" class="tab-content">
             <div class="gravity-card">
                 <h2>📝 مخطط قائمة المهام الذكي وكسب الـ XP</h2>
@@ -311,6 +308,7 @@
             </div>
         </div>
 
+        <!-- ================= 🔒 المفكرة السرية ================= -->
         <div id="study" class="tab-content">
             <div class="gravity-card">
                 <h2>🔒 المفكرة الخاصة (حفظ محلي تلقائي)</h2>
@@ -325,18 +323,19 @@
             </div>
         </div>
 
+        <!-- ================= 🎮 صالة الألعاب ================= -->
         <div id="games" class="tab-content">
             <div class="gravity-card">
-                <h2>🎮 صالة الألعاب الفورية المطورة (الثعبان والـ XO والكورة)</h2>
+                <h2>🎮 صالة الألعاب الفورية المطورة (نسخة إصلاح نظام اللعب)</h2>
                 <div class="arcade-menu">
                     <button class="tab-btn active" id="btn-game-xo" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
                     <button class="tab-btn" id="btn-game-snake" onclick="launchGame('snake')">🐍 الثعبان الناري الأسطوري</button>
-                    <button class="tab-btn" id="btn-game-tennis" onclick="launchGame('tennis')">🎾 بينج بونج التنس السريع</button>
-                    <button class="tab-btn" id="btn-game-football" onclick="launchGame('football')">⚽ كورة أركيد وسوبر جون</button>
+                    <button class="tab-btn" id="btn-game-tennis" onclick="launchGame('tennis')">🎾 بينج بونج التنس المصلح</button>
+                    <button class="tab-btn" id="btn-game-football" onclick="launchGame('football')">⚽ كورة وقناص الجون الجديد</button>
                 </div>
 
                 <div class="game-screen-wrapper">
-                    <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text);">استخدم الأسهم للتحكم في الألعاب!</span>
+                    <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text); font-weight: bold; display: block; margin-bottom: 10px;">استخدم الأسهم للتحكم في الألعاب!</span>
                     
                     <div class="xo-controls" id="xoControls">
                         <button class="modern-btn" onclick="startXO('ai')">🤖 ضد الكمبيوتر</button>
@@ -355,10 +354,10 @@
 
     </div>
 
-    <footer>Ultimate Core Hub v17.0</footer>
+    <footer>Ultimate Core Hub v17.1</footer>
 
     <script>
-        // داتا لاعبي فيفا حسب مستويات الحظ والباكجات
+        // داتا لاعبي فيفا
         const playerDatabase = {
             gold: [
                 { name: "Maguire", rat: 79, pos: "CB", club: "Man United" },
@@ -386,7 +385,7 @@
             ]
         };
 
-        let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 60; // يبدأ بـ 60 XP مجاناً للتجربة
+        let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 60;
         let myClub = JSON.parse(localStorage.getItem('ahmed_my_club')) || [];
 
         function updateXpDisplay() {
@@ -415,15 +414,12 @@
             if(userXp < cost) { alert("عذراً يا أحمد! رصيد الـ XP غير كافٍ. اذهب لإنهاء بعض مهام الـ To-Do List لكسب الـ XP!"); return; }
             userXp -= cost; updateXpDisplay();
 
-            // سحب لاعب عشوائي من قاعدة البيانات بناءً على فئة الباكج
             const pool = playerDatabase[tier];
             const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
 
-            // حفظ في النادي الخاص باللاعب
             myClub.unshift(luckyPlayer);
             localStorage.setItem('ahmed_my_club', JSON.stringify(myClub));
 
-            // كود أنيميشن فتح كارت فيفا
             const cardEl = document.getElementById('futCardDisplay');
             cardEl.classList.remove('active');
             setTimeout(() => {
@@ -432,7 +428,6 @@
                 document.getElementById('cardName').innerText = luckyPlayer.name;
                 document.getElementById('cardClub').innerText = luckyPlayer.club;
                 
-                // تغيير حدود الكارت حسب القوة
                 if(luckyPlayer.rat >= 90) cardEl.style.borderColor = 'var(--accent-gold)';
                 else if(luckyPlayer.rat >= 84) cardEl.style.borderColor = 'var(--accent-glow)';
                 else cardEl.style.borderColor = '#c0c0c0';
@@ -468,7 +463,7 @@
             if(tabId !== 'games') stopAllGames();
         }
 
-        // --- نظام الـ TO-DO LIST المطّور والمربوط بالـ XP الفعلي ---
+        // --- نظام الـ TO-DO LIST ---
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function addTodoItem() {
             const input = document.getElementById('todoInput');
@@ -481,7 +476,7 @@
             if(!todos[index].done) {
                 todos[index].done = true;
                 if(!todos[index].xpAwarded) {
-                    userXp += 20; // تكافأ بـ 20 XP عند إنهاء المهمة
+                    userXp += 20;
                     todos[index].xpAwarded = true;
                     updateXpDisplay();
                     alert("عاش يا بطل! تم إنهاء المهمة وكسب +20 عملة XP ⚽");
@@ -553,18 +548,25 @@
             }
         }
 
-        // ================= صالة الألعاب المدمجة والكاملة =================
+        // ================= صالة الألعاب المصلحة v17.1 =================
         let activeGame = ''; let gameLoopInterval;
         const canvasG = document.getElementById('gameCanvas'); const ctxG = canvasG.getContext('2d');
         let xoBoardState = Array(9).fill(''); let xoCurrentPlayer = 'X'; let xoActive = false; let xoMode = 'ai';
         let snake = [], sDX = 10, sDY = 0, snakeFood = {}, snakeScore = 0;
-        let paddleY = 150, computerPaddleY = 150, ballX = 200, ballY = 200, ballDX = 5, ballDY = 3;
-        let playerX = 190, playerY = 320, footballX = 200, footballY = 150, fbDX = 0, fbDY = -2, keeperX = 160, keeperDX = 3, fbScore = 0;
+        
+        // متغيرات البينج بونج (تنس)
+        let paddleY = 150, computerPaddleY = 150, ballX = 200, ballY = 200, ballDX = 4, ballDY = 2;
+        
+        // متغيرات كرة القدم المعدلة بالكامل
+        let playerX = 185, playerY = 320;
+        let footballX = 200, footballY = 300;
+        let fbDX = 0, fbDY = 0; 
+        let isBallKicked = false; // لمتابعة حالة الشوت
+        let keeperX = 160, keeperDX = 3, fbScore = 0;
 
         function launchGame(game) {
             stopAllGames(); activeGame = game;
             document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('gameInstructions').style.display = 'block';
             if(game === 'xo') {
                 document.getElementById('btn-game-xo').classList.add('active');
                 document.getElementById('xoControls').classList.add('active');
@@ -631,51 +633,120 @@
         }
         function genSnakeFood() { snakeFood = { x: Math.floor(Math.random()*40)*10, y: Math.floor(Math.random()*40)*10 }; }
 
+        // --- إصلاح البينج بونج لتوضيح المضارب تماماً ---
         function startTennis() {
-            ballX = 200; ballY = 200; ballDX = 5; ballDY = 3; paddleY = 160; computerPaddleY = 160;
+            ballX = 200; ballY = 200; ballDX = 4; ballDY = 2; paddleY = 160; computerPaddleY = 160;
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(tennisTick, 16);
-            document.getElementById('gameInstructions').innerText = "بينج بونج فائق السرعة! استخدم السهم العلوي والسفلي لتحريك المضرب الأخضر";
+            document.getElementById('gameInstructions').innerText = "🎾 استخدم السهم العلوي والسفلي لتحريك مضربك (الأخضر النيون) ضد الكمبيوتر!";
         }
         function tennisTick() {
             ballX += ballDX; ballY += ballDY;
-            if(computerPaddleY + 30 < ballY) computerPaddleY += 3.8; else if(computerPaddleY + 30 > ballY) computerPaddleY -= 3.8;
+            
+            // ذكاء اصطناعي خفيف للمضرب المقابل
+            if(computerPaddleY + 35 < ballY) computerPaddleY += 3.2; 
+            else if(computerPaddleY + 35 > ballY) computerPaddleY -= 3.2;
+            
             if(ballY <= 0 || ballY >= 390) ballDY = -ballDY;
-            if(ballX <= 20 && ballY >= paddleY && ballY <= paddleY + 70) ballDX = -ballDX;
-            if(ballX >= 370 && ballY >= computerPaddleY && ballY <= computerPaddleY + 70) ballDX = -ballDX;
+            
+            // الاصطدام بالمضارب الواضحة
+            if(ballX <= 25 && ballY >= paddleY && ballY <= paddleY + 70) { ballDX = -ballDX; ballX = 26; }
+            if(ballX >= 365 && ballY >= computerPaddleY && ballY <= computerPaddleY + 70) { ballDX = -ballDX; ballX = 364; }
+            
             if(ballX < 0 || ballX > 400) startTennis();
+            
             ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
-            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(10, paddleY, 12, 70);
-            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(378, computerPaddleY, 12, 70);
-            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(ballX, ballY, 6, 0, Math.PI*2); ctxG.fill();
+            
+            // مضرب اللاعب (فسفوري نيون واضح جداً)
+            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(10, paddleY, 15, 70);
+            
+            // مضرب الكمبيوتر (وردي مضيء)
+            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(375, computerPaddleY, 15, 70);
+            
+            // الكورة
+            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(ballX, ballY, 7, 0, Math.PI*2); ctxG.fill();
         }
 
+        // --- تطوير نظام شوط كرة القدم الفعلي والسهل بالمسطرة ---
         function startFootball() {
-            playerX = 185; playerY = 330; footballX = 200; footballY = 280; fbDX = 0; fbDY = 0; keeperX = 160; fbScore = 0;
+            playerX = 185; playerY = 320; 
+            footballX = 200; footballY = 300; 
+            fbDX = 0; fbDY = 0; isBallKicked = false;
+            keeperX = 160; keeperDX = 3; 
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(footballTick, 16);
-            document.getElementById('gameInstructions').innerText = `الأهداف: ${fbScore} // حرك اللاعب (الأخضر) واصدم الكورة لشوطها بالجون!`;
+            document.getElementById('gameInstructions').innerText = `⚽ الأهداف: ${fbScore} // تحرك بالأسهم في كل الاتجاهات (الكورة لاصقة برجلك) واضغط [مسطرة Spacebar] عشان تشوط جامد في الجون!`;
         }
         function footballTick() {
-            keeperX += keeperDX; if(keeperX <= 40 || keeperX >= 280) keeperDX = -keeperDX;
-            footballX += fbDX; footballY += fbDY; fbDX *= 0.98; fbDY *= 0.98;
-            if(footballX >= playerX && footballX <= playerX + 30 && footballY >= playerY && footballY <= playerY + 30) { fbDY = -6; fbDX = (footballX - (playerX + 15)) * 0.3; }
-            if(footballY <= 60 && footballY >= 40 && footballX >= keeperX && footballX <= keeperX + 80) { fbDY = 5; }
-            if(footballY <= 30) { if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة يا أحمد ⚽"); startFootball(); return; } else { fbDY = 4; } }
-            if(footballX <= 5 || footballX >= 390) fbDX = -fbDX; if(footballY >= 390) { fbDY = -3; }
-            ctxG.fillStyle = "#031105"; ctxG.fillRect(0,0,400,400); ctxG.strokeStyle = "rgba(255,255,255,0.2)"; ctxG.lineWidth = 3; ctxG.strokeRect(100, 0, 200, 30);
-            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(keeperX, 40, 80, 15);
+            // حركة حارس المرمى
+            keeperX += keeperDX; if(keeperX <= 60 || keeperX >= 260) keeperDX = -keeperDX;
+
+            if(!isBallKicked) {
+                // الكورة بتتحرك مع اللاعب تلقائياً عشان تظبط الاتجاه
+                footballX = playerX + 15;
+                footballY = playerY - 10;
+            } else {
+                // الكورة منطلقة بعد الشوطة
+                footballX += fbDX;
+                footballY += fbDY;
+
+                // صد الحارس الكورة
+                if(footballY <= 55 && footballY >= 35 && footballX >= keeperX && footballX <= keeperX + 80) { 
+                    fbDY = 4; isBallKicked = false; alert("صدها الحارس! جرب تشوط في زاوية تانية."); startFootball(); return;
+                }
+                
+                // دخول هدف في المرمى (بين الـ 100 والـ 300 في الأعلى)
+                if(footballY <= 20) {
+                    if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة وهداف يا أحمد ⚽🔥"); startFootball(); return; }
+                    else { fbDY = 3; isBallKicked = false; startFootball(); return; }
+                }
+
+                // ارتداد من الحوائط الجانبية
+                if(footballX <= 5 || footballX >= 395) fbDX = -fbDX;
+                if(footballY >= 400 || footballY < 0) { isBallKicked = false; startFootball(); return; }
+            }
+
+            // رسم الملعب
+            ctxG.fillStyle = "#031c09"; ctxG.fillRect(0,0,400,400); 
+            ctxG.strokeStyle = "rgba(255,255,255,0.2)"; ctxG.lineWidth = 4;
+            ctxG.strokeRect(100, 0, 200, 35); // شبكة المرمى العلوية
+
+            // رسم الحارس (وردي)
+            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(keeperX, 35, 80, 15);
+            
+            // رسم اللاعب أحمد (أخضر نيون)
             ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(playerX, playerY, 30, 30);
+            
+            // رسم الكورة (أبيض)
             ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(footballX, footballY, 8, 0, Math.PI*2); ctxG.fill();
         }
 
+        // الاستماع لأزرار الكيبورد للتحكم السلس والثابت
         window.addEventListener('keydown', (e) => {
-            if(activeGame === 'tennis') { if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 25; if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 25; }
+            if(activeGame === 'tennis') { 
+                if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 20; 
+                if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 20; 
+            }
             if(activeGame === 'snake') {
-                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; } if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
-                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
+                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; } 
+                if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
+                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } 
+                if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
             }
             if(activeGame === 'football') {
-                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 20; if(e.key === 'ArrowRight' && playerX < 360) playerX += 20;
-                if(e.key === 'ArrowUp' && playerY > 200) playerY -= 20; if(e.key === 'ArrowDown' && playerY < 360) playerY += 20;
+                // التحكم في حركة اللاعب بكل الاتجاهات لتجهيز الكورة
+                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 15; 
+                if(e.key === 'ArrowRight' && playerX < 360) playerX += 15;
+                if(e.key === 'ArrowUp' && playerY > 80) playerY -= 15; 
+                if(e.key === 'ArrowDown' && playerY < 360) playerY += 15;
+                
+                // زرار المسطرة عشان تشوووط الكورة بقوة!
+                if(e.key === ' ' || e.code === 'Space') {
+                    e.preventDefault(); // يمنع نزول الصفحة لتحت عند الضغط على المسطرة
+                    if(!isBallKicked) {
+                        isBallKicked = true;
+                        fbDY = -8; // سرعة انطلاق الكورة للأمام فوراً
+                        fbDX = Math.random() * 4 - 2; // انحراف خفيف عشوائي عشان تعمل آر تو (R2)
+                    }
+                }
             }
         });
 
