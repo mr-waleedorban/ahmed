@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Core Hub v16.0</title>
+    <title>Ultimate Core Hub v17.0 - FUT Edition</title>
     <style>
         :root {
             --bg-color: #030008;
@@ -13,6 +13,7 @@
             --text-color: #f3f4f6;
             --accent-glow: #00f5d4;
             --accent-pink: #ff007f;
+            --accent-gold: #ffd700;
             --muted-text: #9ca3af;
         }
 
@@ -31,7 +32,7 @@
             cursor: none;
         }
 
-        a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, textarea, input, .todo-item {
+        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item {
             cursor: none !important;
         }
 
@@ -107,9 +108,6 @@
         }
         .modern-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-
         .mindmap-input {
             flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color);
             border-radius: 10px; padding: 12px 15px; color: #fff; font-size: 0.9rem; outline: none;
@@ -122,19 +120,45 @@
             font-size: 2.2rem; font-weight: bold; color: #fff; border: 3px solid #fff;
         }
         .profile-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--accent-glow); font-family: monospace; }
-        .skills-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
-        .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; }
-        .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); }
+        .xp-display-large { font-size: 1.5rem; color: var(--accent-gold); font-weight: bold; font-family: monospace; margin-top: 5px; text-shadow: 0 0 10px rgba(255,215,0,0.4); }
 
-        .loot-container { margin-top: 20px; background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--border-color); border-radius: 16px; padding: 20px; text-align: center; }
-        .loot-box-graphic { font-size: 3rem; display: inline-block; animation: float 3s ease-in-out infinite; }
-        .loot-result { margin-top: 10px; font-weight: bold; color: var(--accent-glow); font-family: monospace; }
+        /* ستايل متجر الباكجات وفيفا كاردز */
+        .packs-market { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        @media(max-width: 600px) { .packs-market { grid-template-columns: 1fr; } }
+        .pack-card {
+            background: linear-gradient(135deg, rgba(20,10,40,0.8), rgba(5,2,15,0.9));
+            border: 2px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .pack-card.gold { border-color: #c0c0c0; }
+        .pack-card.mega { border-color: var(--accent-glow); }
+        .pack-card.ultimate { border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(255,215,0,0.2); }
+        .pack-card:hover { transform: translateY(-5px); border-color: var(--accent-pink); }
+        .pack-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 8px; background: rgba(255,255,255,0.1); font-weight: bold; display: inline-block; margin-bottom: 10px; }
 
-        .hardware-monitor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-        .hw-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; text-align: center; }
-        .hw-val { font-size: 1.6rem; font-weight: bold; font-family: monospace; color: var(--accent-glow); margin-top: 5px; }
+        /* كارت فيفا الأسطوري */
+        .fut-card-opening { display: flex; justify-content: center; margin: 25px 0; min-height: 180px; }
+        .fut-card {
+            width: 140px; height: 210px; background: linear-gradient(135deg, #1e1145, #0a051c);
+            border: 3px solid var(--accent-gold); border-radius: 15px; position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7), 0 0 20px rgba(255,215,0,0.3);
+            padding: 15px; text-align: center; font-family: 'Arial Black', sans-serif;
+            animation: float 3s ease-in-out infinite; display: none;
+        }
+        .fut-card.active { display: block; }
+        .fut-rating { font-size: 2.2rem; font-weight: 900; color: var(--accent-gold); line-height: 1; }
+        .fut-pos { font-size: 0.8rem; color: #fff; font-weight: bold; }
+        .fut-name { font-size: 1rem; font-weight: bold; color: #fff; margin-top: 45px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
+        .fut-club { font-size: 0.75rem; color: var(--accent-glow); margin-top: 5px; }
 
-        /* تصفيف نظام المهام الـ To Do */
+        .my-club-grid { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5px; margin-top: 15px; }
+        .mini-fut-card {
+            min-width: 90px; height: 130px; background: #0c0620; border: 2px solid var(--accent-glow);
+            border-radius: 10px; padding: 8px; text-align: center; font-size: 0.8rem;
+        }
+        .mini-fut-card.high-tier { border-color: var(--accent-gold); box-shadow: 0 0 8px rgba(255,215,0,0.3); }
+
+        /* لوحة الـ To-Do */
         .todo-wrapper { display: flex; flex-direction: column; gap: 15px; }
         .todo-input-bar { display: flex; gap: 10px; }
         .todo-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
@@ -142,7 +166,7 @@
             background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px;
             padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;
         }
-        .todo-item.done { border-color: rgba(255,0,127,0.2); opacity: 0.5; }
+        .todo-item.done { border-color: rgba(0,245,212,0.3); background: rgba(0,245,212,0.02); }
         .todo-item.done .todo-text { text-decoration: line-through; color: var(--muted-text); }
         .todo-actions { display: flex; gap: 10px; }
 
@@ -164,6 +188,10 @@
         .xo-controls { display: none; gap: 10px; justify-content: center; margin-bottom: 15px; }
         .xo-controls.active { display: flex; }
 
+        .hardware-monitor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .hw-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; text-align: center; }
+        .hw-val { font-size: 1.6rem; font-weight: bold; font-family: monospace; color: var(--accent-glow); margin-top: 5px; }
+
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.3; }
     </style>
@@ -177,55 +205,88 @@
 
     <header>
         <div class="modern-logo">AW</div>
-        <div class="tagline">// Ultimate Core Hub v16.0 // Control & Core Gaming Hub</div>
+        <div class="tagline">// Ultimate Core Hub v17.0 // FUT Pack & Workspace Hub</div>
     </header>
 
     <div class="main-container">
 
         <div class="control-panel">
             <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
+                <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل والباكجات</button>
                 <button class="tab-btn" onclick="switchTab('todolist')">📝 قائمة مهام TO-DO</button>
                 <button class="tab-btn" onclick="switchTab('study')">🔒 المفكرة السرية</button>
-                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب الجديدة</button>
+                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب المحدثة</button>
             </div>
         </div>
 
-        <!-- ================= 💻 بيئة العمل ================= -->
         <div id="workspace" class="tab-content active">
             <div class="gravity-card">
-                <h2>👤 بطاقة التعريف السيبرانية</h2>
+                <h2>👤 بطاقة التقييم والـ XP الفعلي</h2>
                 <div class="profile-card-wrapper">
                     <div class="profile-avatar">AW</div>
                     <div class="profile-info">
                         <h3>أحمد وليد</h3>
-                        <div class="profile-status">SYSTEM STATUS: OPERATIONAL // WORKSPACE V16</div>
-                        <div class="skills-container">
-                            <span class="skill-badge highlight">🎓 Student Hub</span>
-                            <span class="skill-badge">📐 Physics Enthusiast</span>
-                            <span class="skill-badge">🕹️ Arcade Tester</span>
-                        </div>
+                        <div class="profile-status">رصيدك الحالي من عملات الـ XP لتفتيح الباكجات:</div>
+                        <div class="xp-display-large" id="globalXpDisplay">0 XP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gravity-card">
+                <h2>⚽ متجر باكجات فيفا الأسطوري (FUT Packs Shop)</h2>
+                <div style="font-size:0.85rem; color:var(--muted-text); margin-bottom:15px;">اجمع الـ XP من إنهاء مهام الـ To-Do List وافتح باكجات فيفا المفضلة لديك!</div>
+                
+                <div class="packs-market">
+                    <div class="pack-card gold">
+                        <span class="pack-badge" style="color:#c0c0c0;">Gold Pack</span>
+                        <h3 style="margin:5px 0; font-size:1.1rem;">باكج ضعيف</h3>
+                        <div style="font-size:1.3rem; color:var(--accent-gold); font-weight:bold; margin:10px 0;">20 XP</div>
+                        <span style="font-size:0.75rem; color:var(--muted-text); display:block; margin-bottom:15px;">ريت اللاعبين: 75 - 83</span>
+                        <button class="modern-btn" style="width:100%; border-color:#c0c0c0;" onclick="buyFutPack('gold', 20)">🛒 فتح الباكج</button>
+                    </div>
+
+                    <div class="pack-card mega">
+                        <span class="pack-badge" style="color:var(--accent-glow);">Mega Pack</span>
+                        <h3 style="margin:5px 0; font-size:1.1rem;">باكج متوسط الحظ</h3>
+                        <div style="font-size:1.3rem; color:var(--accent-gold); font-weight:bold; margin:10px 0;">40 XP</div>
+                        <span style="font-size:0.75rem; color:var(--muted-text); display:block; margin-bottom:15px;">ريت اللاعبين: 84 - 89</span>
+                        <button class="modern-btn" style="width:100%; border-color:var(--accent-glow);" onclick="buyFutPack('mega', 40)">🛒 فتح الباكج</button>
+                    </div>
+
+                    <div class="pack-card ultimate">
+                        <span class="pack-badge" style="color:var(--accent-gold);">Ultimate Pack</span>
+                        <h3 style="margin:5px 0; font-size:1.1rem;">أقوى باكج حظ</h3>
+                        <div style="font-size:1.3rem; color:var(--accent-gold); font-weight:bold; margin:10px 0;">60 XP</div>
+                        <span style="font-size:0.75rem; color:var(--muted-text); display:block; margin-bottom:15px;">ريت اللاعبين: 90 - 99 ✨</span>
+                        <button class="modern-btn" style="width:100%; border-color:var(--accent-gold);" onclick="buyFutPack('ultimate', 60)">🛒 فتح الباكج</button>
                     </div>
                 </div>
 
-                <div class="loot-container">
-                    <div class="loot-box-graphic" onclick="openDailyLootBox()">📦</div>
-                    <div style="margin-top: 5px; font-size: 0.85rem; color: var(--muted-text);">صندوق اللوت بوكس اليومي</div>
-                    <div class="loot-result" id="lootResultDisplay">اضغط على الصندوق لتجربة حظك اليومي!</div>
+                <div class="fut-card-opening">
+                    <div class="fut-card" id="futCardDisplay">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div class="fut-rating" id="cardRating">99</div>
+                            <div class="fut-pos" id="cardPos">ST</div>
+                        </div>
+                        <div class="fut-name" id="cardName">C. RONALDO</div>
+                        <div class="fut-club" id="cardClub">المرتزقة FC</div>
+                    </div>
+                </div>
+
+                <div style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:15px;">
+                    <h4 style="margin:0 0 10px 0; color:var(--accent-glow);">🏃‍♂️ تشكيلة لاعبيك الحالية (My Club):</h4>
+                    <div class="my-club-grid" id="myClubContainer">
+                        </div>
                 </div>
             </div>
 
             <div class="gravity-card">
-                <h2>🖥️ لوحة الأداء الافتراضية</h2>
-                <div class="hardware-monitor">
-                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">حرارة المعالج CPU</span><div class="hw-val" id="cpuTemp">44°C</div></div>
-                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">استهلاك الذاكرة RAM</span><div class="hw-val" id="ramUsage">51%</div></div>
-                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">سرعة المروحة FAN</span><div class="hw-val" id="fanSpeed">2150 RPM</div></div>
+                <h2>🖥️ لوحة الأداء ومحاكي المطر</h2>
+                <div class="hardware-monitor" style="margin-bottom: 20px;">
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">CPU Temp</span><div class="hw-val" id="cpuTemp">43°C</div></div>
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">RAM Usage</span><div class="hw-val" id="ramUsage">49%</div></div>
+                    <div class="hw-box"><span style="font-size:0.8rem; color:var(--muted-text);">FAN Speed</span><div class="hw-val" id="fanSpeed">2120 RPM</div></div>
                 </div>
-            </div>
-
-            <div class="gravity-card">
-                <h2>🌧️ محاكي نافذة المطر والـ Pomodoro</h2>
                 <div class="rain-container">
                     <canvas id="rainCanvas"></canvas>
                     <div class="pomo-overlay">
@@ -236,23 +297,20 @@
             </div>
         </div>
 
-        <!-- ================= 📝 قائمة مهام TO-DO LIST ================= -->
         <div id="todolist" class="tab-content">
             <div class="gravity-card">
-                <h2>📝 مخطط قائمة المهام الذكي (To-Do List)</h2>
+                <h2>📝 مخطط قائمة المهام الذكي وكسب الـ XP</h2>
+                <div style="font-size:0.85rem; color:var(--accent-glow); margin-bottom:15px;">كل مهمة تخلصها وتضغط "تم" هتزود رصيدك +20 XP فوراً عشان تفتح الباكجات!</div>
                 <div class="todo-wrapper">
                     <div class="todo-input-bar">
-                        <input type="text" id="todoInput" class="mindmap-input" placeholder="اكتب المهمة الجديدة هنا يا أحمد...">
-                        <button class="modern-btn" onclick="addTodoItem()">➕ إضافة</button>
+                        <input type="text" id="todoInput" class="mindmap-input" placeholder="اكتب المهمة أو المذاكرة المطلوبة منك يا أحمد...">
+                        <button class="modern-btn" onclick="addTodoItem()">➕ إضافة مهمة</button>
                     </div>
-                    <div class="todo-list" id="todoListContainer">
-                        <!-- المهام بتظهر هنا جافا سكريبت -->
-                    </div>
+                    <div class="todo-list" id="todoListContainer"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 🔒 المفكرة السرية ================= -->
         <div id="study" class="tab-content">
             <div class="gravity-card">
                 <h2>🔒 المفكرة الخاصة (حفظ محلي تلقائي)</h2>
@@ -267,21 +325,19 @@
             </div>
         </div>
 
-        <!-- ================= 🎮 صالة الألعاب الأربعة المطورة ================= -->
         <div id="games" class="tab-content">
             <div class="gravity-card">
-                <h2>🎮 صالة الألعاب الفورية المطورة (v16.0)</h2>
+                <h2>🎮 صالة الألعاب الفورية المطورة (الثعبان والـ XO والكورة)</h2>
                 <div class="arcade-menu">
                     <button class="tab-btn active" id="btn-game-xo" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
                     <button class="tab-btn" id="btn-game-snake" onclick="launchGame('snake')">🐍 الثعبان الناري الأسطوري</button>
-                    <button class="tab-btn" id="btn-game-tennis" onclick="launchGame('tennis')">🎾 بينج بونج التنس المطور</button>
+                    <button class="tab-btn" id="btn-game-tennis" onclick="launchGame('tennis')">🎾 بينج بونج التنس السريع</button>
                     <button class="tab-btn" id="btn-game-football" onclick="launchGame('football')">⚽ كورة أركيد وسوبر جون</button>
                 </div>
 
                 <div class="game-screen-wrapper">
                     <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text);">استخدم الأسهم للتحكم في الألعاب!</span>
                     
-                    <!-- واجهة لعبة تيك تاك تو -->
                     <div class="xo-controls" id="xoControls">
                         <button class="modern-btn" onclick="startXO('ai')">🤖 ضد الكمبيوتر</button>
                         <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="startXO('pvp')">👥 لاعب ضد لاعب</button>
@@ -292,7 +348,6 @@
                         <div class="xo-cell" onclick="makeXOMove(6)"></div><div class="xo-cell" onclick="makeXOMove(7)"></div><div class="xo-cell" onclick="makeXOMove(8)"></div>
                     </div>
 
-                    <!-- كانفاس الألعاب الثلاثة الأخرى -->
                     <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
                 </div>
             </div>
@@ -300,9 +355,93 @@
 
     </div>
 
-    <footer>Ultimate Core Hub v16.0</footer>
+    <footer>Ultimate Core Hub v17.0</footer>
 
     <script>
+        // داتا لاعبي فيفا حسب مستويات الحظ والباكجات
+        const playerDatabase = {
+            gold: [
+                { name: "Maguire", rat: 79, pos: "CB", club: "Man United" },
+                { name: "Antony", rat: 81, pos: "RW", club: "Man United" },
+                { name: "Gakpo", rat: 83, pos: "LW", club: "Liverpool" },
+                { name: "Chauameni", rat: 83, pos: "CDM", club: "Real Madrid" },
+                { name: "Nunez", rat: 82, pos: "ST", club: "Liverpool" }
+            ],
+            mega: [
+                { name: "Pedri", rat: 86, pos: "CM", club: "Barcelona" },
+                { name: "Saka", rat: 87, pos: "RW", club: "Arsenal" },
+                { name: "Leao", rat: 86, pos: "LW", club: "AC Milan" },
+                { name: "Son", rat: 87, pos: "LW", club: "Tottenham" },
+                { name: "Musiala", rat: 88, pos: "CAM", club: "Bayern" },
+                { name: "Martinez", rat: 89, pos: "GK", club: "Aston Villa" }
+            ],
+            ultimate: [
+                { name: "C. Ronaldo", rat: 96, pos: "ST", club: "Al Nassr" },
+                { name: "L. Messi", rat: 95, pos: "CAM", club: "Inter Miami" },
+                { name: "K. Mbappe", rat: 97, pos: "ST", club: "Real Madrid" },
+                { name: "E. Haaland", rat: 94, pos: "ST", club: "Man City" },
+                { name: "Vini Jr.", rat: 93, pos: "LW", club: "Real Madrid" },
+                { name: "J. Bellingham", rat: 92, pos: "CM", club: "Real Madrid" },
+                { name: "Salah", rat: 93, pos: "RW", club: "Liverpool" }
+            ]
+        };
+
+        let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 60; // يبدأ بـ 60 XP مجاناً للتجربة
+        let myClub = JSON.parse(localStorage.getItem('ahmed_my_club')) || [];
+
+        function updateXpDisplay() {
+            document.getElementById('globalXpDisplay').innerText = `${userXp} XP`;
+            localStorage.setItem('ahmed_user_xp', userXp);
+        }
+
+        function renderMyClub() {
+            const container = document.getElementById('myClubContainer');
+            container.innerHTML = '';
+            if(myClub.length === 0) { container.innerHTML = '<span style="font-size:0.85rem; color:var(--muted-text);">لم تفتح أي لاعبين بعد...</span>'; return; }
+            myClub.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `mini-fut-card ${p.rat >= 90 ? 'high-tier' : ''}`;
+                card.innerHTML = `
+                    <div style="font-weight:bold; color:var(--accent-gold); font-size:1.1rem;">${p.rat}</div>
+                    <div style="font-size:0.65rem; color:var(--muted-text);">${p.pos}</div>
+                    <div style="font-weight:bold; margin-top:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</div>
+                    <div style="font-size:0.6rem; color:var(--accent-glow); margin-top:4px;">${p.club}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function buyFutPack(tier, cost) {
+            if(userXp < cost) { alert("عذراً يا أحمد! رصيد الـ XP غير كافٍ. اذهب لإنهاء بعض مهام الـ To-Do List لكسب الـ XP!"); return; }
+            userXp -= cost; updateXpDisplay();
+
+            // سحب لاعب عشوائي من قاعدة البيانات بناءً على فئة الباكج
+            const pool = playerDatabase[tier];
+            const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
+
+            // حفظ في النادي الخاص باللاعب
+            myClub.unshift(luckyPlayer);
+            localStorage.setItem('ahmed_my_club', JSON.stringify(myClub));
+
+            // كود أنيميشن فتح كارت فيفا
+            const cardEl = document.getElementById('futCardDisplay');
+            cardEl.classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('cardRating').innerText = luckyPlayer.rat;
+                document.getElementById('cardPos').innerText = luckyPlayer.pos;
+                document.getElementById('cardName').innerText = luckyPlayer.name;
+                document.getElementById('cardClub').innerText = luckyPlayer.club;
+                
+                // تغيير حدود الكارت حسب القوة
+                if(luckyPlayer.rat >= 90) cardEl.style.borderColor = 'var(--accent-gold)';
+                else if(luckyPlayer.rat >= 84) cardEl.style.borderColor = 'var(--accent-glow)';
+                else cardEl.style.borderColor = '#c0c0c0';
+
+                cardEl.classList.add('active');
+                renderMyClub(); setupHoverEvents();
+            }, 150);
+        }
+
         // الماوس النيون المخصص
         const dot = document.getElementById('cursorDot');
         const glow = document.getElementById('cursorGlow');
@@ -312,53 +451,59 @@
         });
 
         function setupHoverEvents() {
-            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, textarea, input, .todo-item').forEach(el => {
+            document.querySelectorAll('a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, textarea, input, .todo-item').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
         }
 
-        // نظام التنقل بين التبويبات
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
-            if(tabId === 'workspace') setTimeout(resizeCanvas, 50);
+            if(tabId === 'workspace') { setTimeout(resizeCanvas, 50); renderMyClub(); }
             if(tabId === 'study') displaySecretNotes();
             if(tabId === 'todolist') renderTodos();
             if(tabId !== 'games') stopAllGames();
         }
 
-        // --- نظام الـ TO-DO LIST الذكي بقاعدة تخزين محلية ---
+        // --- نظام الـ TO-DO LIST المطّور والمربوط بالـ XP الفعلي ---
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function addTodoItem() {
             const input = document.getElementById('todoInput');
             if(input.value.trim() === '') return;
-            todos.push({ text: input.value.trim(), done: false });
+            todos.push({ text: input.value.trim(), done: false, xpAwarded: false });
             input.value = ''; localStorage.setItem('ahmed_todos', JSON.stringify(todos));
             renderTodos(); setupHoverEvents();
         }
         function toggleTodo(index) {
-            todos[index].done = !todos[index].done;
-            localStorage.setItem('ahmed_todos', JSON.stringify(todos));
-            renderTodos();
+            if(!todos[index].done) {
+                todos[index].done = true;
+                if(!todos[index].xpAwarded) {
+                    userXp += 20; // تكافأ بـ 20 XP عند إنهاء المهمة
+                    todos[index].xpAwarded = true;
+                    updateXpDisplay();
+                    alert("عاش يا بطل! تم إنهاء المهمة وكسب +20 عملة XP ⚽");
+                }
+            } else {
+                todos[index].done = false;
+            }
+            localStorage.setItem('ahmed_todos', JSON.stringify(todos)); renderTodos();
         }
         function deleteTodo(index) {
-            todos.splice(index, 1); localStorage.setItem('ahmed_todos', JSON.stringify(todos));
-            renderTodos();
+            todos.splice(index, 1); localStorage.setItem('ahmed_todos', JSON.stringify(todos)); renderTodos();
         }
         function renderTodos() {
-            const container = document.getElementById('todoListContainer');
-            container.innerHTML = '';
+            const container = document.getElementById('todoListContainer'); container.innerHTML = '';
             todos.forEach((todo, i) => {
                 const item = document.createElement('div');
                 item.className = `todo-item ${todo.done ? 'done' : ''}`;
                 item.innerHTML = `
-                    <span class="todo-text" style="font-weight: 500;">${todo.text}</span>
+                    <span class="todo-text" style="font-weight:500;">${todo.text} ${todo.done ? ' (مكتملة +20 XP)' : ''}</span>
                     <div class="todo-actions">
-                        <button class="modern-btn" style="padding: 4px 10px; font-size: 0.75rem;" onclick="toggleTodo(${i})">${todo.done ? '🔄 تراجع' : '✓ تم'}</button>
-                        <button class="modern-btn" style="padding: 4px 10px; font-size: 0.75rem; border-color: var(--accent-pink); color: var(--accent-pink);" onclick="deleteTodo(${i})">🗑️ حذف</button>
+                        <button class="modern-btn" style="padding:4px 10px; font-size:0.75rem;" onclick="toggleTodo(${i})">${todo.done ? '🔄 تراجع' : '✓ تم'}</button>
+                        <button class="modern-btn" style="padding:4px 10px; font-size:0.75rem; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="deleteTodo(${i})">🗑️ حذف</button>
                     </div>
                 `;
                 container.appendChild(item);
@@ -367,8 +512,7 @@
 
         // حفظ وقراءة الملاحظات السرية
         function saveSecretNotes() {
-            localStorage.setItem('ahmed_secret_notes', document.getElementById('secretNotesInput').value);
-            displaySecretNotes();
+            localStorage.setItem('ahmed_secret_notes', document.getElementById('secretNotesInput').value); displaySecretNotes();
         }
         function displaySecretNotes() {
             const txt = localStorage.getItem('ahmed_secret_notes') || '';
@@ -377,12 +521,7 @@
         }
         function clearSecretNotes() { if(confirm("مسح؟")) { localStorage.removeItem('ahmed_secret_notes'); displaySecretNotes(); } }
 
-        // لوت بوكس اليومي
-        function openDailyLootBox() {
-            document.getElementById('lootResultDisplay').innerText = "🎁 حصلت على لقب أسطوري اليوم وزيادة استقرار الأداء!";
-        }
-
-        // محاكي الأداء الافتراضي
+        // محاكي الأداء الافتراضي للكمبيوتر
         setInterval(() => {
             document.getElementById('cpuTemp').innerText = Math.floor(Math.random()*(49-41)+41) + "°C";
             document.getElementById('ramUsage').innerText = Math.floor(Math.random()*(58-47)+47) + "%";
@@ -390,8 +529,7 @@
         }, 3000);
 
         // كود تشغيل محاكي المطر والـ Pomodoro
-        const rainCanvas = document.getElementById('rainCanvas');
-        const rCtx = rainCanvas.getContext('2d');
+        const rainCanvas = document.getElementById('rainCanvas'); const rCtx = rainCanvas.getContext('2d');
         let drops = [];
         function resizeCanvas() { rainCanvas.width = rainCanvas.parentElement.offsetWidth; rainCanvas.height = rainCanvas.parentElement.offsetHeight; }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
@@ -415,33 +553,22 @@
             }
         }
 
-        // ================= صالة الألعاب المحدثة v16.0 =================
-        let activeGame = '';
-        let gameLoopInterval;
-        const canvasG = document.getElementById('gameCanvas');
-        const ctxG = canvasG.getContext('2d');
-
-        let xoBoardState = Array(9).fill('');
-        let xoCurrentPlayer = 'X';
-        let xoActive = false;
-        let xoMode = 'ai';
-
-        // متغيرات الألعاب
+        // ================= صالة الألعاب المدمجة والكاملة =================
+        let activeGame = ''; let gameLoopInterval;
+        const canvasG = document.getElementById('gameCanvas'); const ctxG = canvasG.getContext('2d');
+        let xoBoardState = Array(9).fill(''); let xoCurrentPlayer = 'X'; let xoActive = false; let xoMode = 'ai';
         let snake = [], sDX = 10, sDY = 0, snakeFood = {}, snakeScore = 0;
         let paddleY = 150, computerPaddleY = 150, ballX = 200, ballY = 200, ballDX = 5, ballDY = 3;
         let playerX = 190, playerY = 320, footballX = 200, footballY = 150, fbDX = 0, fbDY = -2, keeperX = 160, keeperDX = 3, fbScore = 0;
 
         function launchGame(game) {
-            stopAllGames();
-            activeGame = game;
+            stopAllGames(); activeGame = game;
             document.querySelectorAll('.arcade-menu .tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('gameInstructions').style.display = 'block';
-
             if(game === 'xo') {
                 document.getElementById('btn-game-xo').classList.add('active');
                 document.getElementById('xoControls').classList.add('active');
-                document.getElementById('xoBoard').classList.add('active');
-                startXO('ai');
+                document.getElementById('xoBoard').classList.add('active'); startXO('ai');
             } else {
                 canvasG.classList.add('active');
                 if(game === 'snake') { document.getElementById('btn-game-snake').classList.add('active'); startSnake(); }
@@ -454,24 +581,18 @@
             clearInterval(gameLoopInterval);
             document.getElementById('xoControls').classList.remove('active');
             document.getElementById('xoBoard').classList.remove('active');
-            canvasG.classList.remove('active');
-            xoActive = false; resetXO();
+            canvasG.classList.remove('active'); xoActive = false; resetXO();
         }
 
-        // --- 1. تيك تاك تو (مصلحة بالكامل لتبادل الأدوار تلقائياً) ---
         function startXO(mode) {
             xoMode = mode; xoActive = true; xoCurrentPlayer = 'X'; resetXO();
             document.getElementById('gameInstructions').innerText = `النمط الحالي: ${mode === 'ai' ? 'ضد الكمبيوتر' : 'لاعب ضد لاعب (تبادل أدوار سليم X ثم O)'}`;
         }
         function makeXOMove(index) {
             if(!xoActive || xoBoardState[index] !== '') return;
-            
-            xoBoardState[index] = xoCurrentPlayer;
-            renderXO();
-
+            xoBoardState[index] = xoCurrentPlayer; renderXO();
             if(checkXOWin(xoCurrentPlayer)) { alert(`مبروك! فاز اللاعب ${xoCurrentPlayer} 🏆`); resetXO(); return; }
             if(xoBoardState.every(c => c !== '')) { alert("تعادل حماسي!"); resetXO(); return; }
-
             if(xoMode === 'pvp') {
                 xoCurrentPlayer = (xoCurrentPlayer === 'X') ? 'O' : 'X';
             } else if(xoMode === 'ai') {
@@ -489,18 +610,11 @@
         }
         function renderXO() {
             const cells = document.querySelectorAll('.xo-cell');
-            xoBoardState.forEach((val, i) => {
-                cells[i].innerText = val;
-                cells[i].className = 'xo-cell' + (val === 'X' ? ' x-style' : val === 'O' ? ' o-style' : '');
-            });
+            xoBoardState.forEach((val, i) => { cells[i].innerText = val; cells[i].className = 'xo-cell' + (val === 'X' ? ' x-style' : val === 'O' ? ' o-style' : ''); });
         }
-        function checkXOWin(p) {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(w => w.every(i => xoBoardState[i] === p));
-        }
+        function checkXOWin(p) { const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return wins.some(w => w.every(i => xoBoardState[i] === p)); }
         function resetXO() { xoBoardState = Array(9).fill(''); xoCurrentPlayer = 'X'; renderXO(); }
 
-        // --- 2. الثعبان الأسطوري (شغال ومظبوط) ---
         function startSnake() {
             snake = [{x: 200, y: 200}, {x: 190, y: 200}]; sDX = 10; sDY = 0; snakeScore = 0; genSnakeFood();
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(snakeTick, 80);
@@ -511,14 +625,12 @@
             if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) { startSnake(); return; }
             snake.unshift(head);
             if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore++; document.getElementById('gameInstructions').innerText = `النقاط الحالية: ${snakeScore} // تحرك بالأسهم`; genSnakeFood(); } else snake.pop();
-
             ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
             ctxG.fillStyle = "#ff0055"; ctxG.fillRect(snakeFood.x, snakeFood.y, 10, 10);
             snake.forEach((part, i) => { ctxG.fillStyle = i===0?"var(--accent-pink)":"var(--accent-glow)"; ctxG.fillRect(part.x, part.y, 10, 10); });
         }
         function genSnakeFood() { snakeFood = { x: Math.floor(Math.random()*40)*10, y: Math.floor(Math.random()*40)*10 }; }
 
-        // --- 3. بينج بونج التنس المطور والسريع ---
         function startTennis() {
             ballX = 200; ballY = 200; ballDX = 5; ballDY = 3; paddleY = 160; computerPaddleY = 160;
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(tennisTick, 16);
@@ -531,69 +643,43 @@
             if(ballX <= 20 && ballY >= paddleY && ballY <= paddleY + 70) ballDX = -ballDX;
             if(ballX >= 370 && ballY >= computerPaddleY && ballY <= computerPaddleY + 70) ballDX = -ballDX;
             if(ballX < 0 || ballX > 400) startTennis();
-
             ctxG.fillStyle = "#020105"; ctxG.fillRect(0,0,400,400);
             ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(10, paddleY, 12, 70);
             ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(378, computerPaddleY, 12, 70);
             ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(ballX, ballY, 6, 0, Math.PI*2); ctxG.fill();
         }
 
-        // --- 4. لعبة كرة القدم الأركيد وسوبر جون الجديدة ---
         function startFootball() {
             playerX = 185; playerY = 330; footballX = 200; footballY = 280; fbDX = 0; fbDY = 0; keeperX = 160; fbScore = 0;
             clearInterval(gameLoopInterval); gameLoopInterval = setInterval(footballTick, 16);
-            document.getElementById('gameInstructions').innerText = `الأهداف: ${fbScore} // حرك اللاعب (الأخضر) بالأسهم يمين وشمال واصدم الكورة عشان تشوطها في الجون!`;
+            document.getElementById('gameInstructions').innerText = `الأهداف: ${fbScore} // حرك اللاعب (الأخضر) واصدم الكورة لشوطها بالجون!`;
         }
         function footballTick() {
             keeperX += keeperDX; if(keeperX <= 40 || keeperX >= 280) keeperDX = -keeperDX;
-            footballX += fbDX; footballY += fbDY;
-            fbDX *= 0.98; fbDY *= 0.98; // احتكاك لتبطئ الكورة تدريجياً
-
-            // اصطدام اللاعب بالكورة (شوط)
-            if(footballX >= playerX && footballX <= playerX + 30 && footballY >= playerY && footballY <= playerY + 30) {
-                fbDY = -6; fbDX = (footballX - (playerX + 15)) * 0.3;
-            }
-            // صد الحارس الكورة
+            footballX += fbDX; footballY += fbDY; fbDX *= 0.98; fbDY *= 0.98;
+            if(footballX >= playerX && footballX <= playerX + 30 && footballY >= playerY && footballY <= playerY + 30) { fbDY = -6; fbDX = (footballX - (playerX + 15)) * 0.3; }
             if(footballY <= 60 && footballY >= 40 && footballX >= keeperX && footballX <= keeperX + 80) { fbDY = 5; }
-            // دخول هدف في المرمى (بين الـ 100 والـ 300 في الأعلى)
-            if(footballY <= 30) {
-                if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة يا أحمد ⚽"); startFootball(); return; }
-                else { fbDY = 4; }
-            }
-            // ارتداد الكورة من الحوائط الجانبية
-            if(footballX <= 5 || footballX >= 390) fbDX = -fbDX;
-            if(footballY >= 390) { fbDY = -3; }
-
-            ctxG.fillStyle = "#031105"; ctxG.fillRect(0,0,400,400); // خلفية ملعب عشبي غامق
-            ctxG.strokeStyle = "rgba(255,255,255,0.2)"; ctxG.lineWidth = 3;
-            ctxG.strokeRect(100, 0, 200, 30); // خط المرمى العلوى
-
-            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(keeperX, 40, 80, 15); // الحارس المدافع
-            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(playerX, playerY, 30, 30); // اللاعب أحمد
-            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(footballX, footballY, 8, 0, Math.PI*2); ctxG.fill(); // الكورة
+            if(footballY <= 30) { if(footballX >= 100 && footballX <= 300) { fbScore++; alert("ججججججججججون! أسطورة يا أحمد ⚽"); startFootball(); return; } else { fbDY = 4; } }
+            if(footballX <= 5 || footballX >= 390) fbDX = -fbDX; if(footballY >= 390) { fbDY = -3; }
+            ctxG.fillStyle = "#031105"; ctxG.fillRect(0,0,400,400); ctxG.strokeStyle = "rgba(255,255,255,0.2)"; ctxG.lineWidth = 3; ctxG.strokeRect(100, 0, 200, 30);
+            ctxG.fillStyle = "var(--accent-pink)"; ctxG.fillRect(keeperX, 40, 80, 15);
+            ctxG.fillStyle = "var(--accent-glow)"; ctxG.fillRect(playerX, playerY, 30, 30);
+            ctxG.fillStyle = "#fff"; ctxG.beginPath(); ctxG.arc(footballX, footballY, 8, 0, Math.PI*2); ctxG.fill();
         }
 
-        // الاستماع لأزرار الكيبورد للتحكم السلس
         window.addEventListener('keydown', (e) => {
-            if(activeGame === 'tennis') {
-                if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 25;
-                if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 25;
-            }
+            if(activeGame === 'tennis') { if(e.key === 'ArrowUp' && paddleY > 10) paddleY -= 25; if(e.key === 'ArrowDown' && paddleY < 320) paddleY += 25; }
             if(activeGame === 'snake') {
-                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; }
-                if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
-                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; }
-                if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
+                if(e.key === 'ArrowLeft' && sDX === 0) { sDX = -10; sDY = 0; } if(e.key === 'ArrowUp' && sDY === 0) { sDX = 0; sDY = -10; }
+                if(e.key === 'ArrowRight' && sDX === 0) { sDX = 10; sDY = 0; } if(e.key === 'ArrowDown' && sDY === 0) { sDX = 0; sDY = 10; }
             }
             if(activeGame === 'football') {
-                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 20;
-                if(e.key === 'ArrowRight' && playerX < 360) playerX += 20;
-                if(e.key === 'ArrowUp' && playerY > 200) playerY -= 20;
-                if(e.key === 'ArrowDown' && playerY < 360) playerY += 20;
+                if(e.key === 'ArrowLeft' && playerX > 10) playerX -= 20; if(e.key === 'ArrowRight' && playerX < 360) playerX += 20;
+                if(e.key === 'ArrowUp' && playerY > 200) playerY -= 20; if(e.key === 'ArrowDown' && playerY < 360) playerY += 20;
             }
         });
 
-        window.onload = () => { setupHoverEvents(); renderTodos(); };
+        window.onload = () => { setupHoverEvents(); renderTodos(); updateXpDisplay(); renderMyClub(); };
     </script>
 </body>
 </html>
