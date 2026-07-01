@@ -28,30 +28,12 @@
             color: var(--text-color);
             margin: 0; padding: 0;
             overflow-x: hidden;
-            user-select: none;
-            cursor: none;
         }
 
+        /* إصلاح الماوس: جعل المؤشر العادي يظهر بشكل طبيعي وآمن */
         a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .ai-toggle-btn, .ai-mode-btn, .ai-send-btn, select, input[type="file"], .game-nav-btn {
-            cursor: none !important;
+            cursor: pointer !important;
         }
-
-        .neon-cursor-dot {
-            width: 8px; height: 8px; background-color: var(--accent-glow); position: fixed;
-            border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
-            transition: width 0.15s, height 0.15s;
-        }
-
-        .neon-cursor-glow {
-            width: 35px; height: 35px; border: 2px solid var(--accent-pink); position: fixed;
-            border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
-            transition: transform 0.08s ease-out, width 0.2s, height 0.2s;
-        }
-
-        body.hovering .neon-cursor-dot { background-color: var(--accent-pink); width: 6px; height: 6px; }
-        body.hovering .neon-cursor-glow { border-color: var(--accent-glow); width: 45px; height: 45px; }
 
         #dhikr-ticker {
             background: linear-gradient(90deg, rgba(255,0,127,0.12), rgba(0,245,212,0.12));
@@ -194,7 +176,7 @@
         .ai-chat-input { flex: 1; background: rgba(20, 12, 36, 0.6); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.85rem; outline: none; }
         .ai-send-btn { background: var(--accent-glow); border: none; color: #000; font-weight: bold; padding: 0 15px; border-radius: 10px; font-size: 0.85rem; }
         
-        /* ستايل مخصص للراديو الجديد */
+        /* ستايل الراديو */
         .quran-radio-box { text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.2); border-radius: 16px; border: 1px dashed var(--border-color); margin-top: 15px; }
         .quran-select { width: 100%; max-width: 350px; margin-bottom: 15px; background: #0f081c; border: 1px solid var(--accent-glow); color: #fff; border-radius: 10px; padding: 12px; font-size: 1rem; outline: none; box-shadow: 0 0 10px rgba(0, 245, 212, 0.1); }
         .audio-controls { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
@@ -202,8 +184,6 @@
 </head>
 <body>
 
-    <div class="neon-cursor-dot" id="cursorDot"></div>
-    <div class="neon-cursor-glow" id="cursorGlow"></div>
     <div id="dhikr-ticker">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
 
     <header>
@@ -213,6 +193,7 @@
     </header>
 
     <div class="main-container">
+        <!-- لوحة التحكم -->
         <div class="control-panel">
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
@@ -225,6 +206,7 @@
             </div>
         </div>
 
+        <!-- بيئة العمل -->
         <div id="workspace" class="tab-content active">
             <div class="gravity-card">
                 <h2>👤 لوحة تقييم الأداء الفعلي</h2>
@@ -249,6 +231,7 @@
             </div>
         </div>
 
+        <!-- بكجات فيفا -->
         <div id="fifapacks" class="tab-content">
             <div class="gravity-card">
                 <h2>📦 متجر محاكي بكجات فيفا الأسطوري</h2>
@@ -279,6 +262,7 @@
             </div>
         </div>
 
+        <!-- الورد والأذكار -->
         <div id="spiritual" class="tab-content">
             <div class="gravity-card">
                 <h2>🕌 الورد القرآني والأذكار والتقرب إلى الله</h2>
@@ -299,6 +283,7 @@
             </div>
         </div>
 
+        <!-- قسم منشاويات (راديو القرآن المصلح) -->
         <div id="menshawy-radio" class="tab-content">
             <div class="gravity-card" style="border-color: var(--accent-gold);">
                 <h2>🕌 منشاويات - المصحف المرتل كاملاً</h2>
@@ -306,7 +291,8 @@
                 
                 <div class="quran-radio-box">
                     <select id="surahSelect" class="quran-select" onchange="changeSurah()">
-                        </select>
+                        <!-- يتم التعبئة تلقائياً عبر الجافاسكريبت المحدث بالأسفل -->
+                    </select>
 
                     <audio id="quranAudio" preload="none"></audio>
 
@@ -320,6 +306,7 @@
             </div>
         </div>
 
+        <!-- قائمة المهام -->
         <div id="todolist" class="tab-content">
             <div class="gravity-card">
                 <h2>📝 مخطط قائمة المهام الذكي وكسب الـ XP</h2>
@@ -333,6 +320,7 @@
             </div>
         </div>
 
+        <!-- صالة الألعاب -->
         <div id="arcade" class="tab-content">
             <div class="gravity-card">
                 <h2>🎮 صالة الألعاب التفاعلية المتقدمة</h2>
@@ -344,6 +332,7 @@
                     <button class="game-nav-btn" onclick="switchArcadeGame('pingPongPanel', this); initPingPongGame();">🏓 بينج بونج وتنس</button>
                 </div>
 
+                <!-- XO الأصلي -->
                 <div id="xoGamePanel" class="game-panel active">
                     <div class="xo-controls-bar">
                         <select id="xoModeSelect" class="mindmap-input" style="max-width: 200px;" onchange="resetXoGame()">
@@ -368,6 +357,7 @@
                     </div>
                 </div>
 
+                <!-- الثعبان -->
                 <div id="snakeGamePanel" class="game-panel">
                     <h3 style="color: var(--accent-pink);">🐍 لعبة الثعبان النيون الكلاسيكية</h3>
                     <div style="font-weight: bold; color: var(--accent-gold); margin-bottom: 5px;" id="snakeScore">النقاط: 0</div>
@@ -375,6 +365,7 @@
                     <button class="modern-btn" onclick="initSnakeGame()">🔄 إعادة تشغيل</button>
                 </div>
 
+                <!-- ضربات الجزاء المتطورة والمثيرة 2.0 -->
                 <div id="penaltyGamePanel" class="game-panel">
                     <h3 style="color: var(--accent-glow);">⚽ ركلات جزاء سوبر أركيد التفاعلية</h3>
                     <p style="color: var(--muted-text); font-size: 0.85rem;">انقر على أي زاوية داخل المرمى لتسديد الكرة ميكانيكياً ومباغتة الحارس القافز!</p>
@@ -383,6 +374,7 @@
                     <div id="penaltyResultText" style="font-size: 1.2rem; font-weight: bold; height: 25px; margin-top: 5px; color: var(--accent-gold);"></div>
                 </div>
 
+                <!-- بينج بونج -->
                 <div id="pingPongPanel" class="game-panel">
                     <h3 style="color: var(--accent-glow);">🏓 لعبة تنس الطاولة والبينج بونج</h3>
                     <div style="font-weight: bold; color: #fff; margin-bottom: 5px;" id="pongScoreDisplay">أنت: 0 | الكمبيوتر: 0</div>
@@ -391,6 +383,7 @@
             </div>
         </div>
 
+        <!-- المفكرة -->
         <div id="study" class="tab-content">
             <div class="gravity-card">
                 <h2>🔒 المفكرة الخاصة بمذاكرتك وأسرارك (حفظ محلي تلقائي)</h2>
@@ -399,6 +392,7 @@
         </div>
     </div>
 
+    <!-- المساعد الذكي -->
     <div class="ai-floating-widget">
         <button class="ai-toggle-btn" onclick="toggleAiChat()">🤖</button>
         <div class="ai-chat-window" id="aiChatWindow">
@@ -422,7 +416,6 @@
     </div>
 
     <script>
-        // مصفوفة الأذكار المتغيرة للشريط العلوي والتسبيح
         const globalDhikrPool = [
             "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
             "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
@@ -434,12 +427,10 @@
             "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ"
         ];
 
-        // أسماء سور القرآن الكريم كاملة بالترتيب لربطها بالـ API المباشر
         const surahNames = [
             "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"
         ];
 
-        // تعبئة قائمة سور راديو المنشاوي فور تحميل الصفحة
         function initMenshawyRadio() {
             const selectEl = document.getElementById('surahSelect');
             if(!selectEl) return;
@@ -454,23 +445,22 @@
             changeSurah();
         }
 
+        // دالة جلب الصوت المصلحة لتعمل من خلال روابط البث الرسمية المباشرة
         function changeSurah() {
             const audio = document.getElementById('quranAudio');
             const surahNum = document.getElementById('surahSelect').value;
             if(audio) {
                 audio.pause();
-                // السيرفر الآمن والمشفر للقرآن الكريم
                 audio.src = `https://server11.mp3quran.net/minsh/${surahNum}.mp3`;
                 audio.load();
-                document.getElementById('radioStatus').innerText = "تم اختيار السورة، اضغط تشغيل للبدء..";
-                document.getElementById('playRadioBtn').innerText = "▶️ تشغيل السورة";
+                document.getElementById('radioStatus').innerText = "تم اختيار السورة بنجاح، جاهز للتشغيل البث المباشر الموثق..";
             }
         }
 
         function playQuran() {
             const audio = document.getElementById('quranAudio');
             if (!audio) return;
-            document.getElementById('radioStatus').innerText = "جاري الاتصال بالسيرفر وتحميل التلاوة... ⏳";
+            document.getElementById('radioStatus').innerText = "جاري جلب البث المباشر الخاشع... ⏳";
             
             audio.play().then(() => {
                 document.getElementById('radioStatus').innerText = "جاري الاستماع الآن بصوت الشيخ محمد صديق المنشاوي 🌟";
@@ -488,7 +478,6 @@
             }
         }
 
-        // دالة التنقل والتبديل بين التبويبات الأصلية للموقع
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -496,13 +485,10 @@
             event.currentTarget.classList.add('active');
         }
 
-        // تشغيل التهيئة بمجرد تحميل مستند الصفحة بالكامل
         document.addEventListener('DOMContentLoaded', () => {
             initMenshawyRadio();
-            // وضع باقي دوال البناء الأساسية لموقعك هنا لتعمل فوراً تلقائياً
         });
 
-        // المظهر الافتراضي البسيط لحماية بقية الهياكل البرمجية غير المكتملة في رسالتك الأصلية
         function toggleAiChat() { document.getElementById('aiChatWindow').classList.toggle('open'); }
         function togglePomo() { alert("تنبيه المؤقت التفاعلي يعتمد على شيفرة الـ Canvas المحلية لديك."); }
     </script>
