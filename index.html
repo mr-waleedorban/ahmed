@@ -3,481 +3,612 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Deck Portal v16.0 - Ultimate Edition</title>
+    <title>Ultimate Core Hub v14.1</title>
     <style>
         :root {
-            --bg-color: #05060a;
-            --card-bg: #0d0f1a;
-            --neon-cyan: #00f5d4;
-            --neon-magenta: #7b2cbf;
-            --text-main: #f8f9fa;
-            --text-muted: #6c757d;
-            --discord-green: #23a55a;
-            --gold: #ffb703;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* نظام ألوان البنفسجي المخملي العميق والنيون المشع */
+            --bg-color: #030008;
+            --card-bg: rgba(15, 8, 28, 0.45);
+            --border-color: rgba(0, 245, 212, 0.18);
+            --border-hover: rgba(255, 0, 127, 0.5);
+            --text-color: #f3f4f6;
+            --accent-glow: #00f5d4;
+            --accent-pink: #ff007f;
+            --muted-text: #9ca3af;
         }
 
         body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 2rem;
+            /* تأثير التدرج الإشعاعي الهولوجرامي في الخلفية */
+            background-image: 
+                radial-gradient(circle at 50% 15%, rgba(255, 0, 127, 0.08), transparent 45%), 
+                radial-gradient(circle at 85% 75%, rgba(0, 245, 212, 0.05), transparent 40%),
+                radial-gradient(circle at 15% 45%, rgba(139, 92, 246, 0.06), transparent 35%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            margin: 0; padding: 0;
             overflow-x: hidden;
-            position: relative;
+            user-select: none;
+            /* إلغاء الماوس الافتراضي لتطبيق ماوس النيون */
+            cursor: none;
         }
 
-        #matrix-rain {
+        /* ستايل أزرار وعناصر تفاعلية لإلغاء الماوس فيها أيضاً */
+        a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox {
+            cursor: none !important;
+        }
+
+        /* ستايل ماوس النيون المتطور */
+        .neon-cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-glow);
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.1;
+            border-radius: 50%;
             pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+            transition: width 0.15s, height 0.15s, background-color 0.15s;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 2rem;
+        .neon-cursor-glow {
+            width: 35px;
+            height: 35px;
+            border: 2px solid var(--accent-pink);
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+            transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
         }
 
-        /* ===== الكرت الجانبي (ثابت وجميل) ===== */
-        .side-deck {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 245, 212, 0.15);
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
+        /* تأثير الماوس عند الضغط أو الإشارة لعنصر تفاعلي */
+        body.hovering .neon-cursor-dot {
+            background-color: var(--accent-pink);
+            width: 6px;
+            height: 6px;
+            box-shadow: 0 0 10px var(--accent-pink), 0 0 20px var(--accent-pink);
+        }
+        body.hovering .neon-cursor-glow {
+            border-color: var(--accent-glow);
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
         }
 
-        .avatar-container {
+        #dhikr-ticker {
+            background: linear-gradient(90deg, rgba(255,0,127,0.12), rgba(0,245,212,0.12));
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center; padding: 12px; font-size: 1rem;
+            color: #fff; font-weight: 500; position: sticky; top: 0; z-index: 999;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .glitch-active {
+            animation: screenShake 0.1s infinite !important;
+            background: #100015 !important;
+            filter: hue-rotate(90deg) contrast(150%);
+        }
+        .glitch-text {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); color: var(--accent-pink);
+            font-family: monospace; font-size: 3rem; font-weight: bold; z-index: 10000;
+            text-shadow: 2px 2px #00f5d4; text-align: center; pointer-events: none;
+        }
+
+        header { text-align: center; padding: 40px 20px 20px 20px; }
+        .modern-logo {
+            font-size: 4rem; font-weight: 800; letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block; transition: transform 0.2s;
             position: relative;
-            width: 110px;
-            height: 110px;
-            margin-bottom: 1.2rem;
         }
-        .avatar-ring-fast {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 3px solid transparent;
-            border-top-color: var(--neon-cyan);
-            border-bottom-color: var(--neon-cyan);
-            border-radius: 50%;
-            animation: spinFast 1s linear infinite;
+        .modern-logo:active::after {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100px; height: 100px; background: rgba(0, 245, 212, 0.4); border-radius: 50%;
+            animation: pulseWave 0.4s ease-out; pointer-events: none;
         }
-        .avatar-core {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #0f111a, #1b1e33);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 12px var(--neon-cyan);
+        .tagline { color: var(--muted-text); font-family: monospace; font-size: 0.95rem; margin-top: 5px; }
+
+        .main-container { max-width: 950px; margin: 0 auto; padding: 0 20px 80px 20px; position: relative; }
+        
+        .control-panel {
+            background: rgba(20, 12, 36, 0.5); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;
+            gap: 15px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        .status-pulse {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            width: 20px;
-            height: 20px;
-            background-color: var(--discord-green);
-            border-radius: 50%;
-            border: 3px solid var(--card-bg);
+        .nav-tabs { display: flex; gap: 10px; overflow-x: auto; width: 100%; }
+        .tab-btn {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); color: var(--muted-text);
+            padding: 10px 18px; border-radius: 12px; font-weight: 500; font-size: 0.85rem;
+            white-space: nowrap; transition: all 0.3s ease;
+        }
+        .tab-btn.active { 
+            background: linear-gradient(135deg, #fff, rgba(255,255,255,0.85)); 
+            color: #000; font-weight: 600; border-color: #fff; 
+            box-shadow: 0 0 15px rgba(255,255,255,0.3); 
         }
 
-        @keyframes spinFast { 100% { transform: rotate(360deg); } }
-
-        .xp-system { width: 100%; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; }
-        .rank-badge { display: inline-block; padding: 0.3rem 1rem; background: linear-gradient(90deg, var(--neon-magenta), #480ca8); border-radius: 30px; font-size: 0.75rem; font-weight: bold; margin-top: 0.4rem; }
-        .xp-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin: 0.8rem 0 0.4rem 0; }
-        .xp-track { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
-        .xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--neon-cyan), #00bbf9); box-shadow: 0 0 10px var(--neon-cyan); transition: width 0.3s ease; }
-
-        /* ===== القائمة العلوية للتنقل (Tabs) ===== */
-        .cyber-nav {
-            display: flex;
-            gap: 1rem;
-            background: var(--card-bg);
-            padding: 0.8rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 1.5rem;
-        }
-        .nav-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            padding: 0.7rem 1.5rem;
-            font-weight: bold;
-            font-size: 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .nav-btn.active {
-            background: rgba(0, 245, 212, 0.1);
-            color: var(--neon-cyan);
-            border: 1px solid var(--neon-cyan);
-            text-shadow: 0 0 8px var(--neon-cyan);
-        }
-
-        /* ===== المحتوى الرئيسي والأقسام ===== */
-        .main-deck { display: flex; flex-direction: column; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        .section-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.04); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .title-neon { font-size: 1.8rem; color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 245, 212, 0.3); margin-bottom: 1.5rem; border-bottom: 2px solid rgba(0,245,212,0.1); padding-bottom: 0.5rem; }
+        /* ستايل الكروت الزجاجية الشفافة العائمة المتوهجة (Glow Glassmorphism) */
+        .gravity-card {
+            background: var(--card-bg); 
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px; padding: 30px; 
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255,255,255,0.05);
+            transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gravity-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 25px 55px rgba(255, 0, 127, 0.08), inset 0 1px 2px rgba(255,255,255,0.1);
+        }
 
-        .btn-cyber { background: linear-gradient(135deg, var(--neon-cyan), #00bbf9); color: #030406; border: none; padding: 0.6rem 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-top: 0.5rem; }
-        .btn-cyber:hover { transform: translateY(-2px); box-shadow: 0 0 12px var(--neon-cyan); }
+        h2 { font-size: 1.3rem; font-weight: 600; margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
 
-        /* تصميم قسم الألعاب */
-        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-        .game-box { background: #111322; border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
-        .game-box h4 { width: 100%; text-align: right; margin-bottom: 0.5rem; }
+        .rain-container { position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden; margin-top: 15px; }
+        #rainCanvas { position: absolute; top:0; left:0; width:100%; height:100%; background: #05020c; }
+        .pomo-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; z-index: 2; background: rgba(3, 0, 8, 0.9); padding: 15px 30px; border-radius: 20px;
+            backdrop-filter: blur(12px); border: 1px solid var(--border-color);
+        }
+        .pomo-time { font-size: 2rem; font-weight: 700; color: #fff; font-family: monospace; margin-bottom: 5px; }
 
-        /* لوحة كافاس الألعاب الحقيقية */
-        .game-canvas { background: #05060a; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; display: block; margin: 0.8rem auto; background-size: cover; }
+        .modern-btn {
+            background: transparent; border: 1px solid var(--accent-glow); color: #fff;
+            padding: 8px 18px; border-radius: 10px; font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .modern-btn:hover { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 10px #fff; }
 
-        /* لوحة XO المتقدمة */
-        .xo-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 180px; margin: 1rem auto; }
-        .xo-cell { width: 56px; height: 56px; background: #181b30; border: 1px solid rgba(0,245,212,0.3); border-radius: 8px; font-size: 1.6rem; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .xo-status { font-size: 0.85rem; color: var(--neon-cyan); text-align: center; margin-bottom: 0.5rem; }
-        .mode-select { display: flex; gap: 5px; margin-bottom: 0.5rem; }
-        .btn-mode { background: #1a1d36; border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 5px; cursor: pointer; }
-        .btn-mode.active { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 245, 212, 0.05); }
+        .quran-box {
+            background: linear-gradient(135deg, rgba(0,245,212,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(0, 245, 212, 0.2); border-radius: 16px; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 15px;
+        }
+        .quran-checkbox {
+            width: 28px; height: 28px; border-radius: 10px; border: 2px solid var(--accent-glow);
+            display: flex; justify-content: center; align-items: center;
+        }
+        .quran-checkbox.checked { background: var(--accent-glow); color: #030712; }
+        .quran-checkbox::after { content: '✓'; font-weight: bold; display: none; }
+        .quran-checkbox.checked::after { display: block; }
 
-        /* صناديق اللوت بوكس */
-        .loot-display { width: 100%; background: #080912; padding: 1rem; border-radius: 8px; font-size: 0.9rem; text-align: center; min-height: 60px; border-left: 4px solid var(--neon-magenta); margin-bottom: 1rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        .subject-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 14px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
 
-        /* المفكرة */
-        .cyber-textarea { width: 100%; height: 250px; background: #111322; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.2rem; color: var(--text-main); font-size: 1.1rem; resize: none; line-height: 1.6; margin-bottom: 1rem; }
-        .cyber-textarea:focus { border-color: var(--neon-cyan); outline: none; box-shadow: 0 0 10px rgba(0,245,212,0.2); }
+        .mindmap-input {
+            flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 12px 15px; color: #fff; font-size: 0.9rem;
+            outline: none; transition: all 0.3s;
+        }
+        .mindmap-input:focus { border-color: var(--accent-glow); box-shadow: 0 0 12px rgba(0, 245, 212, 0.3); }
+
+        /* ستايل بروفايل أحمد السيبراني المتناسق مع الألوان المخملية */
+        .profile-card-wrapper { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .profile-avatar {
+            width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent-pink), var(--accent-glow));
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 2.2rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 25px rgba(0, 245, 212, 0.4); border: 3px solid #fff;
+        }
+        .profile-info h3 { margin: 0 0 5px 0; font-size: 1.8rem; letter-spacing: -0.5px; color: #fff; }
+        .profile-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--accent-glow); font-family: monospace; }
+        .profile-status::before { content: ''; display: block; width: 8px; height: 8px; background: var(--accent-glow); border-radius: 50%; box-shadow: 0 0 8px var(--accent-glow); }
+        .skills-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+        .skill-badge { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: #e5e7eb; font-weight: 500; }
+        .skill-badge.highlight { border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: 0 0 8px rgba(255,0,127,0.3); }
+
+        /* ستايل اللوت بوكس */
+        .loot-container { margin-top: 20px; background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--border-color); border-radius: 16px; padding: 20px; text-align: center; }
+        .loot-box-graphic { font-size: 3rem; display: inline-block; transition: transform 0.3s; animation: float 3s ease-in-out infinite; }
+        .loot-box-graphic:hover { transform: scale(1.1) rotate(5deg); }
+        .loot-result { margin-top: 10px; font-weight: bold; color: var(--accent-glow); font-family: monospace; min-height: 20px; }
+
+        /* ستايل حائط الإنجازات الأسطورية النيون */
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
+        .achieve-card {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 12px;
+            text-align: center; opacity: 0.3; filter: grayscale(100%); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .achieve-card.unlocked {
+            opacity: 1; filter: grayscale(0%); border-color: var(--accent-glow);
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.25); background: rgba(0, 245, 212, 0.04);
+        }
+        .achieve-card .icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .achieve-card .title { font-size: 0.75rem; font-weight: bold; color: #fff; display: block; }
+        .achieve-card .desc { font-size: 0.65rem; color: var(--muted-text); display: block; margin-top: 2px; }
+
+        /* ستايل صالة الألعاب */
+        .arcade-menu { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .game-screen-wrapper { background: #05020c; border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+        .game-canvas { background: #020105; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; max-width: 100%; display: none; margin: 15px auto 0 auto; }
+        .game-canvas.active { display: block; }
+
+        /* ستايل لعبة XO النيون المزدوجة والمطورة */
+        .xo-board { display: none; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 20px auto; }
+        .xo-board.active { display: grid; }
+        .xo-cell {
+            aspect-ratio: 1; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            border-radius: 12px; font-size: 2rem; font-weight: bold; display: flex; justify-content: center;
+            align-items: center; transition: all 0.2s; color: #fff;
+        }
+        .xo-cell:hover { background: rgba(255,255,255,0.05); border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.1); }
+        .xo-cell.x-style { color: var(--accent-pink); text-shadow: 0 0 15px var(--accent-pink); }
+        .xo-cell.o-style { color: var(--accent-glow); text-shadow: 0 0 15px var(--accent-glow); }
+        .xo-controls { display: none; gap: 10px; justify-content: center; margin-bottom: 15px; }
+        .xo-controls.active { display: flex; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes pulseWave { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 140px; height: 140px; opacity: 0; } }
+        @keyframes screenShake {
+            0% { transform: translate(3px, 2px) rotate(0deg); }
+            20% { transform: translate(-2px, -3px) rotate(-1deg); }
+            100% { transform: translate(3px, -1px) rotate(-1deg); }
+        }
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: var(--muted-text); opacity: 0.2; }
     </style>
 </head>
 <body>
 
-    <canvas id="matrix-rain"></canvas>
+    <!-- عناصر مؤشر نيون السيبربانك المخصص -->
+    <div class="neon-cursor-dot" id="cursorDot"></div>
+    <div class="neon-cursor-glow" id="cursorGlow"></div>
 
-    <div class="container">
-        
-        <!-- الكرت الجانبي (ثابت في كل الأقسام) -->
-        <aside class="side-deck">
-            <div class="avatar-container">
-                <div class="avatar-ring-fast"></div>
-                <div class="avatar-core">AW</div>
-                <div class="status-pulse"></div>
+    <div id="dhikr-ticker">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="glitch-text" id="glitchAlert">⚠️ CRITICAL SYSTEM ERROR<br><span style="font-size:1.5rem; color:#fff;">اضغط ESC لإلغاء التدمير الذاتي</span></div>
+
+    <header>
+        <div class="modern-logo" onclick="registerClick()">AW</div>
+        <div class="tagline">// Ultimate Core Hub v14.1 // Gaming & Workspace</div>
+    </header>
+
+    <div class="main-container">
+
+        <div class="control-panel">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('workspace')">💻 بيئة العمل</button>
+                <button class="tab-btn" onclick="switchTab('study')">📚 المذاكرة والمواد</button>
+                <button class="tab-btn" onclick="switchTab('games')">🎮 صالة الألعاب (6 Games)</button>
             </div>
-            <h2 style="font-weight: 800; font-size: 1.3rem;">المحارب الأكاديمي</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">فيزيائي & مطور ويب</p>
+        </div>
 
-            <div class="xp-system">
-                <div style="font-weight: bold;" id="rank-title">Cyber Recruit</div>
-                <div class="rank-badge" id="level-badge">LEVEL 1</div>
-                <div class="xp-info"><span>معدل الخبرة</span><span id="xp-counter">0 / 100</span></div>
-                <div class="xp-track"><div class="xp-fill" id="xp-bar"></div></div>
-            </div>
-        </aside>
-
-        <!-- المنطقة الرئيسية والأقسام -->
-        <main class="main-deck">
+        <!-- ================= 💻 بيئة العمل ================= -->
+        <div id="workspace" class="tab-content active">
             
-            <!-- أزرار التنقل العلوية -->
-            <nav class="cyber-nav">
-                <button class="nav-btn active" onclick="switchTab('profile-tab', this)">👤 التعريف الشخصي</button>
-                <button class="nav-btn" onclick="switchTab('games-tab', this)">🕹️ مركز الألعاب الحقيقية</button>
-                <button class="nav-btn" onclick="switchTab('notes-tab', this)">🔒 المفكرة المشفرة</button>
-            </nav>
-
-            <!-- ================= قسم 1: التعريف الشخصي ================= -->
-            <div id="profile-tab" class="tab-content active">
-                <section class="section-card">
-                    <div class="title-neon">👤 ملف المستخدم والتعريف الشخصي</div>
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1;">
-                        مرحباً بك في البوابة الرقمية الخاصة بي. أنا طالب فيزياء شغوف بدراسة القوانين الفيزيائية المعقدة مثل الحث الكهرومغناطيسي، وأعمل بالتوازي كمطور ويب ومصمم منصات تفاعلية نيونية مخصصة. أهتم بالأداء الرياضي، وبناء الواجهات السلسة، والربط البرمجي الذكي.
-                    </p>
-                    <div style="margin-top: 1.5rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 10px; border-right: 4px solid var(--neon-cyan);">
-                        <strong>الورد اليومي:</strong> لا تنسَ إنجاز الحصن الرقمي اليوم لحماية ورفع طاقتك.
+            <div class="gravity-card" id="card-profile">
+                <h2>👤 بطاقة التعريف السيبرانية</h2>
+                <div class="profile-card-wrapper">
+                    <div class="profile-avatar">AW</div>
+                    <div class="profile-info">
+                        <h3>أحمد وليد</h3>
+                        <div class="profile-status">SYSTEM STATUS: ACTIVE // LEVEL 18 ACADEMIC WARRIOR</div>
+                        <div class="skills-container">
+                            <span class="skill-badge highlight">🎓 Senior 2027</span>
+                            <span class="skill-badge">📐 Physics Enthusiast</span>
+                            <span class="skill-badge">🕹️ Pro Gamer</span>
+                        </div>
                     </div>
-                    <button class="btn-cyber" onclick="gainXP(15); alert('تم تسجيل الورد بنجاح! +15 XP');">🟢 تم إنجاز الورد اليومي بنجاح</button>
-                </section>
-            </div>
+                </div>
 
-            <!-- ================= قسم 2: مركز الألعاب الحقيقية ================= -->
-            <div id="games-tab" class="tab-content">
-                <section class="section-card">
-                    <div class="title-neon">🕹️ مركز العمليات والألعاب الفعالة بالكامل</div>
-                    <div class="games-grid">
-                        
-                        <!-- 1. لعبة XO المطورة -->
-                        <div class="game-box">
-                            <h4 style="color: var(--neon-cyan);">❌ لعبة XO المزدوجة ⭕</h4>
-                            <div class="mode-select">
-                                <button class="btn-mode active" id="mode-pve" onclick="setXOMode('pve')">ضد الكمبيوتر</button>
-                                <button class="btn-mode" id="mode-pvp" onclick="setXOMode('pvp')">2 لاعبين</button>
-                            </div>
-                            <div class="xo-status" id="xo-status">دورك الآن (X)</div>
-                            <div class="xo-board">
-                                <div class="xo-cell" data-index="0" onclick="makeXOMove(0)"></div>
-                                <div class="xo-cell" data-index="1" onclick="makeXOMove(1)"></div>
-                                <div class="xo-cell" data-index="2" onclick="makeXOMove(2)"></div>
-                                <div class="xo-cell" data-index="3" onclick="makeXOMove(3)"></div>
-                                <div class="xo-cell" data-index="4" onclick="makeXOMove(4)"></div>
-                                <div class="xo-cell" data-index="5" onclick="makeXOMove(5)"></div>
-                                <div class="xo-cell" data-index="6" onclick="makeXOMove(6)"></div>
-                                <div class="xo-cell" data-index="7" onclick="makeXOMove(7)"></div>
-                                <div class="xo-cell" data-index="8" onclick="makeXOMove(8)"></div>
-                            </div>
-                            <button class="btn-cyber" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="resetXO()">إعادة تعيين</button>
-                        </div>
+                <!-- صندوق اللوت بوكس اليومي -->
+                <div class="loot-container">
+                    <div class="loot-box-graphic" id="lootBoxBtn" onclick="openDailyLootBox()">📦</div>
+                    <div style="margin-top: 5px; font-size: 0.85rem; color: var(--muted-text);">صندوق اللوت بوكس اليومي (متاح مرة كل 24 ساعة)</div>
+                    <div class="loot-result" id="lootResultDisplay">اضغط على الصندوق لتجربة حظك اليومي!</div>
+                </div>
 
-                        <!-- 2. لعبة الثعبان الحقيقية -->
-                        <div class="game-box">
-                            <h4 style="color: #10b981;">🐍 ثعبان النيون الكلاسيكي</h4>
-                            <p style="font-size:0.75rem; color:var(--text-muted);">تحرك بالأسهم لتجميع خلايا الطاقة البرمجية.</p>
-                            <canvas id="snakeCanvas" width="200" height="140" class="game-canvas"></canvas>
-                            <button class="btn-cyber" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="startSnakeGame()">ابدأ / إعادة اللعب</button>
-                        </div>
-
-                        <!-- 3. لعبة التنس الحقيقية -->
-                        <div class="game-box">
-                            <h4 style="color: var(--gold);">🏓 غزو التنس النبضي</h4>
-                            <p style="font-size:0.75rem; color:var(--text-muted);">حرك الماوس فوق المربع للتحكم بالمضرب ومنع الكرة.</p>
-                            <canvas id="pongCanvas" width="200" height="140" class="game-canvas"></canvas>
-                            <button class="btn-cyber" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="startPongGame()">ابدأ / إعادة اللعب</button>
-                        </div>
-
-                        <!-- 4. لعبة غزو الدجاج الفضائي الحقيقية -->
-                        <div class="game-box">
-                            <h4 style="color: #ef4444;">🐔 غزو الدجاج الفضائي الحقيقي</h4>
-                            <p style="font-size:0.75rem; color:var(--text-muted);">الأسهم (يمين/يسار) للحركة، وزر (Space) لإطلاق النار!</p>
-                            <canvas id="spaceCanvas" width="200" height="140" class="game-canvas"></canvas>
-                            <button class="btn-cyber" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="startSpaceGame()">ابدأ اللعب الحقيقي</button>
-                        </div>
-
-                        <!-- 5. محاكي صناديق War Era الإحصائي -->
-                        <div class="game-box">
-                            <h4 style="color: var(--neon-magenta);">📦 محاكي صناديق War Era</h4>
-                            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.5rem;">افتح الصناديق لتجربة حظك وحساب أرباحك وعوائد الـ XP.</p>
-                            <div class="loot-display" id="box-result">في انتظار فتح أول صندوق استراتيجي...</div>
-                            <button class="btn-cyber" style="background:linear-gradient(135deg, var(--neon-magenta), #9d4edf); color:#fff;" onclick="openWarBox()">افتح صندوق لوت بوكس</button>
-                        </div>
-
+                <!-- حائط الإنجازات الأسطورية -->
+                <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                    <h4 style="margin: 0; font-size: 0.9rem; color: var(--accent-pink);">🏆 حائط الإنجازات الأسطورية (Gaming Hall of Fame)</h4>
+                    <div class="achievements-grid">
+                        <div class="achieve-card" id="ach-xo-ai"><span class="icon">🤖</span><span class="title">AI Crusher</span><span class="desc">الفوز على الكمبيوتر في XO</span></div>
+                        <div class="achieve-card" id="ach-xo-pvp"><span class="icon">👑</span><span class="title">Double Threat</span><span class="desc">الفوز في النمط الثنائي XO</span></div>
+                        <div class="achieve-card" id="ach-tennis"><span class="icon">🎾</span><span class="title">Racket Master</span><span class="desc">سكور +5 في التنس</span></div>
+                        <div class="achieve-card" id="ach-chicken"><span class="icon">🚀</span><span class="title">Galaxy Defender</span><span class="desc">سكور +50 في غزو الدجاج</span></div>
+                        <div class="achieve-card" id="ach-lucky"><span class="icon">💎</span><span class="title">Legendary Drop</span><span class="desc">الحصول على لقب أسطوري</span></div>
                     </div>
-                </section>
+                </div>
             </div>
 
-            <!-- ================= قسم 3: المفكرة المشفرة ================= -->
-            <div id="notes-tab" class="tab-content">
-                <section class="section-card">
-                    <div class="title-neon">🔒 المفكرة السيبرانية وسجل الملاحظات الخاص بك</div>
-                    <textarea class="cyber-textarea" id="cyber-note-input" placeholder="اكتب ملاحظاتك، أفكارك البرمجية، أو ملخصات الفيزياء هنا بكل حرية... البيانات تُحفظ تلقائياً في المتصفح."></textarea>
-                    <button class="btn-cyber" onclick="saveNote()">💾 حفظ الملاحظة بالكامل في الخادم المحلي</button>
-                </section>
+            <!-- محاكي نافذة المطر والـ Pomodoro -->
+            <div class="gravity-card" id="card-rain">
+                <h2>🌧️ محاكي نافذة المطر والـ Pomodoro</h2>
+                <div class="rain-container">
+                    <canvas id="rainCanvas"></canvas>
+                    <div class="pomo-overlay">
+                        <div class="pomo-time" id="pomoDisplay">25:00</div>
+                        <button class="modern-btn" id="pomoBtn" onclick="togglePomodoro()">ابدأ التركيز</button>
+                    </div>
+                </div>
             </div>
 
-        </main>
+            <!-- الورد اليومي الروحاني -->
+            <div class="gravity-card" id="card-faith">
+                <h2>🕋 الورد اليومي والروحانيات</h2>
+                <div class="quran-box">
+                    <div class="quran-info">
+                        <h4 id="quranTarget">قراءة حزب من القرآن الكريم اليوم</h4>
+                        <p style="margin: 5px 0 0 0; color: var(--muted-text); font-size: 0.85rem;">بركة يومك تبدأ من هنا، حافظ على وردك.</p>
+                    </div>
+                    <div class="quran-checkbox" id="quranCheck" onclick="toggleQuranCheck()"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 📚 المذاكرة والمواد ================= -->
+        <div id="study" class="tab-content">
+            <div class="gravity-card" id="card-subjects">
+                <h2>📚 خطة ومؤشرات المواد الدراسية</h2>
+                <div class="grid-2">
+                    <div class="subject-item"><div><strong style="color: #fff; display:block;">الفيزياء الحديثة</strong><span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 75%</span></div></div>
+                    <div class="subject-item"><div><strong style="color: #fff; display:block;">الرياضيات التطبيقية</strong><span style="font-size:0.8rem; color:var(--accent-glow)">تم إنجاز 60%</span></div></div>
+                </div>
+            </div>
+
+            <div class="gravity-card">
+                <h2>🔒 المفكرة الخاصة (جهازك الحالي فقط)</h2>
+                <p style="color: var(--muted-text); font-size: 0.85rem; margin-top: -5px;">
+                    كل ما يكتب هنا يُحفظ محلياً على هذا المتصفح فقط وبسرية تامة. لن يتمكن أي شخص آخر من رؤيته عبر الإنترنت.
+                </p>
+                
+                <div style="margin-bottom: 15px;">
+                    <textarea id="secretNotesInput" class="mindmap-input" style="width: 100%; height: 140px; resize: vertical; font-family: sans-serif; box-sizing: border-box;" placeholder="اكتب ملاحظاتك السرية أو روابطك المهمة هنا... (مثال: https://google.com)"></textarea>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="modern-btn" onclick="saveSecretNotes()">💾 حفظ الملاحظات</button>
+                    <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="clearSecretNotes()">🗑️ مسح الكل</button>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.5); border: 1px dashed var(--border-color); border-radius: 12px; padding: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--accent-glow); font-size: 0.9rem;">👁️ عرض الملاحظات والروابط النشطة:</h4>
+                    <div id="secretNotesDisplay" style="white-space: pre-wrap; font-size: 0.95rem; color: #e5e7eb; line-height: 1.6;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 🎮 صالة الألعاب الفورية ================= -->
+        <div id="games" class="tab-content">
+            <div class="gravity-card" id="card-arcade">
+                <h2>🎮 غرفة الألعاب الفورية (No Links // Play Inside)</h2>
+                
+                <div class="arcade-menu">
+                    <button class="tab-btn active" onclick="launchGame('xo')">❌ تيك تاك تو (X-O)</button>
+                    <button class="tab-btn" onclick="launchGame('tennis')">🎾 التنس</button>
+                    <button class="tab-btn" onclick="launchGame('football')">⚽ كورة القدم</button>
+                    <button class="tab-btn" onclick="launchGame('basket')">🏀 السلة</button>
+                    <button class="tab-btn" onclick="launchGame('chicken')">🚀 غزو الدجاج</button>
+                    <button class="tab-btn" onclick="launchGame('snake')">🐍 الثعبان</button>
+                </div>
+
+                <div class="game-screen-wrapper">
+                    <span id="gameInstructions" style="font-size:0.9rem; color:var(--muted-text);">اختر نظام اللعب لتبدأ التحدي!</span>
+                    
+                    <div class="xo-controls" id="xoControls">
+                        <button class="modern-btn" onclick="startXO('ai')">🤖 ضد الكمبيوتر</button>
+                        <button class="modern-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);" onclick="startXO('pvp')">👥 لاعب ضد لاعب (ثنائي)</button>
+                    </div>
+
+                    <div class="xo-board" id="xoBoard">
+                        <div class="xo-cell" onclick="makeXOMove(0)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(1)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(2)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(3)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(4)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(5)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(6)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(7)"></div>
+                        <div class="xo-cell" onclick="makeXOMove(8)"></div>
+                    </div>
+
+                    <canvas id="gameCanvas" width="600" height="350" class="game-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <footer>Ultimate Core Hub v14.1 // Pure Cyberpunk Framework</footer>
+
     <script>
-        /* ===== التنقل بين الأقسام (Tabs System) ===== */
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        // ================= 0. نظام تتبع حركة الماوس المتوهج (Neon Cursor Logic) =================
+        const dot = document.getElementById('cursorDot');
+        const glow = document.getElementById('cursorGlow');
+
+        window.addEventListener('mousemove', (e) => {
+            // تحديث فوري للنقطة المركزية الفوسفورية
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            
+            // تحديث الهالة الخارجية النيون التابعة بسلاسة
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // رصد الإشارة فوق العناصر التفاعلية لتبديل الألوان والتكبير
+        const interactiveElements = 'a, button, .tab-btn, .modern-btn, .xo-cell, .loot-box-graphic, .modern-logo, .quran-checkbox, textarea, input';
+        
+        document.querySelectorAll(interactiveElements).forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // ================= 1. نظام التابات واكتشاف التنقل =================
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-            // إيقاف تشغيل الألعاب مؤقتاً عند التنقل لعدم استهلاك الموارد
-            stopAllGames();
+            event.currentTarget.classList.add('active');
+            if(tabId === 'workspace') setTimeout(resizeCanvas, 50);
+            if(tabId === 'study') displaySecretNotes();
+            if(tabId !== 'games') stopAllGames();
         }
 
-        /* ===== نظام الـ XP والمستويات الرتبوية ===== */
-        let xp = 0; let level = 1; let nextLevelXp = 100;
-        const ranks = ["Cyber Recruit", "Data Trooper", "Academic Warrior", "Quantum Operator", "Cyber Legend"];
-        function gainXP(amount) {
-            xp += amount;
-            if (xp >= nextLevelXp) {
-                xp -= nextLevelXp; level++; nextLevelXp = Math.floor(nextLevelXp * 1.25);
-            }
-            document.getElementById('xp-bar').style.width = (xp / nextLevelXp) * 100 + '%';
-            document.getElementById('xp-counter').innerText = `${xp} / ${nextLevelXp}`;
-            document.getElementById('level-badge').innerText = `LEVEL ${level}`;
-            document.getElementById('rank-title').innerText = ranks[Math.min(Math.floor((level - 1) / 2), ranks.length - 1)];
+        // ================= 2. نظام المفكرة الخاصة والروابط الذكية =================
+        function linkify(text) {
+            const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            return text.replace(urlRegex, function(url) {
+                return '<a href="' + url + '" target="_blank" style="color: var(--accent-glow); text-decoration: underline; font-weight: 500;">' + url + '</a>';
+            });
         }
 
-        /* ===== [1] نظام لعبة XO المزدوجة المتكاملة ===== */
-        let xoBoard = ["", "", "", "", "", "", "", "", ""];
-        let xoTurn = "X"; let xoMode = "pve"; let xoActive = true;
-        function setXOMode(mode) { xoMode = mode; document.getElementById('mode-pve').classList.toggle('active', mode === 'pve'); document.getElementById('mode-pvp').classList.toggle('active', mode === 'pvp'); resetXO(); }
-        function makeXOMove(index) {
-            if (xoBoard[index] !== "" || !xoActive) return;
-            xoBoard[index] = xoTurn;
-            let cell = document.querySelector(`[data-index='${index}']`);
-            cell.innerText = xoTurn; cell.style.color = xoTurn === "X" ? "var(--neon-cyan)" : "var(--neon-magenta)";
-            if (checkXOWin()) return;
-            if (xoMode === "pve") {
-                xoActive = false; document.getElementById('xo-status').innerText = "تفكير الـ AI...";
-                setTimeout(() => {
-                    let empties = []; xoBoard.forEach((v,i) => { if(v==="") empties.push(i); });
-                    if(empties.length > 0) {
-                        let idx = empties[Math.floor(Math.random()*empties.length)];
-                        xoBoard[idx] = "O"; let c = document.querySelector(`[data-index='${idx}']`);
-                        c.innerText = "O"; c.style.color = "var(--neon-magenta)";
-                    }
-                    xoActive = true; if (!checkXOWin()) document.getElementById('xo-status').innerText = "دورك الآن (X)";
-                }, 400);
-            } else {
-                xoTurn = xoTurn === "X" ? "O" : "X"; document.getElementById('xo-status').innerText = `دور لاعب (${xoTurn})`;
-            }
+        function saveSecretNotes() {
+            const inputText = document.getElementById('secretNotesInput').value;
+            localStorage.setItem('ahmed_secret_notes', inputText);
+            displaySecretNotes();
         }
-        function checkXOWin() {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            for(let p of wins) {
-                if(xoBoard[p[0]] && xoBoard[p[0]]===xoBoard[p[1]] && xoBoard[p[0]]===xoBoard[p[2]]) {
-                    document.getElementById('xo-status').innerText = `🎉 فاز اللاعب (${xoBoard[p[0]]})`; xoActive = false;
-                    if(xoBoard[p[0]]==="X") gainXP(30); return true;
+
+        function displaySecretNotes() {
+            const savedText = localStorage.getItem('ahmed_secret_notes') || '';
+            const inputField = document.getElementById('secretNotesInput');
+            if(inputField) inputField.value = savedText;
+            
+            const displayDiv = document.getElementById('secretNotesDisplay');
+            if(displayDiv) {
+                if (savedText.trim() === '') {
+                    displayDiv.innerHTML = '<span style="color: var(--muted-text); font-style: italic; font-size: 0.85rem;">لا توجد ملاحظات محفوظة حالياً.</span>';
+                } else {
+                    const safeText = savedText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    displayDiv.innerHTML = linkify(safeText);
+                    // إعادة ربط أحداث الماوس للروابط المضافة حديثاً
+                    displayDiv.querySelectorAll('a').forEach(el => {
+                        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                    });
                 }
             }
-            if(!xoBoard.includes("")) { document.getElementById('xo-status').innerText = "تعادل!"; xoActive = false; return true; }
-            return false;
         }
-        function resetXO() { xoBoard.fill(""); xoTurn = "X"; xoActive = true; document.querySelectorAll('.xo-cell').forEach(c=>c.innerText=""); document.getElementById('xo-status').innerText="دورك الآن (X)"; }
 
-        /* ===== [2] لعبة الثعبان الحقيقية (Snake) ===== */
-        const sCanvas = document.getElementById('snakeCanvas'); const sCtx = sCanvas.getContext('2d');
-        let snake, food, dx, dy, snakeInterval = null;
-        function startSnakeGame() {
-            clearInterval(snakeInterval); snake = [{x:80, y:60}, {x:70, y:60}]; dx = 10; dy = 0;
-            spawnFood(); snakeInterval = setInterval(updateSnake, 120);
-        }
-        function spawnFood() { food = {x: Math.floor(Math.random()*19)*10, y: Math.floor(Math.random()*13)*10}; }
-        function updateSnake() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-            if(head.x < 0 || head.x >= 200 || head.y < 0 || head.y >= 140 || snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-                clearInterval(snakeInterval); alert("انتهت اللعبة! حصلت على نقاط خبرة."); return;
+        function clearSecretNotes() {
+            if (confirm("هل أنت متأكد من رغبتك في مسح كافة الملاحظات؟")) {
+                localStorage.removeItem('ahmed_secret_notes');
+                displaySecretNotes();
             }
-            snake.unshift(head);
-            if(head.x === food.x && head.y === food.y) { gainXP(10); spawnFood(); } else { snake.pop(); }
-            sCtx.fillStyle = "#05060a"; sCtx.fillRect(0,0,200,140);
-            sCtx.fillStyle = "var(--neon-cyan)"; snake.forEach(seg => sCtx.fillRect(seg.x, seg.y, 9, 9));
-            sCtx.fillStyle = "#ef4444"; sCtx.fillRect(food.x, food.y, 9, 9);
         }
-        window.addEventListener('keydown', e => {
-            if(e.key === "ArrowUp" && dy === 0) { dx = 0; dy = -10; }
-            if(e.key === "ArrowDown" && dy === 0) { dx = 0; dy = 10; }
-            if(e.key === "ArrowLeft" && dx === 0) { dx = -10; dy = 0; }
-            if(e.key === "ArrowRight" && dx === 0) { dx = 10; dy = 0; }
-        });
 
-        /* ===== [3] لعبة التنس الحقيقية (Pong) ===== */
-        const pCanvas = document.getElementById('pongCanvas'); const pCtx = pCanvas.getContext('2d');
-        let ballX, ballY, ballSpeedX, ballSpeedY, paddleY, pongInterval = null;
-        pCanvas.addEventListener('mousemove', e => { const rect = pCanvas.getBoundingClientRect(); paddleY = e.clientY - rect.top - 20; });
-        function startPongGame() {
-            clearInterval(pongInterval); ballX = 100; ballY = 70; ballSpeedX = 3; ballSpeedY = 2; paddleY = 50;
-            pongInterval = setInterval(updatePong, 30);
-        }
-        function updatePong() {
-            ballX += ballSpeedX; ballY += ballSpeedY;
-            if(ballY <= 0 || ballY >= 140) ballSpeedY = -ballSpeedY;
-            if(ballX >= 190) ballSpeedX = -ballSpeedX; // حائط الكمبيوتر الآلي
-            if(ballX <= 15) {
-                if(ballY >= paddleY && ballY <= paddleY + 40) { ballSpeedX = -ballSpeedX; gainXP(5); }
-                else { clearInterval(pongInterval); alert("فاتتك الكرة! انتهت اللعبة."); return; }
+        // ================= 3. نظام رادار الحظ وصندوق اللوت بوكس =================
+        const lootDrops = [
+            { text: "💎 حظ أسطوري: [Legendary Drop] كرت الحظ 99% Pro Gamer!", rare: true },
+            { text: "⚔️ لقب اليوم: [Cyber Overlord] حظ ناري وسرعة استجابة فائقة!", rare: false },
+            { text: "🚀 أداة مميزة: [Quantum Mouse] تمنحك دقة خارقة في الألعاب اليوم!", rare: false },
+            { text: "📦 لوت عادي: [Health Pack +50] طاقة إيجابية لتخطي الأيام الصعبة.", rare: false },
+            { text: "👑 لقب نادر: [AI tamer] حظك اليوم مثالي لسحق الخصوم!", rare: true }
+        ];
+
+        function openDailyLootBox() {
+            const lastOpen = localStorage.getItem('xo_last_loot_time');
+            const now = new Date().getTime();
+            
+            if (lastOpen && (now - lastOpen < 24 * 60 * 60 * 1000)) {
+                const timeLeft = (24 * 60 * 60 * 1000) - (now - lastOpen);
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                document.getElementById('lootResultDisplay').innerText = `⏳ الصندوق مقفل! يمكنك فتحه مجدداً بعد ${hours} ساعة.`;
+                return;
             }
-            pCtx.fillStyle = "#05060a"; pCtx.fillRect(0,0,200,140);
-            pCtx.fillStyle = "var(--gold)"; pCtx.fillRect(5, paddleY, 8, 40); // المضرب
-            pCtx.fillStyle = "#fff"; pCtx.fillRect(ballX, ballY, 6, 6); // الكرة
+
+            localStorage.setItem('xo_last_loot_time', now);
+            const drop = lootDrops[Math.floor(Math.random() * lootDrops.length)];
+            document.getElementById('lootResultDisplay').innerText = drop.text;
+            
+            if(drop.rare) {
+                document.getElementById('lootResultDisplay').style.color = "var(--accent-pink)";
+                unlockAchievement('ach-lucky');
+            } else {
+                document.getElementById('lootResultDisplay').style.color = "var(--accent-glow)";
+            }
         }
 
-        /* ===== [4] غزو الدجاج الفضائي الحقيقي ===== */
-        const spCanvas = document.getElementById('spaceCanvas'); const spCtx = spCanvas.getContext('2d');
-        let playerX, bullets, chickens, spaceInterval = null;
-        function startSpaceGame() {
-            clearInterval(spaceInterval); playerX = 90; bullets = []; chickens = [{x:20,y:20},{x:60,y:20},{x:100,y:20},{x:140,y:20}];
-            spaceInterval = setInterval(updateSpace, 40);
+        // ================= 4. نظام لوحة الإنجازات =================
+        function unlockAchievement(id) {
+            const achCard = document.getElementById(id);
+            if(achCard && !achCard.classList.contains('unlocked')) {
+                achCard.classList.add('unlocked');
+                localStorage.setItem(id, 'unlocked');
+            }
         }
-        function updateSpace() {
-            bullets.forEach((b,i) => { b.y -= 4; if(b.y<0) bullets.splice(i,1); });
-            // تصادم الرصاص بالدجاج
-            bullets.forEach((b, bi) => {
-                chickens.forEach((ch, ci) => {
-                    if(b.x >= ch.x && b.x <= ch.x+15 && b.y >= ch.y && b.y <= ch.y+15) {
-                        chickens.splice(ci, 1); bullets.splice(bi, 1); gainXP(20);
-                    }
-                });
+
+        function loadAchievements() {
+            const achs = ['ach-xo-ai', 'ach-xo-pvp', 'ach-tennis', 'ach-chicken', 'ach-lucky'];
+            achs.forEach(id => {
+                if(localStorage.getItem(id) === 'unlocked') {
+                    const card = document.getElementById(id);
+                    if(card) card.classList.add('unlocked');
+                }
             });
-            if(chickens.length === 0) { clearInterval(spaceInterval); alert("تم تدمير الغزاة بالكامل! كفو! +50 XP"); gainXP(50); return; }
-            spCtx.fillStyle = "#05060a"; spCtx.fillRect(0,0,200,140);
-            spCtx.fillStyle = "var(--neon-cyan)"; spCtx.fillRect(playerX, 125, 20, 10); // مركبة اللاعب
-            spCtx.fillStyle = "#ef4444"; chickens.forEach(ch => spCtx.fillRect(ch.x, ch.y, 15, 15)); // الدجاج غزاة
-            spCtx.fillStyle = "var(--gold)"; bullets.forEach(b => spCtx.fillRect(b.x, b.y, 3, 7)); // الطلقات
-        }
-        window.addEventListener('keydown', e => {
-            if(e.key === "ArrowLeft" && playerX > 0) playerX -= 12;
-            if(e.key === "ArrowRight" && playerX < 180) playerX += 12;
-            if(e.key === " " || e.code === "Space") { bullets.push({x: playerX + 9, y: 120}); e.preventDefault(); }
-        });
-
-        /* ===== دالة لإيقاف الألعاب المؤقتة ===== */
-        function stopAllGames() { clearInterval(snakeInterval); clearInterval(pongInterval); clearInterval(spaceInterval); }
-
-        /* ===== صناديق لوت بوكس War Era ===== */
-        function openWarBox() {
-            const pool = [
-                {n: "⚔️ سلاح عسكري فائق الندرة", x: 40}, {n: "🛡️ درع حماية نيون مشحون", x: 25},
-                {n: "🔋 خلية طاقة متهالكة (خسارة إحصائية)", x: 5}, {n: "🪙 كود ذهبي سيبراني ملغّم ومربح", x: 60}
-            ];
-            let res = pool[Math.floor(Math.random()*pool.length)];
-            document.getElementById('box-result').innerHTML = `النتيجة: <span style="color:var(--neon-cyan); font-weight:bold;">${res.n}</span><br>+${res.x} XP مضاف للحساب`;
-            gainXP(res.x);
         }
 
-        /* ===== إدارة المفكرة وحفظها محلياً ===== */
-        window.onload = () => { if(localStorage.getItem('cyber_note')) document.getElementById('cyber-note-input').value = localStorage.getItem('cyber_note'); };
-        function saveNote() { localStorage.setItem('cyber_note', document.getElementById('cyber-note-input').value); alert('تم تشفير وحفظ الملاحظة بنجاح في ذاكرة المتصفح المحلية!'); }
-
-        /* ===== خلفية مطر مصفوفة النيون ===== */
-        const canvas = document.getElementById('matrix-rain'); const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ⚡'.split('');
-        const fontSize = 16; const columns = canvas.width / fontSize;
-        const rainDrops = Array(Math.floor(columns)).fill(1);
+        // ================= 5. شريط الأذكار والورد =================
+        const dhikrs = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ","لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ","أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ"];
         setInterval(() => {
-            ctx.fillStyle = 'rgba(5, 6, 10, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00f5d4'; ctx.font = fontSize + 'px monospace';
-            for (let i = 0; i < rainDrops.length; i++) {
-                ctx.fillText(alphabet[Math.floor(Math.random()*alphabet.length)], i*fontSize, rainDrops[i]*fontSize);
-                if (rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) rainDrops[i] = 0;
-                rainDrops[i]++;
+            const t = document.getElementById('dhikr-ticker');
+            if(t) { t.style.opacity = 0; setTimeout(() => { t.innerText = dhikrs[Math.floor(Math.random() * dhikrs.length)]; t.style.opacity = 1; }, 500); }
+        }, 12000);
+
+        function toggleQuranCheck() {
+            const cb = document.getElementById('quranCheck'); cb.classList.toggle('checked');
+            document.getElementById('quranTarget').style.textDecoration = cb.classList.contains('checked') ? "line-through" : "none";
+        }
+
+        // ================= 6. محاكي المطر والـ Pomodoro =================
+        const canvas = document.getElementById('rainCanvas'), ctx = canvas.getContext('2d');
+        let drops = [];
+        function resizeCanvas() { if(canvas && canvas.parentElement) { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; } }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        for (let i = 0; i < 30; i++) drops.push({ x: Math.random() * 800, y: Math.random() * 250, len: Math.random() * 10 + 5, speed: Math.random() * 3 + 3 });
+        function drawRain() {
+            if (!canvas || !canvas.parentElement.offsetHeight) { requestAnimationFrame(drawRain); return; }
+            ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)'; ctx.lineWidth = 1.5;
+            drops.forEach(p => { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x, p.y + p.len); ctx.stroke(); p.y += p.speed; if (p.y > canvas.height) p.y = -p.len; });
+            requestAnimationFrame(drawRain);
+        }
+        drawRain();
+
+        let pomoMinutes = 25, pomoSeconds = 0, pomoTimer = null, isRunning = false;
+        function togglePomodoro() {
+            const btn = document.getElementById('pomoBtn');
+            if (isRunning) { clearInterval(pomoTimer); btn.innerText = "استئناف"; isRunning = false; }
+            else {
+                isRunning = true; btn.innerText = "إيقاف";
+                pomoTimer = setInterval(() => {
+                    if (pomoSeconds === 0) { if (pomoMinutes === 0) { clearInterval(pomoTimer); alert("انتهى وقت التركيز!"); resetPomo(); } else { pomoMinutes--; pomoSeconds = 59; } } else pomoSeconds--;
+                    document.getElementById('pomoDisplay').innerText = `${String(pomoMinutes).padStart(2, '0')}:${String(pomoSeconds).padStart(2, '0')}`;
+                }, 1000);
             }
-        }, 33);
+        }
+        function resetPomo() { pomoMinutes = 25; pomoSeconds = 0; isRunning = false; document.getElementById('pomoBtn').innerText = "ابدأ التركيز"; }
+
+        // ================= 7. محرك وإعدادات صالة الألعاب المستقرة =================
+        function stopAllGames() {
+            if(pomoTimer) clearInterval(pomoTimer);
+            resetPomo();
+            document.getElementById('pomoDisplay').innerText = "25:00";
+        }
+
+        window.onload = function() {
+            loadAchievements();
+            displaySecretNotes();
+        };
     </script>
 </body>
 </html>
