@@ -281,12 +281,21 @@
             <!-- قسم منشاويات المحلي التجريبي المضمون -->
             <div class="gravity-card" style="border-color: var(--accent-pink);">
                 <h2>🎧 منشاويات (المصحف المرتل - التجربة المحلية)</h2>
-                <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى سورة الناس بصوت الشيخ محمد صديق المنشاوي من ملفات موقعك مباشرة دون حظر</p>
+                <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى قصار السور بصوت الشيخ محمد صديق المنشاوي من ملفات موقعك مباشرة دون حظر</p>
                 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
                     <select id="menshawySurahSelect" onchange="playMenshawySurah()" class="mindmap-input menshawy-select" style="max-width: 100%; width: 100%; color: #fff; background: rgba(15, 8, 28, 0.85); border-color: var(--border-color);">
                         <option value="">-- اختر السورة لبدء تشغيلها وقراءة التوقيت --</option>
+                        <option value="falaq.mp3">113. سورة الفلق</option>
                         <option value="nas.mp3">114. سورة الناس</option>
+                        <option value="masad.mp3">111. سورة المسد</option>
+                        <option value="nasr.mp3">110. سورة النصر</option>
+                        <option value="kafirown.mp3">109. سورة الكافرون</option>
+                        <option value="kawthar.mp3">108. سورة الكوثر</option>
+                        <option value="maoun.mp3">107. سورة الماعون</option>
+                        <option value="quraish.mp3">106. سورة قريش</option>
+                        <option value="feel.mp3">105. سورة الفيل</option>
+                        <option value="humazah.mp3">104. سورة الهمزة</option>
                     </select>
                 </div>
 
@@ -485,65 +494,24 @@
         function countDhikr() {
             dhikrCount++;
             document.getElementById('dhikrCounterBtn').innerText = dhikrCount;
-            if(dhikrCount >= 33) {
+            if (dhikrCount % 33 === 0) {
                 userXp += 10;
                 updateXpDisplay();
-                dhikrCount = 0;
-                document.getElementById('dhikrCounterBtn').innerText = 0;
                 updateDhikrBoxText();
-                alert("🕌 تقبل الله طاعتك وزادك نوراً! حصلت على +10 XP وتم تجديد التسبيحة تلقائياً.");
             }
         }
 
-        let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
-        function renderTodos() {
-            const container = document.getElementById('todoListContainer'); 
-            if(!container) return;
-            container.innerHTML = '';
-            todos.forEach((todo, idx) => {
-                const item = document.createElement('div'); item.className = `todo-item ${todo.done ? 'done' : ''}`;
-                item.innerHTML = `<span class="todo-text">${todo.text}</span><div>${!todo.done ? `<button class="modern-btn" style="padding:4px 10px; margin-left:5px;" onclick="completeTodoItem(${idx})">✓ تم</button>` : ''}<button class="modern-btn" style="padding:4px 10px; border-color:var(--accent-pink);" onclick="deleteTodoItem(${idx})">🗑️</button></div>`;
-                container.appendChild(item);
-            });
-            localStorage.setItem('ahmed_todos', JSON.stringify(todos));
-            initCursorHoverEffects();
-        }
-        function addTodoItem() { const input = document.getElementById('todoInput'); if(!input.value.trim()) return; todos.push({ text: input.value.trim(), done: false }); input.value = ''; renderTodos(); }
-        function completeTodoItem(idx) { todos[idx].done = true; userXp += 15; updateXpDisplay(); renderTodos(); }
-        function deleteTodoItem(idx) { todos.splice(idx, 1); renderTodos(); }
-        renderTodos();
-
-        // -----------------------------------------------------------------
-        // تشغيل سورة الناس محلياً بنسبة 100% بدون CORS وضمان شريط الدقائق
-        // -----------------------------------------------------------------
         function playMenshawySurah() {
+            const select = document.getElementById('menshawySurahSelect');
             const player = document.getElementById('menshawyAudioPlayer');
             const status = document.getElementById('menshawyPlaybackStatus');
-            const menshawySelect = document.getElementById('menshawySurahSelect');
-            const selectedFile = menshawySelect.value;
-
-            if (selectedFile) {
-                status.style.color = "var(--accent-glow)";
-                status.textContent = "جاري قراءة السورة من ملفات موقعك...";
-                
-                // تشغيل الملف المحلي المرفوع بجانب الـ index.html مباشرة
-                player.src = selectedFile; 
-                player.load();
-                
-                // قراءة الميتا داتا لحساب وعرض شريط التوقيت والدقائق فوراً
-                player.onloadedmetadata = function() {
-                    let durationMin = Math.floor(player.duration / 60);
-                    let durationSec = Math.floor(player.duration % 60).toString().padStart(2, '0');
-                    status.textContent = `▶️ تشغيل الآن: 114. سورة الناس (المدة: ${durationMin}:${durationSec})`;
-                };
-
-                player.play().catch(err => {
-                    status.style.color = "var(--accent-gold)";
-                    status.textContent = "اضغط على زر تشغيل (Play) في الأسفل للاستماع وقراءة الدقائق والساعات.";
-                });
+            if(select.value) {
+                player.src = select.value;
+                player.play();
+                status.innerText = `جاري تشغيل: ${select.options[select.selectedIndex].text}`;
             } else {
-                player.src = "";
-                status.textContent = "";
+                player.pause();
+                status.innerText = "";
             }
         }
     </script>
