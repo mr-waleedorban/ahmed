@@ -278,14 +278,14 @@
 
         <!-- الورد والأذكار -->
         <div id="spiritual" class="tab-content">
-            <!-- قسم منشاويات الجديد -->
+            <!-- قسم منشاويات الجديد القائم على سيرفر جيت هاب المفتوح المضمون -->
             <div class="gravity-card" style="border-color: var(--accent-pink);">
                 <h2>🎧 منشاويات (المصحف المرتل كامل)</h2>
                 <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى القرآن الكريم كاملاً بصوت الشيخ محمد صديق المنشاوي رحمة الله عليه</p>
                 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
                     <select id="menshawySurahSelect" onchange="playMenshawySurah()" class="mindmap-input menshawy-select" style="max-width: 100%; width: 100%; color: #fff; background: rgba(15, 8, 28, 0.85); border-color: var(--border-color);">
-                        <option value="">-- اختر السورة من هنا للبدء --</option>
+                        <option value="">-- اختر السورة من هنا للبدء وقراءة الدقائق --</option>
                     </select>
                 </div>
 
@@ -373,7 +373,7 @@
                     <button class="modern-btn" onclick="initSnakeGame()">🔄 إعادة تشغيل</button>
                 </div>
 
-                <!-- ضربات الجزاء المتطورة والمثيرة 2.0 -->
+                <!-- ضربات الجزاء 2.0 -->
                 <div id="penaltyGamePanel" class="game-panel">
                     <h3 style="color: var(--accent-glow);">⚽ ركلات جزاء سوبر أركيد التفاعلية</h3>
                     <p style="color: var(--muted-text); font-size: 0.85rem;">انقر على أي زاوية داخل المرمى لتسديد الكرة ميكانيكياً ومباغتة الحارس القافز!</p>
@@ -424,7 +424,6 @@
     </div>
 
     <script>
-        // مصفوفة الأذكار المتغيرة للشريط العلوي والتسبيح
         const globalDhikrPool = [
             "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
             "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
@@ -436,7 +435,6 @@
             "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ"
         ];
 
-        // 1. نظام شريط الأذكار المتغير عشوائياً كل 7 ثوانٍ
         function rotateTickerDhikr() {
             const ticker = document.getElementById('dhikr-ticker');
             if (ticker) {
@@ -449,9 +447,8 @@
             }
         }
         setInterval(rotateTickerDhikr, 7000);
-        rotateTickerDhikr(); // استدعاء فوري أول تشغيل
+        rotateTickerDhikr();
 
-        // إدارة الـ XP والـ Tabs والماوس
         let userXp = parseInt(localStorage.getItem('ahmed_user_xp')) || 0;
         function updateXpDisplay() { document.getElementById('globalXpDisplay').innerText = `${userXp} XP`; localStorage.setItem('ahmed_user_xp', userXp); }
         function switchTab(tabId) { document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active')); document.getElementById(tabId).classList.add('active'); event.currentTarget.classList.add('active'); }
@@ -459,7 +456,6 @@
         const cursorDot = document.getElementById('cursorDot'); const cursorGlow = document.getElementById('cursorGlow');
         document.addEventListener('mousemove', (e) => { cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; setTimeout(() => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; }, 40); });
         
-        // تفعيل استجابة الماوس المخصص للعناصر الجديدة أيضاً
         function initCursorHoverEffects() {
             document.querySelectorAll('button, a, .tab-btn, .xo-cell, select, .game-nav-btn, canvas, .menshawy-select').forEach(el => { 
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); 
@@ -478,13 +474,12 @@
             if(panelId !== 'pingPongPanel' && typeof pongInterval !== 'undefined') cancelAnimationFrame(pongInterval);
         }
 
-        // 2. نظام عداد التسبيح التغير التلقائي كل 33 مرة
         let dhikrCount = 0;
         function updateDhikrBoxText() {
             const currentDhikrText = globalDhikrPool[Math.floor(Math.random() * globalDhikrPool.length)];
             document.getElementById('dhikrTextDisplay').innerText = `"${currentDhikrText}"`;
         }
-        updateDhikrBoxText(); // تعيين أول ذكر للبطاقة
+        updateDhikrBoxText();
 
         function countDhikr() {
             dhikrCount++;
@@ -494,12 +489,11 @@
                 updateXpDisplay();
                 dhikrCount = 0;
                 document.getElementById('dhikrCounterBtn').innerText = 0;
-                updateDhikrBoxText(); // تغيير التسبيحة تلقائياً بعد الـ 33
+                updateDhikrBoxText();
                 alert("🕌 تقبل الله طاعتك وزادك نوراً! حصلت على +10 XP وتم تجديد التسبيحة تلقائياً.");
             }
         }
 
-        // مهام ومؤقت ومطر
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function renderTodos() {
             const container = document.getElementById('todoListContainer'); 
@@ -511,17 +505,15 @@
                 container.appendChild(item);
             });
             localStorage.setItem('ahmed_todos', JSON.stringify(todos));
-            initCursorHoverEffects(); // تحديث الماوس للمهام الجديدة
+            initCursorHoverEffects();
         }
         function addTodoItem() { const input = document.getElementById('todoInput'); if(!input.value.trim()) return; todos.push({ text: input.value.trim(), done: false }); input.value = ''; renderTodos(); }
         function completeTodoItem(idx) { todos[idx].done = true; userXp += 15; updateXpDisplay(); renderTodos(); }
         function deleteTodoItem(idx) { todos.splice(idx, 1); renderTodos(); }
-
-        // استدعاء أولي للمهام
         renderTodos();
 
         // -----------------------------------------------------------------
-        // برمجة تشغيل قسم منشاويات الجديد بشكل مضمون 100%
+        // تعديل السيرفر إلى خادم Archive ذو الصلاحيات المفتوحة
         // -----------------------------------------------------------------
         const menshawySurahs = [
             "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", 
@@ -537,7 +529,6 @@
             "المسد", "الإخلاص", "الفلق", "الناس"
         ];
 
-        // تعبئة قائمة سور المنشاوي فور تحميل الصفحة
         const menshawySelect = document.getElementById('menshawySurahSelect');
         if(menshawySelect) {
             menshawySurahs.forEach((surah, index) => {
@@ -557,20 +548,23 @@
 
             if (selected) {
                 status.style.color = "var(--accent-glow)";
-                status.textContent = "جاري التحميل والاتصال بالسيرفر المباشر...";
+                status.textContent = "جاري قراءة ملف السورة وجلب الدقائق...";
                 
-                // الرابط المباشر للمصحف المرتل من سيرفر Mp3Quran المستقر جداً
-                player.src = `https://server11.mp3quran.net/minsh/${selected}.mp3`;
+                // تم التغيير لخادم Archive المفتوح لحل الـ CORS بشكل جذري وقراءة شريط التوقيت
+                player.src = `https://archive.org/download/0112_202209/${selected}.mp3`;
                 player.load();
                 
+                // الانتظار حتى يقوم المتصفح بقراءة البيانات التعريفية للملف (حجمه ودقائقه)
+                player.onloadedmetadata = function() {
+                    let durationMin = Math.floor(player.duration / 60);
+                    let durationSec = Math.floor(player.duration % 60).toString().padStart(2, '0');
+                    status.textContent = `▶️ تشغيل الآن: ${text} (المدة: ${durationMin}:${durationSec})`;
+                };
+
                 player.play()
-                .then(() => {
-                    status.textContent = `▶️ جاري تشغيل الآن: ${text}`;
-                })
                 .catch(err => {
                     status.style.color = "var(--accent-gold)";
-                    status.textContent = `اضغط على زر تشغيل (Play) للاستماع إلى ${text}`;
-                    console.log("التحغيل التلقائي بحاجة لتفاعل المستخدم أولاً:", err);
+                    status.textContent = `انقر تشغيل (Play) في الشريط الأسفل للاستماع وقراءة التوقيت لـ ${text}`;
                 });
             } else {
                 player.src = "";
