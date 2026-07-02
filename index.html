@@ -278,14 +278,15 @@
 
         <!-- الورد والأذكار -->
         <div id="spiritual" class="tab-content">
-            <!-- قسم منشاويات الجديد القائم على سيرفر جيت هاب المفتوح المضمون -->
+            <!-- قسم منشاويات المحلي التجريبي المضمون -->
             <div class="gravity-card" style="border-color: var(--accent-pink);">
-                <h2>🎧 منشاويات (المصحف المرتل كامل)</h2>
-                <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى القرآن الكريم كاملاً بصوت الشيخ محمد صديق المنشاوي رحمة الله عليه</p>
+                <h2>🎧 منشاويات (المصحف المرتل - التجربة المحلية)</h2>
+                <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى سورة الناس بصوت الشيخ محمد صديق المنشاوي من ملفات موقعك مباشرة دون حظر</p>
                 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
                     <select id="menshawySurahSelect" onchange="playMenshawySurah()" class="mindmap-input menshawy-select" style="max-width: 100%; width: 100%; color: #fff; background: rgba(15, 8, 28, 0.85); border-color: var(--border-color);">
-                        <option value="">-- اختر السورة من هنا للبدء وقراءة الدقائق --</option>
+                        <option value="">-- اختر السورة لبدء تشغيلها وقراءة التوقيت --</option>
+                        <option value="nas.mp3">114. سورة الناس</option>
                     </select>
                 </div>
 
@@ -513,58 +514,32 @@
         renderTodos();
 
         // -----------------------------------------------------------------
-        // تعديل السيرفر إلى خادم Archive ذو الصلاحيات المفتوحة
+        // تشغيل سورة الناس محلياً بنسبة 100% بدون CORS وضمان شريط الدقائق
         // -----------------------------------------------------------------
-        const menshawySurahs = [
-            "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", 
-            "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", 
-            "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", 
-            "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", 
-            "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", 
-            "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", 
-            "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", 
-            "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", 
-            "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", 
-            "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", 
-            "المسد", "الإخلاص", "الفلق", "الناس"
-        ];
-
-        const menshawySelect = document.getElementById('menshawySurahSelect');
-        if(menshawySelect) {
-            menshawySurahs.forEach((surah, index) => {
-                let surahNum = (index + 1).toString().padStart(3, '0');
-                let opt = document.createElement('option');
-                opt.value = surahNum;
-                opt.textContent = `${index + 1}. سورة ${surah}`;
-                menshawySelect.appendChild(opt);
-            });
-        }
-
         function playMenshawySurah() {
             const player = document.getElementById('menshawyAudioPlayer');
             const status = document.getElementById('menshawyPlaybackStatus');
-            const selected = menshawySelect.value;
-            const text = menshawySelect.options[menshawySelect.selectedIndex].text;
+            const menshawySelect = document.getElementById('menshawySurahSelect');
+            const selectedFile = menshawySelect.value;
 
-            if (selected) {
+            if (selectedFile) {
                 status.style.color = "var(--accent-glow)";
-                status.textContent = "جاري قراءة ملف السورة وجلب الدقائق...";
+                status.textContent = "جاري قراءة السورة من ملفات موقعك...";
                 
-                // تم التغيير لخادم Archive المفتوح لحل الـ CORS بشكل جذري وقراءة شريط التوقيت
-                player.src = `https://archive.org/download/0112_202209/${selected}.mp3`;
+                // تشغيل الملف المحلي المرفوع بجانب الـ index.html مباشرة
+                player.src = selectedFile; 
                 player.load();
                 
-                // الانتظار حتى يقوم المتصفح بقراءة البيانات التعريفية للملف (حجمه ودقائقه)
+                // قراءة الميتا داتا لحساب وعرض شريط التوقيت والدقائق فوراً
                 player.onloadedmetadata = function() {
                     let durationMin = Math.floor(player.duration / 60);
                     let durationSec = Math.floor(player.duration % 60).toString().padStart(2, '0');
-                    status.textContent = `▶️ تشغيل الآن: ${text} (المدة: ${durationMin}:${durationSec})`;
+                    status.textContent = `▶️ تشغيل الآن: 114. سورة الناس (المدة: ${durationMin}:${durationSec})`;
                 };
 
-                player.play()
-                .catch(err => {
+                player.play().catch(err => {
                     status.style.color = "var(--accent-gold)";
-                    status.textContent = `انقر تشغيل (Play) في الشريط الأسفل للاستماع وقراءة التوقيت لـ ${text}`;
+                    status.textContent = "اضغط على زر تشغيل (Play) في الأسفل للاستماع وقراءة الدقائق والساعات.";
                 });
             } else {
                 player.src = "";
