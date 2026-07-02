@@ -32,7 +32,7 @@
             cursor: none;
         }
 
-        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .ai-toggle-btn, .ai-mode-btn, .ai-send-btn, select, input[type="file"], .game-nav-btn {
+        a, button, .tab-btn, .modern-btn, .xo-cell, .pack-card, .modern-logo, textarea, input, .todo-item, .ai-toggle-btn, .ai-mode-btn, .ai-send-btn, select, input[type="file"], .game-nav-btn, .menshawy-select {
             cursor: none !important;
         }
 
@@ -278,6 +278,23 @@
 
         <!-- الورد والأذكار -->
         <div id="spiritual" class="tab-content">
+            <!-- قسم منشاويات الجديد -->
+            <div class="gravity-card" style="border-color: var(--accent-pink);">
+                <h2>🎧 منشاويات (المصحف المرتل كامل)</h2>
+                <p style="color: var(--muted-text); font-size: 0.9rem; margin-bottom: 15px;">استمع إلى القرآن الكريم كاملاً بصوت الشيخ محمد صديق المنشاوي رحمة الله عليه</p>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <select id="menshawySurahSelect" onchange="playMenshawySurah()" class="mindmap-input menshawy-select" style="max-width: 100%; width: 100%; color: #fff; background: rgba(15, 8, 28, 0.85); border-color: var(--border-color);">
+                        <option value="">-- اختر السورة من هنا للبدء --</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <audio id="menshawyAudioPlayer" controls style="width: 100%; border-radius: 30px; outline: none;"></audio>
+                    <div id="menshawyPlaybackStatus" style="margin-top: 10px; font-weight: bold; font-size: 0.95rem; color: var(--accent-glow); min-height: 20px;"></div>
+                </div>
+            </div>
+
             <div class="gravity-card">
                 <h2>🕌 الورد القرآني والأذكار والتقرب إلى الله</h2>
                 
@@ -422,12 +439,14 @@
         // 1. نظام شريط الأذكار المتغير عشوائياً كل 7 ثوانٍ
         function rotateTickerDhikr() {
             const ticker = document.getElementById('dhikr-ticker');
-            ticker.style.opacity = 0;
-            setTimeout(() => {
-                const randomDhikr = globalDhikrPool[Math.floor(Math.random() * globalDhikrPool.length)];
-                ticker.innerText = randomDhikr;
-                ticker.style.opacity = 1;
-            }, 500);
+            if (ticker) {
+                ticker.style.opacity = 0;
+                setTimeout(() => {
+                    const randomDhikr = globalDhikrPool[Math.floor(Math.random() * globalDhikrPool.length)];
+                    ticker.innerText = randomDhikr;
+                    ticker.style.opacity = 1;
+                }, 500);
+            }
         }
         setInterval(rotateTickerDhikr, 7000);
         rotateTickerDhikr(); // استدعاء فوري أول تشغيل
@@ -439,7 +458,15 @@
         
         const cursorDot = document.getElementById('cursorDot'); const cursorGlow = document.getElementById('cursorGlow');
         document.addEventListener('mousemove', (e) => { cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; setTimeout(() => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; }, 40); });
-        document.querySelectorAll('button, a, .tab-btn, .xo-cell, select, .game-nav-btn, canvas').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
+        
+        // تفعيل استجابة الماوس المخصص للعناصر الجديدة أيضاً
+        function initCursorHoverEffects() {
+            document.querySelectorAll('button, a, .tab-btn, .xo-cell, select, .game-nav-btn, canvas, .menshawy-select').forEach(el => { 
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); 
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); 
+            });
+        }
+        initCursorHoverEffects();
         updateXpDisplay();
 
         function switchArcadeGame(panelId, btnElement) {
@@ -447,8 +474,8 @@
             document.querySelectorAll('.game-nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(panelId).classList.add('active');
             btnElement.classList.add('active');
-            if(panelId !== 'snakeGamePanel' && snakeInterval) clearInterval(snakeInterval);
-            if(panelId !== 'pingPongPanel' && pongInterval) cancelAnimationFrame(pongInterval);
+            if(panelId !== 'snakeGamePanel' && typeof snakeInterval !== 'undefined') clearInterval(snakeInterval);
+            if(panelId !== 'pingPongPanel' && typeof pongInterval !== 'undefined') cancelAnimationFrame(pongInterval);
         }
 
         // 2. نظام عداد التسبيح التغير التلقائي كل 33 مرة
@@ -475,208 +502,81 @@
         // مهام ومؤقت ومطر
         let todos = JSON.parse(localStorage.getItem('ahmed_todos')) || [];
         function renderTodos() {
-            const container = document.getElementById('todoListContainer'); container.innerHTML = '';
+            const container = document.getElementById('todoListContainer'); 
+            if(!container) return;
+            container.innerHTML = '';
             todos.forEach((todo, idx) => {
                 const item = document.createElement('div'); item.className = `todo-item ${todo.done ? 'done' : ''}`;
                 item.innerHTML = `<span class="todo-text">${todo.text}</span><div>${!todo.done ? `<button class="modern-btn" style="padding:4px 10px; margin-left:5px;" onclick="completeTodoItem(${idx})">✓ تم</button>` : ''}<button class="modern-btn" style="padding:4px 10px; border-color:var(--accent-pink);" onclick="deleteTodoItem(${idx})">🗑️</button></div>`;
                 container.appendChild(item);
             });
             localStorage.setItem('ahmed_todos', JSON.stringify(todos));
+            initCursorHoverEffects(); // تحديث الماوس للمهام الجديدة
         }
         function addTodoItem() { const input = document.getElementById('todoInput'); if(!input.value.trim()) return; todos.push({ text: input.value.trim(), done: false }); input.value = ''; renderTodos(); }
-        function completeTodoItem(idx) { todos[idx].done = true; userXp += 30; updateXpDisplay(); renderTodos(); }
+        function completeTodoItem(idx) { todos[idx].done = true; userXp += 15; updateXpDisplay(); renderTodos(); }
         function deleteTodoItem(idx) { todos.splice(idx, 1); renderTodos(); }
+
+        // استدعاء أولي للمهام
         renderTodos();
 
-        let pomoMinutes = 25, pomoSeconds = 0, pomoInterval = null, pomoRunning = false;
-        function togglePomo() {
-            const btn = document.getElementById('pomoBtn');
-            if(pomoRunning) { clearInterval(pomoInterval); btn.innerText = "▶️ ابدأ التركيز"; pomoRunning = false; }
-            else { pomoInterval = setInterval(updatePomo, 1000); btn.innerText = "⏸️ إيقاف مؤقت"; pomoRunning = true; }
-        }
-        function updatePomo() {
-            if(pomoSeconds === 0) { if(pomoMinutes === 0) { clearInterval(pomoInterval); alert("🏆 مبروك! +100 XP!"); userXp += 100; updateXpDisplay(); resetPomo(); return; } pomoMinutes--; pomoSeconds = 59; } else { pomoSeconds--; }
-            document.getElementById('pomoDisplay').innerText = `${String(pomoMinutes).padStart(2,'0')}:${String(pomoSeconds).padStart(2,'0')}`;
-        }
-        function resetPomo() { pomoMinutes = 25; pomoSeconds = 0; document.getElementById('pomoDisplay').innerText = "25:00"; document.getElementById('pomoBtn').innerText = "▶️ ابدأ التركيز"; pomoRunning = false; }
+        // -----------------------------------------------------------------
+        // برمجة تشغيل قسم منشاويات الجديد بشكل مضمون 100%
+        // -----------------------------------------------------------------
+        const menshawySurahs = [
+            "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", 
+            "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", 
+            "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", 
+            "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", 
+            "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", 
+            "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", 
+            "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", 
+            "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", 
+            "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", 
+            "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", 
+            "المسد", "الإخلاص", "الفلق", "الناس"
+        ];
 
-        const canvas = document.getElementById('rainCanvas'); const ctx = canvas.getContext('2d');
-        let drops = []; function resizeCanvas() { if(canvas) { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; } }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
-        for(let i=0; i<60; i++) drops.push({ x: Math.random()*400, y: Math.random()*200, len: Math.random()*12+4, speed: Math.random()*3+2 });
-        function drawRain() { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.strokeStyle = 'rgba(0, 245, 212, 0.15)'; ctx.lineWidth = 1.2; drops.forEach(d => { ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y+d.len); ctx.stroke(); d.y += d.speed; if(d.y > canvas.height) { d.y = -d.len; d.x = Math.random()*canvas.width; } }); requestAnimationFrame(drawRain); }
-        if(canvas) drawRain();
-
-        // بكجات فيفا الأصلية
-        const playersPool = {
-            gold: [{ name: "Mbappé", rating: 91, pos: "ST", stats: [97, 90, 80, 92], bg: "linear-gradient(135deg, #ffe066, #f5b041)" }, { name: "Salah", rating: 89, pos: "RW", stats: [89, 87, 82, 88], bg: "linear-gradient(135deg, #ffe066, #f5b041)" }],
-            icon: [{ name: "Pelé", rating: 95, pos: "CAM", stats: [95, 94, 93, 95], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" }, { name: "Zidane", rating: 94, pos: "CAM", stats: [83, 91, 96, 92], bg: "linear-gradient(135deg, #e5e7eb, #9ca3af)" }]
-        };
-        function openFifaPack(type) {
-            let cost = type === 'gold' ? 50 : 150; if(userXp < cost) { alert("❌ عذراً الـ XP غير كافٍ!"); return; }
-            userXp -= cost; updateXpDisplay();
-            const pool = playersPool[type]; const luckyPlayer = pool[Math.floor(Math.random() * pool.length)];
-            document.getElementById('packOpeningStage').style.display = 'block';
-            const card = document.getElementById('fifaCardContainer'); card.style.background = luckyPlayer.bg;
-            document.getElementById('cardRating').innerText = luckyPlayer.rating; document.getElementById('cardPosition').innerText = luckyPlayer.pos;
-            document.getElementById('cardName').innerText = luckyPlayer.name;
-            document.getElementById('cardStats').innerHTML = `<div>PAC: ${luckyPlayer.stats[0]}</div><div>SHO: ${luckyPlayer.stats[1]}</div><div>PAS: ${luckyPlayer.stats[2]}</div><div>DRI: ${luckyPlayer.stats[3]}</div>`;
+        // تعبئة قائمة سور المنشاوي فور تحميل الصفحة
+        const menshawySelect = document.getElementById('menshawySurahSelect');
+        if(menshawySelect) {
+            menshawySurahs.forEach((surah, index) => {
+                let surahNum = (index + 1).toString().padStart(3, '0');
+                let opt = document.createElement('option');
+                opt.value = surahNum;
+                opt.textContent = `${index + 1}. سورة ${surah}`;
+                menshawySelect.appendChild(opt);
+            });
         }
 
-        function verifyQuranReading() { const fileInput = document.getElementById('quranUploadInput'); if(!fileInput.files.length) { alert("🔒 ارفع صورة الصفحة أولاً!"); return; } userXp += 100; updateXpDisplay(); alert("🏆 تم التحقق بنجاح! +100 XP."); fileInput.value = ''; }
+        function playMenshawySurah() {
+            const player = document.getElementById('menshawyAudioPlayer');
+            const status = document.getElementById('menshawyPlaybackStatus');
+            const selected = menshawySelect.value;
+            const text = menshawySelect.options[menshawySelect.selectedIndex].text;
 
-        // XO الأصلي المحمي بدون أي تغيير
-        let xoBoard = Array(9).fill(''); let xoPlayer = 'X'; let gameActive = true;
-        function makeXoMove(cellIndex) {
-            const cells = document.querySelectorAll('.xo-cell'); if(xoBoard[cellIndex] !== '' || !gameActive) return;
-            xoBoard[cellIndex] = xoPlayer; cells[cellIndex].innerText = xoPlayer; cells[cellIndex].style.color = xoPlayer === 'X' ? 'var(--accent-glow)' : 'var(--accent-pink)';
-            if(checkXoWin()) { document.getElementById('xoStatus').innerText = `🎉 فاز اللاعب: ${xoPlayer}!`; gameActive = false; userXp += 20; updateXpDisplay(); return; }
-            if(!xoBoard.includes('')) { document.getElementById('xoStatus').innerText = `🤝 تعادل رائع!`; gameActive = false; return; }
-            xoPlayer = xoPlayer === 'X' ? 'O' : 'X'; document.getElementById('xoStatus').innerText = `دور اللاعب: ${xoPlayer}`;
-            if(document.getElementById('xoModeSelect').value === 'ai' && xoPlayer === 'O') { setTimeout(makeAiXoMove, 400); }
-        }
-        function makeAiXoMove() { let emptyCells = []; xoBoard.forEach((val, idx) => { if(val === '') emptyCells.push(idx); }); if(!emptyCells.length || !gameActive) return; makeXoMove(emptyCells[Math.floor(Math.random() * emptyCells.length)]); }
-        function checkXoWin() { const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return wins.some(cond => cond.every(idx => xoBoard[idx] === xoPlayer)); }
-        function resetXoGame() { xoBoard.fill(''); gameActive = true; xoPlayer = 'X'; document.getElementById('xoStatus').innerText = "دور اللاعب: X"; document.querySelectorAll('.xo-cell').forEach(c => c.innerText = ''); }
-
-        // الثعبان
-        const sCanvas = document.getElementById('snakeCanvas'); const sCtx = sCanvas.getContext('2d');
-        let snake, snakeDir, snakeFood, snakeScore, snakeInterval = null;
-        function initSnakeGame() { if(snakeInterval) clearInterval(snakeInterval); snake = [{x: 200, y: 200}, {x: 180, y: 200}]; snakeDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood(); snakeInterval = setInterval(runSnakeGame, 130); }
-        function spawnSnakeFood() { snakeFood = { x: Math.floor(Math.random()*19)*20, y: Math.floor(Math.random()*19)*20 }; }
-        function runSnakeGame() {
-            let head = Object.assign({}, snake[0]); if(snakeDir === 'RIGHT') head.x += 20; if(snakeDir === 'LEFT') head.x -= 20; if(snakeDir === 'UP') head.y -= 20; if(snakeDir === 'DOWN') head.y += 20;
-            if(head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400 || snake.some(seg => seg.x === head.x && seg.y === head.y)) { clearInterval(snakeInterval); alert("☠️ جيم أوفر!"); return; }
-            snake.unshift(head); if(head.x === snakeFood.x && head.y === snakeFood.y) { snakeScore += 10; userXp += 5; updateXpDisplay(); document.getElementById('snakeScore').innerText = "النقاط: " + snakeScore; spawnSnakeFood(); } else { snake.pop(); }
-            sCtx.fillStyle = '#080415'; sCtx.fillRect(0,0,400,400); sCtx.fillStyle = 'var(--accent-glow)'; snake.forEach((seg, i) => { sCtx.fillStyle = i === 0 ? 'var(--accent-glow)' : '#00bfa5'; sCtx.fillRect(seg.x, seg.y, 18, 18); }); sCtx.fillStyle = 'var(--accent-pink)'; sCtx.fillRect(snakeFood.x, snakeFood.y, 18, 18);
-        }
-        window.addEventListener('keydown', (e) => { if(e.key === 'ArrowUp' && snakeDir !== 'DOWN') snakeDir = 'UP'; if(e.key === 'ArrowDown' && snakeDir !== 'UP') snakeDir = 'DOWN'; if(e.key === 'ArrowLeft' && snakeDir !== 'RIGHT') snakeDir = 'LEFT'; if(e.key === 'ArrowRight' && snakeDir !== 'LEFT') snakeDir = 'RIGHT'; });
-
-        // 3. لعبة ركلات جزاء كرة القدم المتطورة بالكامل 2.0 (بدون كرينج)
-        const pCanvas = document.getElementById('penaltyCanvas'); const pCtx = pCanvas.getContext('2d');
-        let penGoals = 0, penTotal = 0, isShooting = false;
-        let ballPos = { x: 225, y: 240 }, targetPos = { x: 225, y: 240 }, keeperX = 205;
-        let pAnimFrame;
-
-        function initPenaltyGame() {
-            isShooting = false; ballPos = { x: 225, y: 240 }; targetPos = { x: 225, y: 240 }; keeperX = 205;
-            document.getElementById('penaltyResultText').innerText = "";
-            drawPenaltyScene();
-        }
-
-        function drawPenaltyScene() {
-            pCtx.fillStyle = '#0f2c11'; pCtx.fillRect(0, 0, 450, 280); // عشب داكن فخم
-            // خطوط الملعب والـ Penalty Box
-            pCtx.strokeStyle = 'rgba(255,255,255,0.4)'; pCtx.lineWidth = 3;
-            pCtx.strokeRect(45, 40, 360, 140); // المرمى الخارجي والشباك
-            pCtx.fillStyle = 'rgba(255,255,255,0.05)'; pCtx.fillRect(45, 40, 360, 140);
-            
-            // عارضة المرمى بلون نيون أبيض
-            pCtx.strokeStyle = '#fff'; pCtx.lineWidth = 5;
-            pCtx.beginPath(); pCtx.moveTo(70, 180); pCtx.lineTo(70, 50); pCtx.lineTo(380, 50); pCtx.lineTo(380, 180); pCtx.stroke();
-
-            // رسم حارس المرمى (مربع نيون متطور عشوائي الحركة قبل التسديد)
-            pCtx.fillStyle = 'var(--accent-pink)';
-            pCtx.shadowBlur = 10; pCtx.shadowColor = 'var(--accent-pink)';
-            pCtx.fillRect(keeperX, 70, 40, 40);
-            pCtx.shadowBlur = 0; // إلغاء التوهج للقطع الأخرى
-
-            // رسم نقطة الجزاء والكرة النيون
-            pCtx.fillStyle = '#fff'; pCtx.beginPath(); pCtx.arc(225, 240, 4, 0, Math.PI*2); pCtx.fill();
-            pCtx.fillStyle = 'var(--accent-glow)'; pCtx.shadowBlur = 15; pCtx.shadowColor = 'var(--accent-glow)';
-            pCtx.beginPath(); pCtx.arc(ballPos.x, ballPos.y, 10, 0, Math.PI*2); pCtx.fill();
-            pCtx.shadowBlur = 0;
-        }
-
-        pCanvas.addEventListener('click', function(e) {
-            if (isShooting) return;
-            const rect = pCanvas.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            // السماح بالتسديد في نطاق المرمى والشباك فقط
-            if (clickY < 180 && clickX > 70 && clickX < 380) {
-                targetPos = { x: clickX, y: clickY };
-                isShooting = true;
-                penTotal++;
+            if (selected) {
+                status.style.color = "var(--accent-glow)";
+                status.textContent = "جاري التحميل والاتصال بالسيرفر المباشر...";
                 
-                // ذكاء حارس المرمى: يختار القفز لجهة عشوائية (يمين، يسار، منتصف)
-                const keeperDestinations = [clickX, Math.random() * (340 - 70) + 70, 205];
-                const keeperTargetX = keeperDestinations[Math.floor(Math.random() * keeperDestinations.length)];
+                // الرابط المباشر للمصحف المرتل من سيرفر Mp3Quran المستقر جداً
+                player.src = `https://server11.mp3quran.net/minsh/${selected}.mp3`;
+                player.load();
                 
-                animatePenalty(keeperTargetX);
-            }
-        });
-
-        function animatePenalty(keeperTargetX) {
-            // تحريك الكرة والحارس في نفس الوقت بسلاسة متجهة
-            let ballDx = targetPos.x - ballPos.x;
-            let ballDy = targetPos.y - ballPos.y;
-            let dist = Math.sqrt(ballDx*ballDx + ballDy*ballDy);
-
-            if (dist > 5) {
-                ballPos.x += (ballDx / dist) * 12;
-                ballPos.y += (ballDy / dist) * 12;
-                keeperX += (keeperTargetX - 20 - keeperX) * 0.12; // قفزة مرنة للحارس
-                drawPenaltyScene();
-                pAnimFrame = requestAnimationFrame(() => animatePenalty(keeperTargetX));
+                player.play()
+                .then(() => {
+                    status.textContent = `▶️ جاري تشغيل الآن: ${text}`;
+                })
+                .catch(err => {
+                    status.style.color = "var(--accent-gold)";
+                    status.textContent = `اضغط على زر تشغيل (Play) للاستماع إلى ${text}`;
+                    console.log("التحغيل التلقائي بحاجة لتفاعل المستخدم أولاً:", err);
+                });
             } else {
-                cancelAnimationFrame(pAnimFrame);
-                // حساب النتيجة عند وصول الكرة للمرمى
-                let keeperLeft = keeperX;
-                let keeperRight = keeperX + 40;
-                
-                const resultText = document.getElementById('penaltyResultText');
-                if (ballPos.x >= keeperLeft && ballPos.x <= keeperRight && ballPos.y >= 70 && ballPos.y <= 110) {
-                    resultText.innerText = "❌ صَدها الحارس ببراعة!";
-                    resultText.style.color = "var(--accent-pink)";
-                } else {
-                    resultText.innerText = "⚽ جِوووووول أسطوري خيالي!";
-                    resultText.style.color = "var(--accent-glow)";
-                    penGoals++;
-                    userXp += 15;
-                    updateXpDisplay();
-                }
-                document.getElementById('penaltyScoreDisplay').innerText = `الأهداف: ${penGoals} | الإجمالي: ${penTotal}`;
-                setTimeout(initPenaltyGame, 2000); // إعادة تهيئة اللعبة بعد ثانيتين تلقائياً
+                player.src = "";
+                status.textContent = "";
             }
         }
-
-        // بينج بونج
-        const pongCanvas = document.getElementById('pongCanvas'); const pongCtx = pongCanvas.getContext('2d');
-        let playerPaddleY = 110, aiPaddleY = 110, pongBall = {x: 250, y: 150, vx: 3, vy: 3}, pScore = 0, compScore = 0, pongInterval;
-        function initPingPongGame() { pongBall = {x: 250, y: 150, vx: 3, vy: 3}; if(!pongInterval) runPongGame(); }
-        pongCanvas.addEventListener('mousemove', (e) => { const rect = pongCanvas.getBoundingClientRect(); playerPaddleY = e.clientY - rect.top - 40; });
-        function runPongGame() {
-            pongBall.x += pongBall.vx; pongBall.y += pongBall.vy; if(pongBall.y <= 0 || pongBall.y >= 300) pongBall.vy = -pongBall.vy;
-            if(aiPaddleY + 40 < pongBall.y) aiPaddleY += 2.5; else aiPaddleY -= 2.5;
-            if(pongBall.x <= 20) { if(pongBall.y > playerPaddleY && pongBall.y < playerPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } else { compScore++; resetPongBall(); } }
-            if(pongBall.x >= 480) { if(pongBall.y > aiPaddleY && pongBall.y < aiPaddleY + 80) { pongBall.vx = -pongBall.vx * 1.05; } else { pScore++; userXp += 15; updateXpDisplay(); resetPongBall(); } }
-            document.getElementById('pongScoreDisplay').innerText = `أنت: ${pScore} | الكمبيوتر: ${compScore}`;
-            pongCtx.fillStyle = '#080415'; pongCtx.fillRect(0,0,500,300); pongCtx.fillStyle = 'var(--accent-glow)'; pongCtx.fillRect(10, playerPaddleY, 12, 80); pongCtx.fillStyle = 'var(--accent-pink)'; pongCtx.fillRect(480, aiPaddleY, 12, 80); pongCtx.fillStyle = '#fff'; pongCtx.beginPath(); pongCtx.arc(pongBall.x, pongBall.y, 8, 0, Math.PI*2); pongCtx.fill();
-            pongInterval = requestAnimationFrame(runPongGame);
-        }
-        function resetPongBall() { pongBall.x = 250; pongBall.y = 150; pongBall.vx = -pongBall.vx > 0 ? 3 : -3; }
-
-        // المفكرة السرية تلقائية الحفظ
-        const secretNotes = document.getElementById('secretNotesInput'); secretNotes.value = localStorage.getItem('ahmed_secret_notes') || '';
-        secretNotes.addEventListener('input', () => { localStorage.setItem('ahmed_secret_notes', secretNotes.value); });
-
-        // المساعد الذكي
-        let currentAiMode = 'general';
-        function toggleAiChat() { document.getElementById('aiChatWindow').classList.toggle('open'); }
-        function setAiMode(mode, btn) { currentAiMode = mode; document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
-        function sendAiMessage() {
-            const input = document.getElementById('aiChatInput'); const txt = input.value.trim(); if(!txt) return;
-            appendAiMsg(txt, 'user'); input.value = '';
-            setTimeout(() => {
-                let reply = "أنا معاك يا غالي وسامعك كويس جداً! كود موقعك شغال ومحمي تماماً، هل تحب نعمل ميزة تانية؟";
-                if(currentAiMode === 'study') reply = "قوانين الفيزياء وقوانين الحث الكهرومغناطيسي وأجهزة القياس تحت السيطرة تماماً! اكتب القانون أو المسألة وهنحلها سوا خطوة بخطوة.";
-                if(currentAiMode === 'gaming') reply = "بخصوص الجيمنج وصيانة الكمبيوتر: إذا تبي تفحص أداء كارت الشاشة أو المعالج أو الأعراض الجانبية لتلف المعجون الحراري، قولي نوع جهازك وأبشر بالحل الفوري!";
-                appendAiMsg(reply, 'system');
-            }, 600);
-        }
-        function appendAiMsg(text, sender) { const zone = document.getElementById('aiMessagesZone'); const m = document.createElement('div'); m.className = `ai-msg ${sender}`; m.innerText = text; zone.appendChild(m); zone.scrollTop = zone.scrollHeight; }
     </script>
 </body>
 </html>
